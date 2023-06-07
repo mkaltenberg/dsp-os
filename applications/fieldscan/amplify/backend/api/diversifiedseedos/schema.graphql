@@ -1,0 +1,380 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type InspectionParent @model {
+  id: ID!
+  scheduledDate: AWSDate
+  requiredInspections: Int
+  fieldChild: FieldChild @hasOne
+  inspectionFormType: InspectionFormTypeKey
+  completionStatus: CompletionStatusKey
+  children: [InspectionChild] @hasMany(indexName: "byParent", fields: ["id"])
+}
+
+type InspectionChild @model {
+  id: ID!
+  parentID: ID! @index(name: "byParent")
+  parent: InspectionParent @belongsTo(fields: ["parentID"])
+  location: GeoPointObject
+  timestamp: AWSTimestamp
+  formData: AWSJSON
+}
+
+type AppUserProfile @model {
+  id: ID!
+  email: AWSEmail
+  firstName: String
+  lastName: String
+  mobileNumber: AWSPhone
+}
+
+enum CompletionStatusKey {
+  COMPLETED
+  NOT_COMPLETED
+}
+
+type FieldParent @model {
+  id: ID!
+  fieldName: String!
+  fieldNumberBase: String!
+  country: CountryKey!
+  state: UsStateKey!
+  plssLocation: PlssLocationObject
+  mapCenterPoint: GeoPointObject!
+  mapCenterZoom: Int!
+  fieldMarkers: [FieldMarkerObject]
+}
+
+type FieldMarkerObject {
+  title: String!
+  subtitle: String
+  geoPoint: GeoPointObject
+  isNavigatable: Boolean
+}
+
+type GeoPointObject {
+  latitude: Float!
+  longitude: Float!
+}
+
+type PlssLocationObject {
+  township: String!
+  section: String!
+  range: String!
+  townshipName: String!
+  description: String
+}
+
+type FieldChild @model {
+  id: ID!
+  parent: FieldParent @hasOne
+  fieldName: String!
+  fieldNumber: String!
+  hybridName: String!
+  isCertified: Boolean
+  acres: FieldAcresObject
+  growerShares: [GrowerShareObject]
+  plantingDates: [PlantingDateObject]
+  season: Season @hasOne
+  hybrid: Hybrid @hasOne
+  inspectionTypes: [InspectionType] @hasMany
+}
+
+type InspectionType @model {
+  id: ID!
+  inspectionModule: FieldInspectionModuleKey
+  cropType: CropTypeKey
+  isOrganic: Boolean
+  title: String
+  description: String
+  configuration: InspectionConfigurationObject
+  defaultRequiredInspections: Int
+  inspectionFormType: InspectionFormTypeKey
+}
+
+type CropDamageOption @model {
+  id: ID!
+  category: CropDamageCategoryKey
+  applicableCropTypes: [CropTypeKey]
+  name: String
+  description: String
+  imagePaths: [AWSURL]
+}
+
+type CropDamageObject {
+  cropType: CropTypeKey
+  damageType: CropDamageCategoryKey
+  cropDamageOption: CropDamageOption
+  severity: CropDamageSeverityKey
+  location: GeoPointObject
+  imagePaths: [AWSURL]
+}
+
+enum CropDamageCategoryKey {
+  WEED
+  INSECT
+  PEST
+  DISEASE
+}
+
+enum CropDamageSeverityKey {
+  LOW
+  MODERATE
+  HIGH
+}
+
+enum InspectionFormTypeKey {
+  SCOUTING_SEED_CORN_STANDARD
+  POPULATIONS_SEED_CORN_STANDARD
+  LEAF_TO_TASSEL_SEED_CORN_STANDARD
+  DETASSELING_SEED_CORN_STANDARD
+}
+
+type InspectionConfigurationObject {
+  approvalDate: AWSDate
+  approvalUserProfile: ID! 
+  requiredInspections: Int
+  inspectionStatus: InspectionStatusKey
+}
+
+enum InspectionStatusKey {
+  NOT_YET_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum CropTypeKey {
+  CORN_HYBRID_SEED
+  SOYBEAN_FOOD_GRADE
+  SOYBEAN_MARKET
+  SOYBEAN_SEED
+}
+
+enum FieldInspectionModuleKey {
+  SCOUTING
+  POPULATIONS
+  LEAF_TO_TASSEL
+  DETASSELING
+}
+
+type Hybrid @model {
+  id: ID!
+  name: String!
+  femalePlantingNumber: Int
+  splitPlantingType: SplitPlantingType @hasOne
+  splitPlantings: [SplitPlantingObject]
+  maleInbred: MaleInbred @hasOne
+  femaleInbred: FemaleInbred @hasOne
+}
+
+type MaleInbred @model {
+  id: ID!
+  name: String
+  antherColor: String
+  glumeColor: String
+  silkColor: String
+  huTo50Silk: Int
+}
+
+type FemaleInbred @model {
+  id: ID!
+  name: String
+  antherColor: String
+  glumeColor: String
+  silkColor: String
+  huTo50Pollen: Int
+}
+
+type SplitPlantingType @model {
+  id: ID!
+  name: String!
+  numberOfPlantings: Int!
+  plantingDescriptions: [PlantingDescriptionObject]
+}
+
+type PlantingDescriptionObject {
+  longText: String
+  plantingNumber: Int
+  shortText: String
+}
+
+type SplitPlantingObject {
+  gddToThisPlanting: Int
+  plantingNumber: Int
+  shouldPlantFemale: Boolean
+  shouldPlantMale: Boolean
+  plantingText: String
+}
+
+type Season @model {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type PlantingDateObject {
+  plantingNumber: Int
+  date: AWSDate
+}
+
+type Grower @model {
+  id: ID!
+  name: String!
+  mainContact: ContactObject
+}
+
+type GrowerShareObject {
+  growerID: ID!
+  sharePercentage: Float!
+}
+
+type ContactObject {
+  firstName: String!
+  lastName: String!
+  officePhone: AWSPhone
+  mobilePhone: AWSPhone
+  jobTitle: String!
+  mailingAddress: AddressObject
+}
+
+type AddressObject {
+  streetLineOne: String!
+  streetLineTwo: String
+  streetLineThree: String
+  city: String!
+  state: UsStateKey!
+  country: CountryKey!
+  zipCode: String!
+  label: String
+}
+
+type FieldAcresObject {
+  male: Float
+  female: Float
+  crop: Float
+  isolation: Float
+  headland: Float
+}
+
+enum CountryKey {
+  UNITED_STATES
+}
+
+enum UsStateKey {
+  ALABAMA
+  ALASKA
+  ARIZONA
+  ARKANSAS
+  CALIFORNIA
+  COLORADO
+  CONNECTICUT
+  DELAWARE
+  FLORIDA
+  GEORGIA
+  HAWAII
+  IDAHO
+  ILLINOIS
+  INDIANA
+  IOWA
+  KANSAS
+  KENTUCKY
+  LOUISIANA
+  MAINE
+  MARYLAND
+  MASSACHUSETTS
+  MICHIGAN
+  MINNESOTA
+  MISSISSIPPI
+  MISSOURI
+  MONTANA
+  NEBRASKA
+  NEVADA
+  NEW_HAMPSHIRE
+  NEW_JERSEY
+  NEW_MEXICO
+  NEW_YORK
+  NORTH_CAROLINA
+  NORTH_DAKOTA
+  OHIO
+  OKLAHOMA
+  OREGON
+  PENNSYLVANIA
+  RHODE_ISLAND
+  SOUTH_CAROLINA
+  SOUTH_DAKOTA
+  TENNESSEE
+  TEXAS
+  UTAH
+  VERMONT
+  VIRGINIA
+  WASHINGTON
+  WEST_VIRGINIA
+  WISCONSIN
+  WYOMING
+}
+
+type DetasselingSeedCornStandardInspectionFormDataObject {
+  comments: String
+  areRoguesPresent: Boolean
+  femaleReceptiveSilk: Int
+  femaleTasselsExposed: Int
+  femaleTasselsRemaining: Int
+  femaleTasselsShedding: Int
+  maleTasselsShedding: Int
+}
+
+type LeafToTasselSeedCornStandardInspectionFormDataObject {
+  comments: String
+  areRoguesPresent: Boolean
+  earShootLengthInches: Float
+  inchesToSilkEmergence: Float
+  numberOfLeaves: Float
+  silkStage: Int
+  tasselLengthInches: Float
+}
+
+type PopulationsStandardSeedCornInspectionFormDataObject {
+  comments: String
+  femaleCountOne: Int
+  femaleCountTwo: Int
+  maleCount: Int
+}
+
+type ScoutingStandardSeedCornInspectionFormDataObject {
+  femaleGrowthStage: CornGrowthStageKey
+  maleGrowthStageOne: CornGrowthStageKey
+  maleGrowthStageTwo: CornGrowthStageKey
+  hasRogues: Boolean
+  isWatering: Boolean
+  weeds: [CropDamageObject]
+  insects: [CropDamageObject]
+  pests: [CropDamageObject]
+  diseases: [CropDamageObject]
+}
+
+enum CornGrowthStageKey {
+  VE
+  VE_V1
+  V1
+  V1_V2
+  V2
+  V2_V3
+  V3
+  V3_V4
+  V4
+  V4_V5
+  V5
+  V5_V6
+  V6
+  V6_V7
+  V7
+  V7_V8
+  V8
+  V8_V9
+  V9
+  V9_V10
+  V10
+  V10_V11
+  V11
+}

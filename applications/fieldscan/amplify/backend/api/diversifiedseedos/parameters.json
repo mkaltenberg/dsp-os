@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "diversifiedseedos",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
