@@ -22,6 +22,10 @@ dependencies:
   amplify_auth_cognito: ^1.1.1
   amplify_authenticator: ^1.2.0
   amplify_flutter: ^1.1.1
+  flutter_riverpod: ^2.3.6
+  google_fonts: ^5.0.0
+  package_info_plus: ^4.0.2
+  amplify_datastore: ^1.1.0-supports-only-mobile+1
 
 dev_dependencies:
   flutter_test:

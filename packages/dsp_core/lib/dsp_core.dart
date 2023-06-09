@@ -1,7 +1,3 @@
 library dsp_core;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export './src/widgets/dsp_logo_white_background/dsp_logo_white_background_image.dart';

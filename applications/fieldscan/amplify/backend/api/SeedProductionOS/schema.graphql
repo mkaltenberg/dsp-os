@@ -1,18 +1,14 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type InspectionParent @model {
+type InspectionParent @model @auth(rules: [{allow: public}]) {
   id: ID!
   scheduledDate: AWSDate
   requiredInspections: Int
-  fieldChild: FieldChild @hasOne
+  fieldChildId: ID!
   inspectionFormType: InspectionFormTypeKey
   completionStatus: CompletionStatusKey
   children: [InspectionChild] @hasMany(indexName: "byParent", fields: ["id"])
 }
 
-type InspectionChild @model {
+type InspectionChild @model @auth(rules: [{allow: public}]) {
   id: ID!
   parentID: ID! @index(name: "byParent")
   parent: InspectionParent @belongsTo(fields: ["parentID"])
@@ -21,7 +17,7 @@ type InspectionChild @model {
   formData: AWSJSON
 }
 
-type AppUserProfile @model {
+type AppUserProfile @model @auth(rules: [{allow: public}]) {
   id: ID!
   email: AWSEmail
   firstName: String
@@ -34,16 +30,18 @@ enum CompletionStatusKey {
   NOT_COMPLETED
 }
 
-type FieldParent @model {
+type FieldParent @model @auth(rules: [{allow: public}]) {
   id: ID!
   fieldName: String!
   fieldNumberBase: String!
   country: CountryKey!
   state: UsStateKey!
-  plssLocation: PlssLocationObject
+  plssLocation: PlssLocationObject!
   mapCenterPoint: GeoPointObject!
   mapCenterZoom: Int!
   fieldMarkers: [FieldMarkerObject]
+  county: String!
+  isOrganic: Boolean!
 }
 
 type FieldMarkerObject {
@@ -66,9 +64,9 @@ type PlssLocationObject {
   description: String
 }
 
-type FieldChild @model {
+type FieldChild @model @auth(rules: [{allow: public}]) {
   id: ID!
-  parent: FieldParent @hasOne
+  fieldParentId: ID!
   fieldName: String!
   fieldNumber: String!
   hybridName: String!
@@ -76,24 +74,23 @@ type FieldChild @model {
   acres: FieldAcresObject
   growerShares: [GrowerShareObject]
   plantingDates: [PlantingDateObject]
-  season: Season @hasOne
-  hybrid: Hybrid @hasOne
-  inspectionTypes: [InspectionType] @hasMany
+  seasonId: ID!
+  hybridId: ID!
+  inspectionTypesIds: [ID]
 }
 
-type InspectionType @model {
+type InspectionType @model @auth(rules: [{allow: public}]) {
   id: ID!
   inspectionModule: FieldInspectionModuleKey
   cropType: CropTypeKey
   isOrganic: Boolean
   title: String
   description: String
-  configuration: InspectionConfigurationObject
   defaultRequiredInspections: Int
   inspectionFormType: InspectionFormTypeKey
 }
 
-type CropDamageOption @model {
+type CropDamageOption @model @auth(rules: [{allow: public}]) {
   id: ID!
   category: CropDamageCategoryKey
   applicableCropTypes: [CropTypeKey]
@@ -133,7 +130,7 @@ enum InspectionFormTypeKey {
 
 type InspectionConfigurationObject {
   approvalDate: AWSDate
-  approvalUserProfile: ID! 
+  approvalUserProfile: ID!
   requiredInspections: Int
   inspectionStatus: InspectionStatusKey
 }
@@ -158,26 +155,17 @@ enum FieldInspectionModuleKey {
   DETASSELING
 }
 
-type Hybrid @model {
+type Hybrid @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   femalePlantingNumber: Int
-  splitPlantingType: SplitPlantingType @hasOne
+  splitPlantingTypeId: ID!
   splitPlantings: [SplitPlantingObject]
-  maleInbred: MaleInbred @hasOne
-  femaleInbred: FemaleInbred @hasOne
+  maleInbredId: ID!
+  femaleInbredId: ID!
 }
 
-type MaleInbred @model {
-  id: ID!
-  name: String
-  antherColor: String
-  glumeColor: String
-  silkColor: String
-  huTo50Silk: Int
-}
-
-type FemaleInbred @model {
+type MaleInbred @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
   antherColor: String
@@ -186,7 +174,16 @@ type FemaleInbred @model {
   huTo50Pollen: Int
 }
 
-type SplitPlantingType @model {
+type FemaleInbred @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  antherColor: String
+  glumeColor: String
+  silkColor: String
+  huTo50Silk: Int
+}
+
+type SplitPlantingType @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   numberOfPlantings: Int!
@@ -207,7 +204,7 @@ type SplitPlantingObject {
   plantingText: String
 }
 
-type Season @model {
+type Season @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   description: String
@@ -218,7 +215,7 @@ type PlantingDateObject {
   date: AWSDate
 }
 
-type Grower @model {
+type Grower @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   mainContact: ContactObject
