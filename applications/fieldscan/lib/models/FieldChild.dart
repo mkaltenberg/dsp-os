@@ -30,7 +30,7 @@ import 'package:flutter/foundation.dart';
 class FieldChild extends Model {
   static const classType = const _FieldChildModelType();
   final String id;
-  final FieldParent? _parent;
+  final String? _fieldParentId;
   final String? _fieldName;
   final String? _fieldNumber;
   final String? _hybridName;
@@ -38,14 +38,11 @@ class FieldChild extends Model {
   final FieldAcresObject? _acres;
   final List<GrowerShareObject>? _growerShares;
   final List<PlantingDateObject>? _plantingDates;
-  final Season? _season;
-  final Hybrid? _hybrid;
-  final List<InspectionType>? _inspectionTypes;
+  final String? _seasonId;
+  final String? _hybridId;
+  final List<String>? _inspectionTypesIds;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
-  final String? _fieldChildParentId;
-  final String? _fieldChildSeasonId;
-  final String? _fieldChildHybridId;
 
   @override
   getInstanceType() => classType;
@@ -60,8 +57,17 @@ class FieldChild extends Model {
       );
   }
   
-  FieldParent? get parent {
-    return _parent;
+  String get fieldParentId {
+    try {
+      return _fieldParentId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   String get fieldName {
@@ -119,16 +125,34 @@ class FieldChild extends Model {
     return _plantingDates;
   }
   
-  Season? get season {
-    return _season;
+  String get seasonId {
+    try {
+      return _seasonId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Hybrid? get hybrid {
-    return _hybrid;
+  String get hybridId {
+    try {
+      return _hybridId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  List<InspectionType>? get inspectionTypes {
-    return _inspectionTypes;
+  List<String>? get inspectionTypesIds {
+    return _inspectionTypesIds;
   }
   
   TemporalDateTime? get createdAt {
@@ -139,24 +163,12 @@ class FieldChild extends Model {
     return _updatedAt;
   }
   
-  String? get fieldChildParentId {
-    return _fieldChildParentId;
-  }
+  const FieldChild._internal({required this.id, required fieldParentId, required fieldName, required fieldNumber, required hybridName, isCertified, acres, growerShares, plantingDates, required seasonId, required hybridId, inspectionTypesIds, createdAt, updatedAt}): _fieldParentId = fieldParentId, _fieldName = fieldName, _fieldNumber = fieldNumber, _hybridName = hybridName, _isCertified = isCertified, _acres = acres, _growerShares = growerShares, _plantingDates = plantingDates, _seasonId = seasonId, _hybridId = hybridId, _inspectionTypesIds = inspectionTypesIds, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  String? get fieldChildSeasonId {
-    return _fieldChildSeasonId;
-  }
-  
-  String? get fieldChildHybridId {
-    return _fieldChildHybridId;
-  }
-  
-  const FieldChild._internal({required this.id, parent, required fieldName, required fieldNumber, required hybridName, isCertified, acres, growerShares, plantingDates, season, hybrid, inspectionTypes, createdAt, updatedAt, fieldChildParentId, fieldChildSeasonId, fieldChildHybridId}): _parent = parent, _fieldName = fieldName, _fieldNumber = fieldNumber, _hybridName = hybridName, _isCertified = isCertified, _acres = acres, _growerShares = growerShares, _plantingDates = plantingDates, _season = season, _hybrid = hybrid, _inspectionTypes = inspectionTypes, _createdAt = createdAt, _updatedAt = updatedAt, _fieldChildParentId = fieldChildParentId, _fieldChildSeasonId = fieldChildSeasonId, _fieldChildHybridId = fieldChildHybridId;
-  
-  factory FieldChild({String? id, FieldParent? parent, required String fieldName, required String fieldNumber, required String hybridName, bool? isCertified, FieldAcresObject? acres, List<GrowerShareObject>? growerShares, List<PlantingDateObject>? plantingDates, Season? season, Hybrid? hybrid, List<InspectionType>? inspectionTypes, String? fieldChildParentId, String? fieldChildSeasonId, String? fieldChildHybridId}) {
+  factory FieldChild({String? id, required String fieldParentId, required String fieldName, required String fieldNumber, required String hybridName, bool? isCertified, FieldAcresObject? acres, List<GrowerShareObject>? growerShares, List<PlantingDateObject>? plantingDates, required String seasonId, required String hybridId, List<String>? inspectionTypesIds}) {
     return FieldChild._internal(
       id: id == null ? UUID.getUUID() : id,
-      parent: parent,
+      fieldParentId: fieldParentId,
       fieldName: fieldName,
       fieldNumber: fieldNumber,
       hybridName: hybridName,
@@ -164,12 +176,9 @@ class FieldChild extends Model {
       acres: acres,
       growerShares: growerShares != null ? List<GrowerShareObject>.unmodifiable(growerShares) : growerShares,
       plantingDates: plantingDates != null ? List<PlantingDateObject>.unmodifiable(plantingDates) : plantingDates,
-      season: season,
-      hybrid: hybrid,
-      inspectionTypes: inspectionTypes != null ? List<InspectionType>.unmodifiable(inspectionTypes) : inspectionTypes,
-      fieldChildParentId: fieldChildParentId,
-      fieldChildSeasonId: fieldChildSeasonId,
-      fieldChildHybridId: fieldChildHybridId);
+      seasonId: seasonId,
+      hybridId: hybridId,
+      inspectionTypesIds: inspectionTypesIds != null ? List<String>.unmodifiable(inspectionTypesIds) : inspectionTypesIds);
   }
   
   bool equals(Object other) {
@@ -181,7 +190,7 @@ class FieldChild extends Model {
     if (identical(other, this)) return true;
     return other is FieldChild &&
       id == other.id &&
-      _parent == other._parent &&
+      _fieldParentId == other._fieldParentId &&
       _fieldName == other._fieldName &&
       _fieldNumber == other._fieldNumber &&
       _hybridName == other._hybridName &&
@@ -189,12 +198,9 @@ class FieldChild extends Model {
       _acres == other._acres &&
       DeepCollectionEquality().equals(_growerShares, other._growerShares) &&
       DeepCollectionEquality().equals(_plantingDates, other._plantingDates) &&
-      _season == other._season &&
-      _hybrid == other._hybrid &&
-      DeepCollectionEquality().equals(_inspectionTypes, other._inspectionTypes) &&
-      _fieldChildParentId == other._fieldChildParentId &&
-      _fieldChildSeasonId == other._fieldChildSeasonId &&
-      _fieldChildHybridId == other._fieldChildHybridId;
+      _seasonId == other._seasonId &&
+      _hybridId == other._hybridId &&
+      DeepCollectionEquality().equals(_inspectionTypesIds, other._inspectionTypesIds);
   }
   
   @override
@@ -206,6 +212,7 @@ class FieldChild extends Model {
     
     buffer.write("FieldChild {");
     buffer.write("id=" + "$id" + ", ");
+    buffer.write("fieldParentId=" + "$_fieldParentId" + ", ");
     buffer.write("fieldName=" + "$_fieldName" + ", ");
     buffer.write("fieldNumber=" + "$_fieldNumber" + ", ");
     buffer.write("hybridName=" + "$_hybridName" + ", ");
@@ -213,20 +220,20 @@ class FieldChild extends Model {
     buffer.write("acres=" + (_acres != null ? _acres!.toString() : "null") + ", ");
     buffer.write("growerShares=" + (_growerShares != null ? _growerShares!.toString() : "null") + ", ");
     buffer.write("plantingDates=" + (_plantingDates != null ? _plantingDates!.toString() : "null") + ", ");
+    buffer.write("seasonId=" + "$_seasonId" + ", ");
+    buffer.write("hybridId=" + "$_hybridId" + ", ");
+    buffer.write("inspectionTypesIds=" + (_inspectionTypesIds != null ? _inspectionTypesIds!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("fieldChildParentId=" + "$_fieldChildParentId" + ", ");
-    buffer.write("fieldChildSeasonId=" + "$_fieldChildSeasonId" + ", ");
-    buffer.write("fieldChildHybridId=" + "$_fieldChildHybridId");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  FieldChild copyWith({FieldParent? parent, String? fieldName, String? fieldNumber, String? hybridName, bool? isCertified, FieldAcresObject? acres, List<GrowerShareObject>? growerShares, List<PlantingDateObject>? plantingDates, Season? season, Hybrid? hybrid, List<InspectionType>? inspectionTypes, String? fieldChildParentId, String? fieldChildSeasonId, String? fieldChildHybridId}) {
+  FieldChild copyWith({String? fieldParentId, String? fieldName, String? fieldNumber, String? hybridName, bool? isCertified, FieldAcresObject? acres, List<GrowerShareObject>? growerShares, List<PlantingDateObject>? plantingDates, String? seasonId, String? hybridId, List<String>? inspectionTypesIds}) {
     return FieldChild._internal(
       id: id,
-      parent: parent ?? this.parent,
+      fieldParentId: fieldParentId ?? this.fieldParentId,
       fieldName: fieldName ?? this.fieldName,
       fieldNumber: fieldNumber ?? this.fieldNumber,
       hybridName: hybridName ?? this.hybridName,
@@ -234,19 +241,14 @@ class FieldChild extends Model {
       acres: acres ?? this.acres,
       growerShares: growerShares ?? this.growerShares,
       plantingDates: plantingDates ?? this.plantingDates,
-      season: season ?? this.season,
-      hybrid: hybrid ?? this.hybrid,
-      inspectionTypes: inspectionTypes ?? this.inspectionTypes,
-      fieldChildParentId: fieldChildParentId ?? this.fieldChildParentId,
-      fieldChildSeasonId: fieldChildSeasonId ?? this.fieldChildSeasonId,
-      fieldChildHybridId: fieldChildHybridId ?? this.fieldChildHybridId);
+      seasonId: seasonId ?? this.seasonId,
+      hybridId: hybridId ?? this.hybridId,
+      inspectionTypesIds: inspectionTypesIds ?? this.inspectionTypesIds);
   }
   
   FieldChild.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _parent = json['parent']?['serializedData'] != null
-        ? FieldParent.fromJson(new Map<String, dynamic>.from(json['parent']['serializedData']))
-        : null,
+      _fieldParentId = json['fieldParentId'],
       _fieldName = json['fieldName'],
       _fieldNumber = json['fieldNumber'],
       _hybridName = json['hybridName'],
@@ -266,37 +268,23 @@ class FieldChild extends Model {
           .map((e) => PlantingDateObject.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
-      _season = json['season']?['serializedData'] != null
-        ? Season.fromJson(new Map<String, dynamic>.from(json['season']['serializedData']))
-        : null,
-      _hybrid = json['hybrid']?['serializedData'] != null
-        ? Hybrid.fromJson(new Map<String, dynamic>.from(json['hybrid']['serializedData']))
-        : null,
-      _inspectionTypes = json['inspectionTypes'] is List
-        ? (json['inspectionTypes'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => InspectionType.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
+      _seasonId = json['seasonId'],
+      _hybridId = json['hybridId'],
+      _inspectionTypesIds = json['inspectionTypesIds']?.cast<String>(),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _fieldChildParentId = json['fieldChildParentId'],
-      _fieldChildSeasonId = json['fieldChildSeasonId'],
-      _fieldChildHybridId = json['fieldChildHybridId'];
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'parent': _parent?.toJson(), 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'isCertified': _isCertified, 'acres': _acres?.toJson(), 'growerShares': _growerShares?.map((GrowerShareObject? e) => e?.toJson()).toList(), 'plantingDates': _plantingDates?.map((PlantingDateObject? e) => e?.toJson()).toList(), 'season': _season?.toJson(), 'hybrid': _hybrid?.toJson(), 'inspectionTypes': _inspectionTypes?.map((InspectionType? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'fieldChildParentId': _fieldChildParentId, 'fieldChildSeasonId': _fieldChildSeasonId, 'fieldChildHybridId': _fieldChildHybridId
+    'id': id, 'fieldParentId': _fieldParentId, 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'isCertified': _isCertified, 'acres': _acres?.toJson(), 'growerShares': _growerShares?.map((GrowerShareObject? e) => e?.toJson()).toList(), 'plantingDates': _plantingDates?.map((PlantingDateObject? e) => e?.toJson()).toList(), 'seasonId': _seasonId, 'hybridId': _hybridId, 'inspectionTypesIds': _inspectionTypesIds, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'parent': _parent, 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'isCertified': _isCertified, 'acres': _acres, 'growerShares': _growerShares, 'plantingDates': _plantingDates, 'season': _season, 'hybrid': _hybrid, 'inspectionTypes': _inspectionTypes, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'fieldChildParentId': _fieldChildParentId, 'fieldChildSeasonId': _fieldChildSeasonId, 'fieldChildHybridId': _fieldChildHybridId
+    'id': id, 'fieldParentId': _fieldParentId, 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'isCertified': _isCertified, 'acres': _acres, 'growerShares': _growerShares, 'plantingDates': _plantingDates, 'seasonId': _seasonId, 'hybridId': _hybridId, 'inspectionTypesIds': _inspectionTypesIds, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<FieldChildModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<FieldChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField PARENT = QueryField(
-    fieldName: "parent",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'FieldParent'));
+  static final QueryField FIELDPARENTID = QueryField(fieldName: "fieldParentId");
   static final QueryField FIELDNAME = QueryField(fieldName: "fieldName");
   static final QueryField FIELDNUMBER = QueryField(fieldName: "fieldNumber");
   static final QueryField HYBRIDNAME = QueryField(fieldName: "hybridName");
@@ -304,29 +292,30 @@ class FieldChild extends Model {
   static final QueryField ACRES = QueryField(fieldName: "acres");
   static final QueryField GROWERSHARES = QueryField(fieldName: "growerShares");
   static final QueryField PLANTINGDATES = QueryField(fieldName: "plantingDates");
-  static final QueryField SEASON = QueryField(
-    fieldName: "season",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Season'));
-  static final QueryField HYBRID = QueryField(
-    fieldName: "hybrid",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Hybrid'));
-  static final QueryField INSPECTIONTYPES = QueryField(
-    fieldName: "inspectionTypes",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'InspectionType'));
-  static final QueryField FIELDCHILDPARENTID = QueryField(fieldName: "fieldChildParentId");
-  static final QueryField FIELDCHILDSEASONID = QueryField(fieldName: "fieldChildSeasonId");
-  static final QueryField FIELDCHILDHYBRIDID = QueryField(fieldName: "fieldChildHybridId");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonId");
+  static final QueryField HYBRIDID = QueryField(fieldName: "hybridId");
+  static final QueryField INSPECTIONTYPESIDS = QueryField(fieldName: "inspectionTypesIds");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FieldChild";
     modelSchemaDefinition.pluralName = "FieldChildren";
     
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: FieldChild.PARENT,
-      isRequired: false,
-      ofModelName: 'FieldParent',
-      associatedKey: FieldParent.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: FieldChild.FIELDPARENTID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -373,25 +362,23 @@ class FieldChild extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'PlantingDateObject')
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: FieldChild.SEASON,
-      isRequired: false,
-      ofModelName: 'Season',
-      associatedKey: Season.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: FieldChild.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: FieldChild.HYBRID,
-      isRequired: false,
-      ofModelName: 'Hybrid',
-      associatedKey: Hybrid.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: FieldChild.HYBRIDID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: FieldChild.INSPECTIONTYPES,
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: FieldChild.INSPECTIONTYPESIDS,
       isRequired: false,
-      ofModelName: 'InspectionType',
-      associatedKey: InspectionType.FIELDCHILDINSPECTIONTYPESID
+      isArray: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -406,24 +393,6 @@ class FieldChild extends Model {
       isRequired: false,
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: FieldChild.FIELDCHILDPARENTID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: FieldChild.FIELDCHILDSEASONID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: FieldChild.FIELDCHILDHYBRIDID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }

@@ -34,12 +34,10 @@ class InspectionType extends Model {
   final bool? _isOrganic;
   final String? _title;
   final String? _description;
-  final InspectionConfigurationObject? _configuration;
   final int? _defaultRequiredInspections;
   final InspectionFormTypeKey? _inspectionFormType;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
-  final String? _fieldChildInspectionTypesId;
 
   @override
   getInstanceType() => classType;
@@ -74,10 +72,6 @@ class InspectionType extends Model {
     return _description;
   }
   
-  InspectionConfigurationObject? get configuration {
-    return _configuration;
-  }
-  
   int? get defaultRequiredInspections {
     return _defaultRequiredInspections;
   }
@@ -94,13 +88,9 @@ class InspectionType extends Model {
     return _updatedAt;
   }
   
-  String? get fieldChildInspectionTypesId {
-    return _fieldChildInspectionTypesId;
-  }
+  const InspectionType._internal({required this.id, inspectionModule, cropType, isOrganic, title, description, defaultRequiredInspections, inspectionFormType, createdAt, updatedAt}): _inspectionModule = inspectionModule, _cropType = cropType, _isOrganic = isOrganic, _title = title, _description = description, _defaultRequiredInspections = defaultRequiredInspections, _inspectionFormType = inspectionFormType, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  const InspectionType._internal({required this.id, inspectionModule, cropType, isOrganic, title, description, configuration, defaultRequiredInspections, inspectionFormType, createdAt, updatedAt, fieldChildInspectionTypesId}): _inspectionModule = inspectionModule, _cropType = cropType, _isOrganic = isOrganic, _title = title, _description = description, _configuration = configuration, _defaultRequiredInspections = defaultRequiredInspections, _inspectionFormType = inspectionFormType, _createdAt = createdAt, _updatedAt = updatedAt, _fieldChildInspectionTypesId = fieldChildInspectionTypesId;
-  
-  factory InspectionType({String? id, FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, InspectionConfigurationObject? configuration, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType, String? fieldChildInspectionTypesId}) {
+  factory InspectionType({String? id, FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType}) {
     return InspectionType._internal(
       id: id == null ? UUID.getUUID() : id,
       inspectionModule: inspectionModule,
@@ -108,10 +98,8 @@ class InspectionType extends Model {
       isOrganic: isOrganic,
       title: title,
       description: description,
-      configuration: configuration,
       defaultRequiredInspections: defaultRequiredInspections,
-      inspectionFormType: inspectionFormType,
-      fieldChildInspectionTypesId: fieldChildInspectionTypesId);
+      inspectionFormType: inspectionFormType);
   }
   
   bool equals(Object other) {
@@ -128,10 +116,8 @@ class InspectionType extends Model {
       _isOrganic == other._isOrganic &&
       _title == other._title &&
       _description == other._description &&
-      _configuration == other._configuration &&
       _defaultRequiredInspections == other._defaultRequiredInspections &&
-      _inspectionFormType == other._inspectionFormType &&
-      _fieldChildInspectionTypesId == other._fieldChildInspectionTypesId;
+      _inspectionFormType == other._inspectionFormType;
   }
   
   @override
@@ -148,18 +134,16 @@ class InspectionType extends Model {
     buffer.write("isOrganic=" + (_isOrganic != null ? _isOrganic!.toString() : "null") + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("description=" + "$_description" + ", ");
-    buffer.write("configuration=" + (_configuration != null ? _configuration!.toString() : "null") + ", ");
     buffer.write("defaultRequiredInspections=" + (_defaultRequiredInspections != null ? _defaultRequiredInspections!.toString() : "null") + ", ");
     buffer.write("inspectionFormType=" + (_inspectionFormType != null ? enumToString(_inspectionFormType)! : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("fieldChildInspectionTypesId=" + "$_fieldChildInspectionTypesId");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  InspectionType copyWith({FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, InspectionConfigurationObject? configuration, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType, String? fieldChildInspectionTypesId}) {
+  InspectionType copyWith({FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType}) {
     return InspectionType._internal(
       id: id,
       inspectionModule: inspectionModule ?? this.inspectionModule,
@@ -167,10 +151,8 @@ class InspectionType extends Model {
       isOrganic: isOrganic ?? this.isOrganic,
       title: title ?? this.title,
       description: description ?? this.description,
-      configuration: configuration ?? this.configuration,
       defaultRequiredInspections: defaultRequiredInspections ?? this.defaultRequiredInspections,
-      inspectionFormType: inspectionFormType ?? this.inspectionFormType,
-      fieldChildInspectionTypesId: fieldChildInspectionTypesId ?? this.fieldChildInspectionTypesId);
+      inspectionFormType: inspectionFormType ?? this.inspectionFormType);
   }
   
   InspectionType.fromJson(Map<String, dynamic> json)  
@@ -180,21 +162,17 @@ class InspectionType extends Model {
       _isOrganic = json['isOrganic'],
       _title = json['title'],
       _description = json['description'],
-      _configuration = json['configuration']?['serializedData'] != null
-        ? InspectionConfigurationObject.fromJson(new Map<String, dynamic>.from(json['configuration']['serializedData']))
-        : null,
       _defaultRequiredInspections = (json['defaultRequiredInspections'] as num?)?.toInt(),
       _inspectionFormType = enumFromString<InspectionFormTypeKey>(json['inspectionFormType'], InspectionFormTypeKey.values),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _fieldChildInspectionTypesId = json['fieldChildInspectionTypesId'];
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'inspectionModule': enumToString(_inspectionModule), 'cropType': enumToString(_cropType), 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'configuration': _configuration?.toJson(), 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': enumToString(_inspectionFormType), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'fieldChildInspectionTypesId': _fieldChildInspectionTypesId
+    'id': id, 'inspectionModule': enumToString(_inspectionModule), 'cropType': enumToString(_cropType), 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': enumToString(_inspectionFormType), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'inspectionModule': _inspectionModule, 'cropType': _cropType, 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'configuration': _configuration, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': _inspectionFormType, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'fieldChildInspectionTypesId': _fieldChildInspectionTypesId
+    'id': id, 'inspectionModule': _inspectionModule, 'cropType': _cropType, 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': _inspectionFormType, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<InspectionTypeModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<InspectionTypeModelIdentifier>();
@@ -204,13 +182,22 @@ class InspectionType extends Model {
   static final QueryField ISORGANIC = QueryField(fieldName: "isOrganic");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
-  static final QueryField CONFIGURATION = QueryField(fieldName: "configuration");
   static final QueryField DEFAULTREQUIREDINSPECTIONS = QueryField(fieldName: "defaultRequiredInspections");
   static final QueryField INSPECTIONFORMTYPE = QueryField(fieldName: "inspectionFormType");
-  static final QueryField FIELDCHILDINSPECTIONTYPESID = QueryField(fieldName: "fieldChildInspectionTypesId");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "InspectionType";
     modelSchemaDefinition.pluralName = "InspectionTypes";
+    
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
@@ -244,12 +231,6 @@ class InspectionType extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'configuration',
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'InspectionConfigurationObject')
-    ));
-    
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: InspectionType.DEFAULTREQUIREDINSPECTIONS,
       isRequired: false,
@@ -274,12 +255,6 @@ class InspectionType extends Model {
       isRequired: false,
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: InspectionType.FIELDCHILDINSPECTIONTYPESID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }

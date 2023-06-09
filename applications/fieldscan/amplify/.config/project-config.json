@@ -1,13 +1,13 @@
 {
-  "projectName": "diversifiedSeedOS",
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "SeedProductionOS",
   "version": "3.1",
   "frontend": "flutter",
   "flutter": {
     "config": {
-      "ResDir": "./lib/src/configuration/amplify/"
+      "ResDir": "./lib/amplify"
     }
-  },
-  "providers": [
-    "awscloudformation"
-  ]
+  }
 }

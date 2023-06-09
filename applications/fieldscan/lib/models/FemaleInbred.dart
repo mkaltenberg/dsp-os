@@ -32,7 +32,7 @@ class FemaleInbred extends Model {
   final String? _antherColor;
   final String? _glumeColor;
   final String? _silkColor;
-  final int? _huTo50Pollen;
+  final int? _huTo50Silk;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -65,8 +65,8 @@ class FemaleInbred extends Model {
     return _silkColor;
   }
   
-  int? get huTo50Pollen {
-    return _huTo50Pollen;
+  int? get huTo50Silk {
+    return _huTo50Silk;
   }
   
   TemporalDateTime? get createdAt {
@@ -77,16 +77,16 @@ class FemaleInbred extends Model {
     return _updatedAt;
   }
   
-  const FemaleInbred._internal({required this.id, name, antherColor, glumeColor, silkColor, huTo50Pollen, createdAt, updatedAt}): _name = name, _antherColor = antherColor, _glumeColor = glumeColor, _silkColor = silkColor, _huTo50Pollen = huTo50Pollen, _createdAt = createdAt, _updatedAt = updatedAt;
+  const FemaleInbred._internal({required this.id, name, antherColor, glumeColor, silkColor, huTo50Silk, createdAt, updatedAt}): _name = name, _antherColor = antherColor, _glumeColor = glumeColor, _silkColor = silkColor, _huTo50Silk = huTo50Silk, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory FemaleInbred({String? id, String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen}) {
+  factory FemaleInbred({String? id, String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Silk}) {
     return FemaleInbred._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       antherColor: antherColor,
       glumeColor: glumeColor,
       silkColor: silkColor,
-      huTo50Pollen: huTo50Pollen);
+      huTo50Silk: huTo50Silk);
   }
   
   bool equals(Object other) {
@@ -102,7 +102,7 @@ class FemaleInbred extends Model {
       _antherColor == other._antherColor &&
       _glumeColor == other._glumeColor &&
       _silkColor == other._silkColor &&
-      _huTo50Pollen == other._huTo50Pollen;
+      _huTo50Silk == other._huTo50Silk;
   }
   
   @override
@@ -118,7 +118,7 @@ class FemaleInbred extends Model {
     buffer.write("antherColor=" + "$_antherColor" + ", ");
     buffer.write("glumeColor=" + "$_glumeColor" + ", ");
     buffer.write("silkColor=" + "$_silkColor" + ", ");
-    buffer.write("huTo50Pollen=" + (_huTo50Pollen != null ? _huTo50Pollen!.toString() : "null") + ", ");
+    buffer.write("huTo50Silk=" + (_huTo50Silk != null ? _huTo50Silk!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -126,14 +126,14 @@ class FemaleInbred extends Model {
     return buffer.toString();
   }
   
-  FemaleInbred copyWith({String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen}) {
+  FemaleInbred copyWith({String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Silk}) {
     return FemaleInbred._internal(
       id: id,
       name: name ?? this.name,
       antherColor: antherColor ?? this.antherColor,
       glumeColor: glumeColor ?? this.glumeColor,
       silkColor: silkColor ?? this.silkColor,
-      huTo50Pollen: huTo50Pollen ?? this.huTo50Pollen);
+      huTo50Silk: huTo50Silk ?? this.huTo50Silk);
   }
   
   FemaleInbred.fromJson(Map<String, dynamic> json)  
@@ -142,16 +142,16 @@ class FemaleInbred extends Model {
       _antherColor = json['antherColor'],
       _glumeColor = json['glumeColor'],
       _silkColor = json['silkColor'],
-      _huTo50Pollen = (json['huTo50Pollen'] as num?)?.toInt(),
+      _huTo50Silk = (json['huTo50Silk'] as num?)?.toInt(),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Silk': _huTo50Silk, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Silk': _huTo50Silk, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<FemaleInbredModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<FemaleInbredModelIdentifier>();
@@ -160,10 +160,21 @@ class FemaleInbred extends Model {
   static final QueryField ANTHERCOLOR = QueryField(fieldName: "antherColor");
   static final QueryField GLUMECOLOR = QueryField(fieldName: "glumeColor");
   static final QueryField SILKCOLOR = QueryField(fieldName: "silkColor");
-  static final QueryField HUTO50POLLEN = QueryField(fieldName: "huTo50Pollen");
+  static final QueryField HUTO50SILK = QueryField(fieldName: "huTo50Silk");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FemaleInbred";
     modelSchemaDefinition.pluralName = "FemaleInbreds";
+    
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
@@ -192,7 +203,7 @@ class FemaleInbred extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: FemaleInbred.HUTO50POLLEN,
+      key: FemaleInbred.HUTO50SILK,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));

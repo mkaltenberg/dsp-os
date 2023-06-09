@@ -32,15 +32,12 @@ class Hybrid extends Model {
   final String id;
   final String? _name;
   final int? _femalePlantingNumber;
-  final SplitPlantingType? _splitPlantingType;
+  final String? _splitPlantingTypeId;
   final List<SplitPlantingObject>? _splitPlantings;
-  final MaleInbred? _maleInbred;
-  final FemaleInbred? _femaleInbred;
+  final String? _maleInbredId;
+  final String? _femaleInbredId;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
-  final String? _hybridSplitPlantingTypeId;
-  final String? _hybridMaleInbredId;
-  final String? _hybridFemaleInbredId;
 
   @override
   getInstanceType() => classType;
@@ -72,20 +69,47 @@ class Hybrid extends Model {
     return _femalePlantingNumber;
   }
   
-  SplitPlantingType? get splitPlantingType {
-    return _splitPlantingType;
+  String get splitPlantingTypeId {
+    try {
+      return _splitPlantingTypeId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<SplitPlantingObject>? get splitPlantings {
     return _splitPlantings;
   }
   
-  MaleInbred? get maleInbred {
-    return _maleInbred;
+  String get maleInbredId {
+    try {
+      return _maleInbredId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  FemaleInbred? get femaleInbred {
-    return _femaleInbred;
+  String get femaleInbredId {
+    try {
+      return _femaleInbredId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   TemporalDateTime? get createdAt {
@@ -96,32 +120,17 @@ class Hybrid extends Model {
     return _updatedAt;
   }
   
-  String? get hybridSplitPlantingTypeId {
-    return _hybridSplitPlantingTypeId;
-  }
+  const Hybrid._internal({required this.id, required name, femalePlantingNumber, required splitPlantingTypeId, splitPlantings, required maleInbredId, required femaleInbredId, createdAt, updatedAt}): _name = name, _femalePlantingNumber = femalePlantingNumber, _splitPlantingTypeId = splitPlantingTypeId, _splitPlantings = splitPlantings, _maleInbredId = maleInbredId, _femaleInbredId = femaleInbredId, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  String? get hybridMaleInbredId {
-    return _hybridMaleInbredId;
-  }
-  
-  String? get hybridFemaleInbredId {
-    return _hybridFemaleInbredId;
-  }
-  
-  const Hybrid._internal({required this.id, required name, femalePlantingNumber, splitPlantingType, splitPlantings, maleInbred, femaleInbred, createdAt, updatedAt, hybridSplitPlantingTypeId, hybridMaleInbredId, hybridFemaleInbredId}): _name = name, _femalePlantingNumber = femalePlantingNumber, _splitPlantingType = splitPlantingType, _splitPlantings = splitPlantings, _maleInbred = maleInbred, _femaleInbred = femaleInbred, _createdAt = createdAt, _updatedAt = updatedAt, _hybridSplitPlantingTypeId = hybridSplitPlantingTypeId, _hybridMaleInbredId = hybridMaleInbredId, _hybridFemaleInbredId = hybridFemaleInbredId;
-  
-  factory Hybrid({String? id, required String name, int? femalePlantingNumber, SplitPlantingType? splitPlantingType, List<SplitPlantingObject>? splitPlantings, MaleInbred? maleInbred, FemaleInbred? femaleInbred, String? hybridSplitPlantingTypeId, String? hybridMaleInbredId, String? hybridFemaleInbredId}) {
+  factory Hybrid({String? id, required String name, int? femalePlantingNumber, required String splitPlantingTypeId, List<SplitPlantingObject>? splitPlantings, required String maleInbredId, required String femaleInbredId}) {
     return Hybrid._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       femalePlantingNumber: femalePlantingNumber,
-      splitPlantingType: splitPlantingType,
+      splitPlantingTypeId: splitPlantingTypeId,
       splitPlantings: splitPlantings != null ? List<SplitPlantingObject>.unmodifiable(splitPlantings) : splitPlantings,
-      maleInbred: maleInbred,
-      femaleInbred: femaleInbred,
-      hybridSplitPlantingTypeId: hybridSplitPlantingTypeId,
-      hybridMaleInbredId: hybridMaleInbredId,
-      hybridFemaleInbredId: hybridFemaleInbredId);
+      maleInbredId: maleInbredId,
+      femaleInbredId: femaleInbredId);
   }
   
   bool equals(Object other) {
@@ -135,13 +144,10 @@ class Hybrid extends Model {
       id == other.id &&
       _name == other._name &&
       _femalePlantingNumber == other._femalePlantingNumber &&
-      _splitPlantingType == other._splitPlantingType &&
+      _splitPlantingTypeId == other._splitPlantingTypeId &&
       DeepCollectionEquality().equals(_splitPlantings, other._splitPlantings) &&
-      _maleInbred == other._maleInbred &&
-      _femaleInbred == other._femaleInbred &&
-      _hybridSplitPlantingTypeId == other._hybridSplitPlantingTypeId &&
-      _hybridMaleInbredId == other._hybridMaleInbredId &&
-      _hybridFemaleInbredId == other._hybridFemaleInbredId;
+      _maleInbredId == other._maleInbredId &&
+      _femaleInbredId == other._femaleInbredId;
   }
   
   @override
@@ -155,84 +161,74 @@ class Hybrid extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("femalePlantingNumber=" + (_femalePlantingNumber != null ? _femalePlantingNumber!.toString() : "null") + ", ");
+    buffer.write("splitPlantingTypeId=" + "$_splitPlantingTypeId" + ", ");
     buffer.write("splitPlantings=" + (_splitPlantings != null ? _splitPlantings!.toString() : "null") + ", ");
+    buffer.write("maleInbredId=" + "$_maleInbredId" + ", ");
+    buffer.write("femaleInbredId=" + "$_femaleInbredId" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("hybridSplitPlantingTypeId=" + "$_hybridSplitPlantingTypeId" + ", ");
-    buffer.write("hybridMaleInbredId=" + "$_hybridMaleInbredId" + ", ");
-    buffer.write("hybridFemaleInbredId=" + "$_hybridFemaleInbredId");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  Hybrid copyWith({String? name, int? femalePlantingNumber, SplitPlantingType? splitPlantingType, List<SplitPlantingObject>? splitPlantings, MaleInbred? maleInbred, FemaleInbred? femaleInbred, String? hybridSplitPlantingTypeId, String? hybridMaleInbredId, String? hybridFemaleInbredId}) {
+  Hybrid copyWith({String? name, int? femalePlantingNumber, String? splitPlantingTypeId, List<SplitPlantingObject>? splitPlantings, String? maleInbredId, String? femaleInbredId}) {
     return Hybrid._internal(
       id: id,
       name: name ?? this.name,
       femalePlantingNumber: femalePlantingNumber ?? this.femalePlantingNumber,
-      splitPlantingType: splitPlantingType ?? this.splitPlantingType,
+      splitPlantingTypeId: splitPlantingTypeId ?? this.splitPlantingTypeId,
       splitPlantings: splitPlantings ?? this.splitPlantings,
-      maleInbred: maleInbred ?? this.maleInbred,
-      femaleInbred: femaleInbred ?? this.femaleInbred,
-      hybridSplitPlantingTypeId: hybridSplitPlantingTypeId ?? this.hybridSplitPlantingTypeId,
-      hybridMaleInbredId: hybridMaleInbredId ?? this.hybridMaleInbredId,
-      hybridFemaleInbredId: hybridFemaleInbredId ?? this.hybridFemaleInbredId);
+      maleInbredId: maleInbredId ?? this.maleInbredId,
+      femaleInbredId: femaleInbredId ?? this.femaleInbredId);
   }
   
   Hybrid.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _name = json['name'],
       _femalePlantingNumber = (json['femalePlantingNumber'] as num?)?.toInt(),
-      _splitPlantingType = json['splitPlantingType']?['serializedData'] != null
-        ? SplitPlantingType.fromJson(new Map<String, dynamic>.from(json['splitPlantingType']['serializedData']))
-        : null,
+      _splitPlantingTypeId = json['splitPlantingTypeId'],
       _splitPlantings = json['splitPlantings'] is List
         ? (json['splitPlantings'] as List)
           .where((e) => e != null)
           .map((e) => SplitPlantingObject.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
-      _maleInbred = json['maleInbred']?['serializedData'] != null
-        ? MaleInbred.fromJson(new Map<String, dynamic>.from(json['maleInbred']['serializedData']))
-        : null,
-      _femaleInbred = json['femaleInbred']?['serializedData'] != null
-        ? FemaleInbred.fromJson(new Map<String, dynamic>.from(json['femaleInbred']['serializedData']))
-        : null,
+      _maleInbredId = json['maleInbredId'],
+      _femaleInbredId = json['femaleInbredId'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _hybridSplitPlantingTypeId = json['hybridSplitPlantingTypeId'],
-      _hybridMaleInbredId = json['hybridMaleInbredId'],
-      _hybridFemaleInbredId = json['hybridFemaleInbredId'];
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'femalePlantingNumber': _femalePlantingNumber, 'splitPlantingType': _splitPlantingType?.toJson(), 'splitPlantings': _splitPlantings?.map((SplitPlantingObject? e) => e?.toJson()).toList(), 'maleInbred': _maleInbred?.toJson(), 'femaleInbred': _femaleInbred?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'hybridSplitPlantingTypeId': _hybridSplitPlantingTypeId, 'hybridMaleInbredId': _hybridMaleInbredId, 'hybridFemaleInbredId': _hybridFemaleInbredId
+    'id': id, 'name': _name, 'femalePlantingNumber': _femalePlantingNumber, 'splitPlantingTypeId': _splitPlantingTypeId, 'splitPlantings': _splitPlantings?.map((SplitPlantingObject? e) => e?.toJson()).toList(), 'maleInbredId': _maleInbredId, 'femaleInbredId': _femaleInbredId, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'femalePlantingNumber': _femalePlantingNumber, 'splitPlantingType': _splitPlantingType, 'splitPlantings': _splitPlantings, 'maleInbred': _maleInbred, 'femaleInbred': _femaleInbred, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'hybridSplitPlantingTypeId': _hybridSplitPlantingTypeId, 'hybridMaleInbredId': _hybridMaleInbredId, 'hybridFemaleInbredId': _hybridFemaleInbredId
+    'id': id, 'name': _name, 'femalePlantingNumber': _femalePlantingNumber, 'splitPlantingTypeId': _splitPlantingTypeId, 'splitPlantings': _splitPlantings, 'maleInbredId': _maleInbredId, 'femaleInbredId': _femaleInbredId, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<HybridModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<HybridModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField FEMALEPLANTINGNUMBER = QueryField(fieldName: "femalePlantingNumber");
-  static final QueryField SPLITPLANTINGTYPE = QueryField(
-    fieldName: "splitPlantingType",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'SplitPlantingType'));
+  static final QueryField SPLITPLANTINGTYPEID = QueryField(fieldName: "splitPlantingTypeId");
   static final QueryField SPLITPLANTINGS = QueryField(fieldName: "splitPlantings");
-  static final QueryField MALEINBRED = QueryField(
-    fieldName: "maleInbred",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'MaleInbred'));
-  static final QueryField FEMALEINBRED = QueryField(
-    fieldName: "femaleInbred",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'FemaleInbred'));
-  static final QueryField HYBRIDSPLITPLANTINGTYPEID = QueryField(fieldName: "hybridSplitPlantingTypeId");
-  static final QueryField HYBRIDMALEINBREDID = QueryField(fieldName: "hybridMaleInbredId");
-  static final QueryField HYBRIDFEMALEINBREDID = QueryField(fieldName: "hybridFemaleInbredId");
+  static final QueryField MALEINBREDID = QueryField(fieldName: "maleInbredId");
+  static final QueryField FEMALEINBREDID = QueryField(fieldName: "femaleInbredId");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Hybrid";
     modelSchemaDefinition.pluralName = "Hybrids";
+    
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
@@ -248,11 +244,10 @@ class Hybrid extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: Hybrid.SPLITPLANTINGTYPE,
-      isRequired: false,
-      ofModelName: 'SplitPlantingType',
-      associatedKey: SplitPlantingType.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Hybrid.SPLITPLANTINGTYPEID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
@@ -262,18 +257,16 @@ class Hybrid extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'SplitPlantingObject')
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: Hybrid.MALEINBRED,
-      isRequired: false,
-      ofModelName: 'MaleInbred',
-      associatedKey: MaleInbred.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Hybrid.MALEINBREDID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: Hybrid.FEMALEINBRED,
-      isRequired: false,
-      ofModelName: 'FemaleInbred',
-      associatedKey: FemaleInbred.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Hybrid.FEMALEINBREDID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -288,24 +281,6 @@ class Hybrid extends Model {
       isRequired: false,
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Hybrid.HYBRIDSPLITPLANTINGTYPEID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Hybrid.HYBRIDMALEINBREDID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Hybrid.HYBRIDFEMALEINBREDID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }

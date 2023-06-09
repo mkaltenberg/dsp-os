@@ -168,6 +168,17 @@ class SplitPlantingType extends Model {
     modelSchemaDefinition.name = "SplitPlantingType";
     modelSchemaDefinition.pluralName = "SplitPlantingTypes";
     
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

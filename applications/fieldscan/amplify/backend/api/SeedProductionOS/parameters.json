@@ -1,5 +1,5 @@
 {
-  "AppSyncApiName": "diversifiedseedos",
+  "AppSyncApiName": "SeedProductionOS",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false
 }

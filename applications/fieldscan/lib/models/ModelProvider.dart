@@ -92,7 +92,7 @@ export 'UsStateKey.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "d0e2fb1f118e09907c27a4ed89ae154d";
+  String version = "625f21eca08910eabe19b4d164c750e1";
   @override
   List<ModelSchema> modelSchemas = [AppUserProfile.schema, CropDamageOption.schema, FemaleInbred.schema, FieldChild.schema, FieldParent.schema, Grower.schema, Hybrid.schema, InspectionChild.schema, InspectionParent.schema, InspectionType.schema, MaleInbred.schema, Season.schema, SplitPlantingType.schema];
   static final ModelProvider _instance = ModelProvider();
