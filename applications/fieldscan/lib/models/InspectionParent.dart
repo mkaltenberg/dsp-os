@@ -32,13 +32,12 @@ class InspectionParent extends Model {
   final String id;
   final TemporalDate? _scheduledDate;
   final int? _requiredInspections;
-  final FieldChild? _fieldChild;
+  final String? _fieldChildId;
   final InspectionFormTypeKey? _inspectionFormType;
   final CompletionStatusKey? _completionStatus;
   final List<InspectionChild>? _children;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
-  final String? _inspectionParentFieldChildId;
 
   @override
   getInstanceType() => classType;
@@ -61,8 +60,17 @@ class InspectionParent extends Model {
     return _requiredInspections;
   }
   
-  FieldChild? get fieldChild {
-    return _fieldChild;
+  String get fieldChildId {
+    try {
+      return _fieldChildId!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   InspectionFormTypeKey? get inspectionFormType {
@@ -85,22 +93,17 @@ class InspectionParent extends Model {
     return _updatedAt;
   }
   
-  String? get inspectionParentFieldChildId {
-    return _inspectionParentFieldChildId;
-  }
+  const InspectionParent._internal({required this.id, scheduledDate, requiredInspections, required fieldChildId, inspectionFormType, completionStatus, children, createdAt, updatedAt}): _scheduledDate = scheduledDate, _requiredInspections = requiredInspections, _fieldChildId = fieldChildId, _inspectionFormType = inspectionFormType, _completionStatus = completionStatus, _children = children, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  const InspectionParent._internal({required this.id, scheduledDate, requiredInspections, fieldChild, inspectionFormType, completionStatus, children, createdAt, updatedAt, inspectionParentFieldChildId}): _scheduledDate = scheduledDate, _requiredInspections = requiredInspections, _fieldChild = fieldChild, _inspectionFormType = inspectionFormType, _completionStatus = completionStatus, _children = children, _createdAt = createdAt, _updatedAt = updatedAt, _inspectionParentFieldChildId = inspectionParentFieldChildId;
-  
-  factory InspectionParent({String? id, TemporalDate? scheduledDate, int? requiredInspections, FieldChild? fieldChild, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children, String? inspectionParentFieldChildId}) {
+  factory InspectionParent({String? id, TemporalDate? scheduledDate, int? requiredInspections, required String fieldChildId, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children}) {
     return InspectionParent._internal(
       id: id == null ? UUID.getUUID() : id,
       scheduledDate: scheduledDate,
       requiredInspections: requiredInspections,
-      fieldChild: fieldChild,
+      fieldChildId: fieldChildId,
       inspectionFormType: inspectionFormType,
       completionStatus: completionStatus,
-      children: children != null ? List<InspectionChild>.unmodifiable(children) : children,
-      inspectionParentFieldChildId: inspectionParentFieldChildId);
+      children: children != null ? List<InspectionChild>.unmodifiable(children) : children);
   }
   
   bool equals(Object other) {
@@ -114,11 +117,10 @@ class InspectionParent extends Model {
       id == other.id &&
       _scheduledDate == other._scheduledDate &&
       _requiredInspections == other._requiredInspections &&
-      _fieldChild == other._fieldChild &&
+      _fieldChildId == other._fieldChildId &&
       _inspectionFormType == other._inspectionFormType &&
       _completionStatus == other._completionStatus &&
-      DeepCollectionEquality().equals(_children, other._children) &&
-      _inspectionParentFieldChildId == other._inspectionParentFieldChildId;
+      DeepCollectionEquality().equals(_children, other._children);
   }
   
   @override
@@ -132,35 +134,32 @@ class InspectionParent extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("scheduledDate=" + (_scheduledDate != null ? _scheduledDate!.format() : "null") + ", ");
     buffer.write("requiredInspections=" + (_requiredInspections != null ? _requiredInspections!.toString() : "null") + ", ");
+    buffer.write("fieldChildId=" + "$_fieldChildId" + ", ");
     buffer.write("inspectionFormType=" + (_inspectionFormType != null ? enumToString(_inspectionFormType)! : "null") + ", ");
     buffer.write("completionStatus=" + (_completionStatus != null ? enumToString(_completionStatus)! : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("inspectionParentFieldChildId=" + "$_inspectionParentFieldChildId");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  InspectionParent copyWith({TemporalDate? scheduledDate, int? requiredInspections, FieldChild? fieldChild, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children, String? inspectionParentFieldChildId}) {
+  InspectionParent copyWith({TemporalDate? scheduledDate, int? requiredInspections, String? fieldChildId, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children}) {
     return InspectionParent._internal(
       id: id,
       scheduledDate: scheduledDate ?? this.scheduledDate,
       requiredInspections: requiredInspections ?? this.requiredInspections,
-      fieldChild: fieldChild ?? this.fieldChild,
+      fieldChildId: fieldChildId ?? this.fieldChildId,
       inspectionFormType: inspectionFormType ?? this.inspectionFormType,
       completionStatus: completionStatus ?? this.completionStatus,
-      children: children ?? this.children,
-      inspectionParentFieldChildId: inspectionParentFieldChildId ?? this.inspectionParentFieldChildId);
+      children: children ?? this.children);
   }
   
   InspectionParent.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _scheduledDate = json['scheduledDate'] != null ? TemporalDate.fromString(json['scheduledDate']) : null,
       _requiredInspections = (json['requiredInspections'] as num?)?.toInt(),
-      _fieldChild = json['fieldChild']?['serializedData'] != null
-        ? FieldChild.fromJson(new Map<String, dynamic>.from(json['fieldChild']['serializedData']))
-        : null,
+      _fieldChildId = json['fieldChildId'],
       _inspectionFormType = enumFromString<InspectionFormTypeKey>(json['inspectionFormType'], InspectionFormTypeKey.values),
       _completionStatus = enumFromString<CompletionStatusKey>(json['completionStatus'], CompletionStatusKey.values),
       _children = json['children'] is List
@@ -170,33 +169,40 @@ class InspectionParent extends Model {
           .toList()
         : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _inspectionParentFieldChildId = json['inspectionParentFieldChildId'];
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'scheduledDate': _scheduledDate?.format(), 'requiredInspections': _requiredInspections, 'fieldChild': _fieldChild?.toJson(), 'inspectionFormType': enumToString(_inspectionFormType), 'completionStatus': enumToString(_completionStatus), 'children': _children?.map((InspectionChild? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'inspectionParentFieldChildId': _inspectionParentFieldChildId
+    'id': id, 'scheduledDate': _scheduledDate?.format(), 'requiredInspections': _requiredInspections, 'fieldChildId': _fieldChildId, 'inspectionFormType': enumToString(_inspectionFormType), 'completionStatus': enumToString(_completionStatus), 'children': _children?.map((InspectionChild? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'scheduledDate': _scheduledDate, 'requiredInspections': _requiredInspections, 'fieldChild': _fieldChild, 'inspectionFormType': _inspectionFormType, 'completionStatus': _completionStatus, 'children': _children, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'inspectionParentFieldChildId': _inspectionParentFieldChildId
+    'id': id, 'scheduledDate': _scheduledDate, 'requiredInspections': _requiredInspections, 'fieldChildId': _fieldChildId, 'inspectionFormType': _inspectionFormType, 'completionStatus': _completionStatus, 'children': _children, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<InspectionParentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<InspectionParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField SCHEDULEDDATE = QueryField(fieldName: "scheduledDate");
   static final QueryField REQUIREDINSPECTIONS = QueryField(fieldName: "requiredInspections");
-  static final QueryField FIELDCHILD = QueryField(
-    fieldName: "fieldChild",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'FieldChild'));
+  static final QueryField FIELDCHILDID = QueryField(fieldName: "fieldChildId");
   static final QueryField INSPECTIONFORMTYPE = QueryField(fieldName: "inspectionFormType");
   static final QueryField COMPLETIONSTATUS = QueryField(fieldName: "completionStatus");
   static final QueryField CHILDREN = QueryField(
     fieldName: "children",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'InspectionChild'));
-  static final QueryField INSPECTIONPARENTFIELDCHILDID = QueryField(fieldName: "inspectionParentFieldChildId");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "InspectionParent";
     modelSchemaDefinition.pluralName = "InspectionParents";
+    
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
@@ -212,11 +218,10 @@ class InspectionParent extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: InspectionParent.FIELDCHILD,
-      isRequired: false,
-      ofModelName: 'FieldChild',
-      associatedKey: FieldChild.ID
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.FIELDCHILDID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -250,12 +255,6 @@ class InspectionParent extends Model {
       isRequired: false,
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: InspectionParent.INSPECTIONPARENTFIELDCHILDID,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }

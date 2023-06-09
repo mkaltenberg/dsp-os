@@ -161,6 +161,17 @@ class InspectionChild extends Model {
     modelSchemaDefinition.name = "InspectionChild";
     modelSchemaDefinition.pluralName = "InspectionChildren";
     
+    modelSchemaDefinition.authRules = [
+      AuthRule(
+        authStrategy: AuthStrategy.PUBLIC,
+        operations: [
+          ModelOperation.CREATE,
+          ModelOperation.UPDATE,
+          ModelOperation.DELETE,
+          ModelOperation.READ
+        ])
+    ];
+    
     modelSchemaDefinition.indexes = [
       ModelIndex(fields: const ["parentID"], name: "byParent")
     ];
