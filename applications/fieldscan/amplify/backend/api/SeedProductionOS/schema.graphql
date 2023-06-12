@@ -1,33 +1,14 @@
-type InspectionParent @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  scheduledDate: AWSDate
-  requiredInspections: Int
-  fieldChildId: ID!
-  inspectionFormType: InspectionFormTypeKey
-  completionStatus: CompletionStatusKey
-  children: [InspectionChild] @hasMany(indexName: "byParent", fields: ["id"])
-}
-
-type InspectionChild @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  parentID: ID! @index(name: "byParent")
-  parent: InspectionParent @belongsTo(fields: ["parentID"])
-  location: GeoPointObject
-  timestamp: AWSTimestamp
-  formData: AWSJSON
-}
-
 type AppUserProfile @model @auth(rules: [{allow: public}]) {
   id: ID!
-  email: AWSEmail
   firstName: String
   lastName: String
-  mobileNumber: AWSPhone
+  email: AWSEmail
 }
 
-enum CompletionStatusKey {
-  COMPLETED
-  NOT_COMPLETED
+type Season @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
 }
 
 type FieldParent @model @auth(rules: [{allow: public}]) {
@@ -35,48 +16,139 @@ type FieldParent @model @auth(rules: [{allow: public}]) {
   fieldName: String!
   fieldNumberBase: String!
   country: CountryKey!
-  state: UsStateKey!
+  stateOrProvince: StateOrProvinceKey!
   plssLocation: PlssLocationObject!
-  mapCenterPoint: GeoPointObject!
-  mapCenterZoom: Int!
-  fieldMarkers: [FieldMarkerObject]
+  mapCenterPoint: GeoPointObject
+  mapCenterZoom: Int
   county: String!
   isOrganic: Boolean!
-}
-
-type FieldMarkerObject {
-  title: String!
-  subtitle: String
-  geoPoint: GeoPointObject
-  isNavigatable: Boolean
-}
-
-type GeoPointObject {
-  latitude: Float!
-  longitude: Float!
-}
-
-type PlssLocationObject {
-  township: String!
-  section: String!
-  range: String!
-  townshipName: String!
-  description: String
+  seasonID: ID!
+  FieldChildren: [FieldChild] @hasMany(indexName: "byFieldParent", fields: ["id"])
 }
 
 type FieldChild @model @auth(rules: [{allow: public}]) {
   id: ID!
-  fieldParentId: ID!
+  seasonID: ID!
+  fieldparentID: ID! @index(name: "byFieldParent")
+  hybridID: ID! @index(name: "byHybrid")
+  isCertified: Boolean
+  growerShares: [GrowerShareObject]!
+  acres: FieldAcresObject!
+  plantingDates: [PlantingDateObject!]!
+  InspectionParents: [InspectionParent] @hasMany(indexName: "byFieldChild", fields: ["id"])
   fieldName: String!
   fieldNumber: String!
   hybridName: String!
-  isCertified: Boolean
-  acres: FieldAcresObject
-  growerShares: [GrowerShareObject]
-  plantingDates: [PlantingDateObject]
-  seasonId: ID!
-  hybridId: ID!
-  inspectionTypesIds: [ID]
+  inspectionConfigurations: [InspectionConfigurationObject]
+  detasselingStandardSeedCornApprovalDate: AWSDate
+  leafToTasselStandardSeedCornApprovalDate: AWSDate
+  populationsStandardSeedCornApprovalDate: AWSDate
+  scoutingStandardSeedCornApprovalDate: AWSDate
+  detasselingStandardSeedCornApprovalUserProfile: ID
+  leafToTasselStandardSeedCornApprovalUserProfile: ID
+  populationsStandardSeedCornApprovalUserProfile: ID
+  scoutingStandardSeedCornApprovalUserProfile: ID
+  detasselingStandardSeedCornRequiredInspections: Int
+  leafToTasselStandardSeedCornRequiredInspections: Int
+  populationsStandardSeedCornRequiredInspections: Int
+  scoutingStandardSeedCornRequiredInspections: Int
+  detasselingStandardSeedCornInspectionStatus: InspectionStatusKey
+  leafToTasselStandardSeedCornInspectionStatus: InspectionStatusKey
+  populationsStandardSeedCornInspectionStatus: InspectionStatusKey
+  scoutingStandardSeedCornInspectionStatus: InspectionStatusKey
+  leafToTasselStandardSeedCornInspectionType: InspectionFormTypeKey
+  populationsStandardSeedCornInspectionType: InspectionFormTypeKey
+  scoutingStandardSeedCornInspectionType: InspectionFormTypeKey
+  detasselingStandardSeedCornInspectionType: InspectionFormTypeKey
+  leafToTasselStandardSeedCornMostRecentInspection: String
+  populationsStandardSeedCornMostRecentInspection: String
+  scoutingStandardSeedCornMostRecentInspection: String
+  detasselingStandardSeedCornMostRecentInspection: String
+}
+
+type InspectionConfigurationObject {
+  approvalDate: AWSDate
+  approvalUserProfile: ID
+  requiredInspections: Int!
+  inspectionStatus: InspectionStatusKey!
+  inspectionTypeID: ID!
+  mostRecentInspection: AWSDate
+}
+
+type InspectionChild @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  location: GeoPointObject!
+  seasonID: ID!
+  detasselingStandardSeedCornFormObject: DetasselingSeedCornStandardInspectionFormDataObject
+  populationsStandardSeedCornFormObject: PopulationsStandardSeedCornInspectionFormDataObject
+  scoutingStandardSeedCornFormObject: ScoutingStandardSeedCornInspectionFormDataObject
+  leafToTasselStandardSeedCornFormObject: LeafToTasselSeedCornStandardInspectionFormDataObject
+  inspectionParentID: ID! @index(name: "byInspectionParent")
+  userEmail: String!
+  userFirstName: String!
+  userLastName: String!
+  date: AWSDate!
+  time: AWSTime!
+}
+
+type InspectionParent @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  scheduledDate: AWSDate
+  requiredInspections: Int
+  inspectionFormType: InspectionFormTypeKey
+  completionStatus: CompletionStatusKey
+  seasonID: ID!
+  InspectionChildren: [InspectionChild] @hasMany(indexName: "byInspectionParent", fields: ["id"])
+  fieldchildID: ID! @index(name: "byFieldChild")
+  inspectionTypeID: ID!
+  fieldInspectionModule: FieldInspectionModuleKey!
+  fieldName: String!
+  fieldNumber: String!
+  hybridName: String!
+  mapCenter: GeoPointObject!
+}
+
+type Hybrid @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  femalePlantingNumber: Int
+  splitPlantings: [SplitPlantingObject]
+  seasonID: ID!
+  FieldChildren: [FieldChild] @hasMany(indexName: "byHybrid", fields: ["id"])
+  femaleInbredID: ID! @index(name: "byFemaleInbred")
+  maleInbredID: ID! @index(name: "byMaleInbred")
+  splitPlantingTypeID: ID! @index(name: "bySplitPlantingType")
+}
+
+type MaleInbred @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  antherColor: String
+  glumeColor: String
+  silkColor: String
+  huTo50Pollen: Int
+  seasonID: ID!
+  Hybrids: [Hybrid] @hasMany(indexName: "byMaleInbred", fields: ["id"])
+}
+
+type FemaleInbred @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  antherColor: String
+  glumeColor: String
+  silkColor: String
+  huTo50Silk: Int
+  seasonID: ID!
+  Hybrids: [Hybrid] @hasMany(indexName: "byFemaleInbred", fields: ["id"])
+}
+
+type SplitPlantingType @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  numberOfPlantings: Int!
+  plantingDescriptions: [PlantingDescriptionObject]
+  seasonID: ID!
+  Hybrids: [Hybrid] @hasMany(indexName: "bySplitPlantingType", fields: ["id"])
 }
 
 type InspectionType @model @auth(rules: [{allow: public}]) {
@@ -88,51 +160,14 @@ type InspectionType @model @auth(rules: [{allow: public}]) {
   description: String
   defaultRequiredInspections: Int
   inspectionFormType: InspectionFormTypeKey
+  seasonID: ID!
 }
 
-type CropDamageOption @model @auth(rules: [{allow: public}]) {
+type Grower @model @auth(rules: [{allow: public}]) {
   id: ID!
-  category: CropDamageCategoryKey
-  applicableCropTypes: [CropTypeKey]
-  name: String
-  description: String
-  imagePaths: [AWSURL]
-}
-
-type CropDamageObject {
-  cropType: CropTypeKey
-  damageType: CropDamageCategoryKey
-  cropDamageOption: CropDamageOption
-  severity: CropDamageSeverityKey
-  location: GeoPointObject
-  imagePaths: [AWSURL]
-}
-
-enum CropDamageCategoryKey {
-  WEED
-  INSECT
-  PEST
-  DISEASE
-}
-
-enum CropDamageSeverityKey {
-  LOW
-  MODERATE
-  HIGH
-}
-
-enum InspectionFormTypeKey {
-  SCOUTING_SEED_CORN_STANDARD
-  POPULATIONS_SEED_CORN_STANDARD
-  LEAF_TO_TASSEL_SEED_CORN_STANDARD
-  DETASSELING_SEED_CORN_STANDARD
-}
-
-type InspectionConfigurationObject {
-  approvalDate: AWSDate
-  approvalUserProfile: ID!
-  requiredInspections: Int
-  inspectionStatus: InspectionStatusKey
+  name: String!
+  mainContact: ContactObject
+  seasonID: ID!
 }
 
 enum InspectionStatusKey {
@@ -141,11 +176,13 @@ enum InspectionStatusKey {
   COMPLETED
 }
 
-enum CropTypeKey {
-  CORN_HYBRID_SEED
-  SOYBEAN_FOOD_GRADE
-  SOYBEAN_MARKET
-  SOYBEAN_SEED
+type CropDamageOption @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  category: CropDamageCategoryKey
+  applicableCropTypes: [CropTypeKey]
+  name: String
+  description: String
+  seasonID: ID!
 }
 
 enum FieldInspectionModuleKey {
@@ -155,39 +192,93 @@ enum FieldInspectionModuleKey {
   DETASSELING
 }
 
-type Hybrid @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  femalePlantingNumber: Int
-  splitPlantingTypeId: ID!
-  splitPlantings: [SplitPlantingObject]
-  maleInbredId: ID!
-  femaleInbredId: ID!
+enum CountryKey {
+  UNITED_STATES
+  CANADA
 }
 
-type MaleInbred @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String
-  antherColor: String
-  glumeColor: String
-  silkColor: String
-  huTo50Pollen: Int
+enum StateOrProvinceKey {
+  US_ALABAMA
+  US_ALASKA
+  US_ARIZONA
+  US_ARKANSAS
+  US_CALIFORNIA
+  US_COLORADO
+  US_CONNECTICUT
+  US_DELAWARE
+  US_FLORIDA
+  US_GEORGIA
+  US_HAWAII
+  US_IDAHO
+  US_ILLINOIS
+  US_IOWA
+  US_KANSAS
+  US_KENTUCKY
+  US_LOUISIANA
+  US_MAINE
+  US_MARYLAND
+  US_MASSACHUSETTS
+  US_MICHIGAN
+  US_MINNESOTA
+  US_MISSISSIPPI
+  US_MISSOURI
+  US_MONTANA
+  US_NEBRASKA
+  US_NEVADA
+  US_NEW_HAMPSHIRE
+  US_NEW_JERSEY
+  US_NEW_MEXICO
+  US_NEW_YORK
+  US_NORTH_CAROLINA
+  US_NORTH_DAKOTA
+  US_OHIO
+  US_OKLAHOMA
+  US_OREGON
+  US_PENNSYLVANIA
+  US_RHODE_ISLAND
+  US_SOUTH_CAROLINA
+  US_SOUTH_DAKOTA
+  US_TENNESSEE
+  US_TEXAS
+  US_UTAH
+  US_VERMONT
+  US_VIRGINIA
+  US_WASHINGTON
+  US_WEST_VIRGINIA
+  US_WISCONSIN
+  US_WYOMING
+  CA_ALBERTA
+  CA_BRITISH_COLUMBIA
+  CA_MANITOBA
+  CA_NEW_BRUNSWICK
+  CA_NEWFOUNDLAND_AND_LABRADOR
+  CA_NORTHWEST_TERRITORIES
+  CA_NOVA_SCOTIA
+  CA_NUNAVUT
+  CA_ONTARIO
+  CA_PRINCE_EDWARD_ISLAND
+  CA_QUEBEC
+  CA_SASKATCHEWAN
+  CA_YUKON
 }
 
-type FemaleInbred @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String
-  antherColor: String
-  glumeColor: String
-  silkColor: String
-  huTo50Silk: Int
+enum CropTypeKey {
+  CORN_HYBRID_SEED
+  SOYBEAN_FOOD_GRADE
+  SOYBEAN_MARKET
+  SOYBEAN_SEED
 }
 
-type SplitPlantingType @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  numberOfPlantings: Int!
-  plantingDescriptions: [PlantingDescriptionObject]
+enum CompletionStatusKey {
+  COMPLETED
+  NOT_COMPLETED
+}
+
+enum InspectionFormTypeKey {
+  SCOUTING_SEED_CORN_STANDARD
+  POPULATIONS_SEED_CORN_STANDARD
+  LEAF_TO_TASSEL_SEED_CORN_STANDARD
+  DETASSELING_SEED_CORN_STANDARD
 }
 
 type PlantingDescriptionObject {
@@ -202,152 +293,6 @@ type SplitPlantingObject {
   shouldPlantFemale: Boolean
   shouldPlantMale: Boolean
   plantingText: String
-}
-
-type Season @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  description: String
-}
-
-type PlantingDateObject {
-  plantingNumber: Int
-  date: AWSDate
-}
-
-type Grower @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  mainContact: ContactObject
-}
-
-type GrowerShareObject {
-  growerID: ID!
-  sharePercentage: Float!
-}
-
-type ContactObject {
-  firstName: String!
-  lastName: String!
-  officePhone: AWSPhone
-  mobilePhone: AWSPhone
-  jobTitle: String!
-  mailingAddress: AddressObject
-}
-
-type AddressObject {
-  streetLineOne: String!
-  streetLineTwo: String
-  streetLineThree: String
-  city: String!
-  state: UsStateKey!
-  country: CountryKey!
-  zipCode: String!
-  label: String
-}
-
-type FieldAcresObject {
-  male: Float
-  female: Float
-  crop: Float
-  isolation: Float
-  headland: Float
-}
-
-enum CountryKey {
-  UNITED_STATES
-}
-
-enum UsStateKey {
-  ALABAMA
-  ALASKA
-  ARIZONA
-  ARKANSAS
-  CALIFORNIA
-  COLORADO
-  CONNECTICUT
-  DELAWARE
-  FLORIDA
-  GEORGIA
-  HAWAII
-  IDAHO
-  ILLINOIS
-  INDIANA
-  IOWA
-  KANSAS
-  KENTUCKY
-  LOUISIANA
-  MAINE
-  MARYLAND
-  MASSACHUSETTS
-  MICHIGAN
-  MINNESOTA
-  MISSISSIPPI
-  MISSOURI
-  MONTANA
-  NEBRASKA
-  NEVADA
-  NEW_HAMPSHIRE
-  NEW_JERSEY
-  NEW_MEXICO
-  NEW_YORK
-  NORTH_CAROLINA
-  NORTH_DAKOTA
-  OHIO
-  OKLAHOMA
-  OREGON
-  PENNSYLVANIA
-  RHODE_ISLAND
-  SOUTH_CAROLINA
-  SOUTH_DAKOTA
-  TENNESSEE
-  TEXAS
-  UTAH
-  VERMONT
-  VIRGINIA
-  WASHINGTON
-  WEST_VIRGINIA
-  WISCONSIN
-  WYOMING
-}
-
-type DetasselingSeedCornStandardInspectionFormDataObject {
-  comments: String
-  areRoguesPresent: Boolean
-  femaleReceptiveSilk: Int
-  femaleTasselsExposed: Int
-  femaleTasselsRemaining: Int
-  femaleTasselsShedding: Int
-  maleTasselsShedding: Int
-}
-
-type LeafToTasselSeedCornStandardInspectionFormDataObject {
-  comments: String
-  areRoguesPresent: Boolean
-  earShootLengthInches: Float
-  inchesToSilkEmergence: Float
-  numberOfLeaves: Float
-  silkStage: Int
-  tasselLengthInches: Float
-}
-
-type PopulationsStandardSeedCornInspectionFormDataObject {
-  comments: String
-  femaleCountOne: Int
-  femaleCountTwo: Int
-  maleCount: Int
-}
-
-type ScoutingStandardSeedCornInspectionFormDataObject {
-  femaleGrowthStage: CornGrowthStageKey
-  maleGrowthStageOne: CornGrowthStageKey
-  maleGrowthStageTwo: CornGrowthStageKey
-  hasRogues: Boolean
-  isWatering: Boolean
-  weeds: [CropDamageObject]
-  insects: [CropDamageObject]
-  pests: [CropDamageObject]
-  diseases: [CropDamageObject]
 }
 
 enum CornGrowthStageKey {
@@ -375,3 +320,124 @@ enum CornGrowthStageKey {
   V10_V11
   V11
 }
+
+type CropDamageObject {
+  cropType: CropTypeKey
+  damageType: CropDamageCategoryKey
+  cropDamageOptionID: ID!
+  severity: CropDamageSeverityKey
+  location: GeoPointObject
+}
+
+enum CropDamageCategoryKey {
+  WEED
+  INSECT
+  PEST
+  DISEASE
+}
+
+enum CropDamageSeverityKey {
+  LOW
+  MODERATE
+  HIGH
+}
+
+type FieldMarkerObject {
+  title: String!
+  subtitle: String
+  geoPoint: GeoPointObject
+  isNavigatable: Boolean
+}
+
+type PlantingDateObject {
+  plantingNumber: Int!
+  date: AWSDate
+}
+
+type GrowerShareObject {
+  growerID: ID!
+  sharePercentage: Float!
+}
+
+type ContactObject {
+  firstName: String!
+  lastName: String!
+  officePhone: AWSPhone
+  mobilePhone: AWSPhone
+  jobTitle: String!
+  mailingAddress: AddressObject
+}
+
+type AddressObject {
+  streetLineOne: String!
+  streetLineTwo: String
+  streetLineThree: String
+  city: String!
+  state: StateOrProvinceKey!
+  country: CountryKey!
+  zipCode: String!
+  label: String
+}
+
+type FieldAcresObject {
+  male: Float
+  female: Float
+  total: Float!
+  isolation: Float
+  headland: Float
+}
+
+type PlssLocationObject {
+  township: String!
+  section: String!
+  range: String!
+  townshipName: String!
+  description: String
+}
+
+type GeoPointObject {
+  latitude: Float!
+  longitude: Float!
+}
+
+type DetasselingSeedCornStandardInspectionFormDataObject {
+  comments: String
+  areRoguesPresent: Boolean!
+  femaleReceptiveSilk: Int!
+  femaleTasselsExposed: Int!
+  femaleTasselsRemaining: Int!
+  femaleTasselsShedding: Int!
+  maleTasselsShedding: Int!
+}
+
+type LeafToTasselSeedCornStandardInspectionFormDataObject {
+  comments: String
+  areRoguesPresent: Boolean!
+  earShootLengthInches: Float!
+  inchesToSilkEmergence: Float!
+  numberOfLeaves: Float!
+  silkStage: Int!
+  tasselLengthInches: Float!
+  earLengthInches: Float!
+}
+
+type PopulationsStandardSeedCornInspectionFormDataObject {
+  comments: String
+  femaleCountOne: Int!
+  femaleCountTwo: Int!
+  maleCount: Int!
+}
+
+type ScoutingStandardSeedCornInspectionFormDataObject {
+  femaleGrowthStage: CornGrowthStageKey!
+  maleGrowthStageOne: CornGrowthStageKey!
+  maleGrowthStageTwo: CornGrowthStageKey!
+  isWatering: Boolean!
+  weeds: [CropDamageObject]
+  insects: [CropDamageObject]
+  pests: [CropDamageObject]
+  diseases: [CropDamageObject]
+  comments: String
+  areRoguesPresent: Boolean!
+}
+ 
