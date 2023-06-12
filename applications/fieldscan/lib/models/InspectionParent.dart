@@ -32,10 +32,17 @@ class InspectionParent extends Model {
   final String id;
   final TemporalDate? _scheduledDate;
   final int? _requiredInspections;
-  final String? _fieldChildId;
   final InspectionFormTypeKey? _inspectionFormType;
   final CompletionStatusKey? _completionStatus;
-  final List<InspectionChild>? _children;
+  final String? _seasonID;
+  final List<InspectionChild>? _InspectionChildren;
+  final String? _fieldchildID;
+  final String? _inspectionTypeID;
+  final FieldInspectionModuleKey? _fieldInspectionModule;
+  final String? _fieldName;
+  final String? _fieldNumber;
+  final String? _hybridName;
+  final GeoPointObject? _mapCenter;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -60,9 +67,17 @@ class InspectionParent extends Model {
     return _requiredInspections;
   }
   
-  String get fieldChildId {
+  InspectionFormTypeKey? get inspectionFormType {
+    return _inspectionFormType;
+  }
+  
+  CompletionStatusKey? get completionStatus {
+    return _completionStatus;
+  }
+  
+  String get seasonID {
     try {
-      return _fieldChildId!;
+      return _seasonID!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -73,16 +88,99 @@ class InspectionParent extends Model {
     }
   }
   
-  InspectionFormTypeKey? get inspectionFormType {
-    return _inspectionFormType;
+  List<InspectionChild>? get InspectionChildren {
+    return _InspectionChildren;
   }
   
-  CompletionStatusKey? get completionStatus {
-    return _completionStatus;
+  String get fieldchildID {
+    try {
+      return _fieldchildID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  List<InspectionChild>? get children {
-    return _children;
+  String get inspectionTypeID {
+    try {
+      return _inspectionTypeID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  FieldInspectionModuleKey get fieldInspectionModule {
+    try {
+      return _fieldInspectionModule!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get fieldName {
+    try {
+      return _fieldName!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get fieldNumber {
+    try {
+      return _fieldNumber!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get hybridName {
+    try {
+      return _hybridName!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  GeoPointObject get mapCenter {
+    try {
+      return _mapCenter!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   TemporalDateTime? get createdAt {
@@ -93,17 +191,24 @@ class InspectionParent extends Model {
     return _updatedAt;
   }
   
-  const InspectionParent._internal({required this.id, scheduledDate, requiredInspections, required fieldChildId, inspectionFormType, completionStatus, children, createdAt, updatedAt}): _scheduledDate = scheduledDate, _requiredInspections = requiredInspections, _fieldChildId = fieldChildId, _inspectionFormType = inspectionFormType, _completionStatus = completionStatus, _children = children, _createdAt = createdAt, _updatedAt = updatedAt;
+  const InspectionParent._internal({required this.id, scheduledDate, requiredInspections, inspectionFormType, completionStatus, required seasonID, InspectionChildren, required fieldchildID, required inspectionTypeID, required fieldInspectionModule, required fieldName, required fieldNumber, required hybridName, required mapCenter, createdAt, updatedAt}): _scheduledDate = scheduledDate, _requiredInspections = requiredInspections, _inspectionFormType = inspectionFormType, _completionStatus = completionStatus, _seasonID = seasonID, _InspectionChildren = InspectionChildren, _fieldchildID = fieldchildID, _inspectionTypeID = inspectionTypeID, _fieldInspectionModule = fieldInspectionModule, _fieldName = fieldName, _fieldNumber = fieldNumber, _hybridName = hybridName, _mapCenter = mapCenter, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory InspectionParent({String? id, TemporalDate? scheduledDate, int? requiredInspections, required String fieldChildId, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children}) {
+  factory InspectionParent({String? id, TemporalDate? scheduledDate, int? requiredInspections, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, required String seasonID, List<InspectionChild>? InspectionChildren, required String fieldchildID, required String inspectionTypeID, required FieldInspectionModuleKey fieldInspectionModule, required String fieldName, required String fieldNumber, required String hybridName, required GeoPointObject mapCenter}) {
     return InspectionParent._internal(
       id: id == null ? UUID.getUUID() : id,
       scheduledDate: scheduledDate,
       requiredInspections: requiredInspections,
-      fieldChildId: fieldChildId,
       inspectionFormType: inspectionFormType,
       completionStatus: completionStatus,
-      children: children != null ? List<InspectionChild>.unmodifiable(children) : children);
+      seasonID: seasonID,
+      InspectionChildren: InspectionChildren != null ? List<InspectionChild>.unmodifiable(InspectionChildren) : InspectionChildren,
+      fieldchildID: fieldchildID,
+      inspectionTypeID: inspectionTypeID,
+      fieldInspectionModule: fieldInspectionModule,
+      fieldName: fieldName,
+      fieldNumber: fieldNumber,
+      hybridName: hybridName,
+      mapCenter: mapCenter);
   }
   
   bool equals(Object other) {
@@ -117,10 +222,17 @@ class InspectionParent extends Model {
       id == other.id &&
       _scheduledDate == other._scheduledDate &&
       _requiredInspections == other._requiredInspections &&
-      _fieldChildId == other._fieldChildId &&
       _inspectionFormType == other._inspectionFormType &&
       _completionStatus == other._completionStatus &&
-      DeepCollectionEquality().equals(_children, other._children);
+      _seasonID == other._seasonID &&
+      DeepCollectionEquality().equals(_InspectionChildren, other._InspectionChildren) &&
+      _fieldchildID == other._fieldchildID &&
+      _inspectionTypeID == other._inspectionTypeID &&
+      _fieldInspectionModule == other._fieldInspectionModule &&
+      _fieldName == other._fieldName &&
+      _fieldNumber == other._fieldNumber &&
+      _hybridName == other._hybridName &&
+      _mapCenter == other._mapCenter;
   }
   
   @override
@@ -134,9 +246,16 @@ class InspectionParent extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("scheduledDate=" + (_scheduledDate != null ? _scheduledDate!.format() : "null") + ", ");
     buffer.write("requiredInspections=" + (_requiredInspections != null ? _requiredInspections!.toString() : "null") + ", ");
-    buffer.write("fieldChildId=" + "$_fieldChildId" + ", ");
     buffer.write("inspectionFormType=" + (_inspectionFormType != null ? enumToString(_inspectionFormType)! : "null") + ", ");
     buffer.write("completionStatus=" + (_completionStatus != null ? enumToString(_completionStatus)! : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
+    buffer.write("fieldchildID=" + "$_fieldchildID" + ", ");
+    buffer.write("inspectionTypeID=" + "$_inspectionTypeID" + ", ");
+    buffer.write("fieldInspectionModule=" + (_fieldInspectionModule != null ? enumToString(_fieldInspectionModule)! : "null") + ", ");
+    buffer.write("fieldName=" + "$_fieldName" + ", ");
+    buffer.write("fieldNumber=" + "$_fieldNumber" + ", ");
+    buffer.write("hybridName=" + "$_hybridName" + ", ");
+    buffer.write("mapCenter=" + (_mapCenter != null ? _mapCenter!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -144,51 +263,74 @@ class InspectionParent extends Model {
     return buffer.toString();
   }
   
-  InspectionParent copyWith({TemporalDate? scheduledDate, int? requiredInspections, String? fieldChildId, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, List<InspectionChild>? children}) {
+  InspectionParent copyWith({TemporalDate? scheduledDate, int? requiredInspections, InspectionFormTypeKey? inspectionFormType, CompletionStatusKey? completionStatus, String? seasonID, List<InspectionChild>? InspectionChildren, String? fieldchildID, String? inspectionTypeID, FieldInspectionModuleKey? fieldInspectionModule, String? fieldName, String? fieldNumber, String? hybridName, GeoPointObject? mapCenter}) {
     return InspectionParent._internal(
       id: id,
       scheduledDate: scheduledDate ?? this.scheduledDate,
       requiredInspections: requiredInspections ?? this.requiredInspections,
-      fieldChildId: fieldChildId ?? this.fieldChildId,
       inspectionFormType: inspectionFormType ?? this.inspectionFormType,
       completionStatus: completionStatus ?? this.completionStatus,
-      children: children ?? this.children);
+      seasonID: seasonID ?? this.seasonID,
+      InspectionChildren: InspectionChildren ?? this.InspectionChildren,
+      fieldchildID: fieldchildID ?? this.fieldchildID,
+      inspectionTypeID: inspectionTypeID ?? this.inspectionTypeID,
+      fieldInspectionModule: fieldInspectionModule ?? this.fieldInspectionModule,
+      fieldName: fieldName ?? this.fieldName,
+      fieldNumber: fieldNumber ?? this.fieldNumber,
+      hybridName: hybridName ?? this.hybridName,
+      mapCenter: mapCenter ?? this.mapCenter);
   }
   
   InspectionParent.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _scheduledDate = json['scheduledDate'] != null ? TemporalDate.fromString(json['scheduledDate']) : null,
       _requiredInspections = (json['requiredInspections'] as num?)?.toInt(),
-      _fieldChildId = json['fieldChildId'],
       _inspectionFormType = enumFromString<InspectionFormTypeKey>(json['inspectionFormType'], InspectionFormTypeKey.values),
       _completionStatus = enumFromString<CompletionStatusKey>(json['completionStatus'], CompletionStatusKey.values),
-      _children = json['children'] is List
-        ? (json['children'] as List)
+      _seasonID = json['seasonID'],
+      _InspectionChildren = json['InspectionChildren'] is List
+        ? (json['InspectionChildren'] as List)
           .where((e) => e?['serializedData'] != null)
           .map((e) => InspectionChild.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
+        : null,
+      _fieldchildID = json['fieldchildID'],
+      _inspectionTypeID = json['inspectionTypeID'],
+      _fieldInspectionModule = enumFromString<FieldInspectionModuleKey>(json['fieldInspectionModule'], FieldInspectionModuleKey.values),
+      _fieldName = json['fieldName'],
+      _fieldNumber = json['fieldNumber'],
+      _hybridName = json['hybridName'],
+      _mapCenter = json['mapCenter']?['serializedData'] != null
+        ? GeoPointObject.fromJson(new Map<String, dynamic>.from(json['mapCenter']['serializedData']))
         : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'scheduledDate': _scheduledDate?.format(), 'requiredInspections': _requiredInspections, 'fieldChildId': _fieldChildId, 'inspectionFormType': enumToString(_inspectionFormType), 'completionStatus': enumToString(_completionStatus), 'children': _children?.map((InspectionChild? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'scheduledDate': _scheduledDate?.format(), 'requiredInspections': _requiredInspections, 'inspectionFormType': enumToString(_inspectionFormType), 'completionStatus': enumToString(_completionStatus), 'seasonID': _seasonID, 'InspectionChildren': _InspectionChildren?.map((InspectionChild? e) => e?.toJson()).toList(), 'fieldchildID': _fieldchildID, 'inspectionTypeID': _inspectionTypeID, 'fieldInspectionModule': enumToString(_fieldInspectionModule), 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'mapCenter': _mapCenter?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'scheduledDate': _scheduledDate, 'requiredInspections': _requiredInspections, 'fieldChildId': _fieldChildId, 'inspectionFormType': _inspectionFormType, 'completionStatus': _completionStatus, 'children': _children, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'scheduledDate': _scheduledDate, 'requiredInspections': _requiredInspections, 'inspectionFormType': _inspectionFormType, 'completionStatus': _completionStatus, 'seasonID': _seasonID, 'InspectionChildren': _InspectionChildren, 'fieldchildID': _fieldchildID, 'inspectionTypeID': _inspectionTypeID, 'fieldInspectionModule': _fieldInspectionModule, 'fieldName': _fieldName, 'fieldNumber': _fieldNumber, 'hybridName': _hybridName, 'mapCenter': _mapCenter, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<InspectionParentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<InspectionParentModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField SCHEDULEDDATE = QueryField(fieldName: "scheduledDate");
   static final QueryField REQUIREDINSPECTIONS = QueryField(fieldName: "requiredInspections");
-  static final QueryField FIELDCHILDID = QueryField(fieldName: "fieldChildId");
   static final QueryField INSPECTIONFORMTYPE = QueryField(fieldName: "inspectionFormType");
   static final QueryField COMPLETIONSTATUS = QueryField(fieldName: "completionStatus");
-  static final QueryField CHILDREN = QueryField(
-    fieldName: "children",
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
+  static final QueryField INSPECTIONCHILDREN = QueryField(
+    fieldName: "InspectionChildren",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'InspectionChild'));
+  static final QueryField FIELDCHILDID = QueryField(fieldName: "fieldchildID");
+  static final QueryField INSPECTIONTYPEID = QueryField(fieldName: "inspectionTypeID");
+  static final QueryField FIELDINSPECTIONMODULE = QueryField(fieldName: "fieldInspectionModule");
+  static final QueryField FIELDNAME = QueryField(fieldName: "fieldName");
+  static final QueryField FIELDNUMBER = QueryField(fieldName: "fieldNumber");
+  static final QueryField HYBRIDNAME = QueryField(fieldName: "hybridName");
+  static final QueryField MAPCENTER = QueryField(fieldName: "mapCenter");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "InspectionParent";
     modelSchemaDefinition.pluralName = "InspectionParents";
@@ -202,6 +344,10 @@ class InspectionParent extends Model {
           ModelOperation.DELETE,
           ModelOperation.READ
         ])
+    ];
+    
+    modelSchemaDefinition.indexes = [
+      ModelIndex(fields: const ["fieldchildID"], name: "byFieldChild")
     ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -219,12 +365,6 @@ class InspectionParent extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: InspectionParent.FIELDCHILDID,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: InspectionParent.INSPECTIONFORMTYPE,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
@@ -236,11 +376,59 @@ class InspectionParent extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: InspectionParent.CHILDREN,
+      key: InspectionParent.INSPECTIONCHILDREN,
       isRequired: false,
       ofModelName: 'InspectionChild',
-      associatedKey: InspectionChild.PARENT
+      associatedKey: InspectionChild.INSPECTIONPARENTID
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.FIELDCHILDID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.INSPECTIONTYPEID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.FIELDINSPECTIONMODULE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.FIELDNAME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.FIELDNUMBER,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionParent.HYBRIDNAME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'mapCenter',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'GeoPointObject')
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

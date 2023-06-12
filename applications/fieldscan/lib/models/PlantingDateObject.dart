@@ -29,17 +29,26 @@ class PlantingDateObject {
   final int? _plantingNumber;
   final TemporalDate? _date;
 
-  int? get plantingNumber {
-    return _plantingNumber;
+  int get plantingNumber {
+    try {
+      return _plantingNumber!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   TemporalDate? get date {
     return _date;
   }
   
-  const PlantingDateObject._internal({plantingNumber, date}): _plantingNumber = plantingNumber, _date = date;
+  const PlantingDateObject._internal({required plantingNumber, date}): _plantingNumber = plantingNumber, _date = date;
   
-  factory PlantingDateObject({int? plantingNumber, TemporalDate? date}) {
+  factory PlantingDateObject({required int plantingNumber, TemporalDate? date}) {
     return PlantingDateObject._internal(
       plantingNumber: plantingNumber,
       date: date);
@@ -96,7 +105,7 @@ class PlantingDateObject {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'plantingNumber',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     

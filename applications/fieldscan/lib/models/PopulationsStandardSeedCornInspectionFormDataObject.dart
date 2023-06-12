@@ -35,21 +35,48 @@ class PopulationsStandardSeedCornInspectionFormDataObject {
     return _comments;
   }
   
-  int? get femaleCountOne {
-    return _femaleCountOne;
+  int get femaleCountOne {
+    try {
+      return _femaleCountOne!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get femaleCountTwo {
-    return _femaleCountTwo;
+  int get femaleCountTwo {
+    try {
+      return _femaleCountTwo!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get maleCount {
-    return _maleCount;
+  int get maleCount {
+    try {
+      return _maleCount!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  const PopulationsStandardSeedCornInspectionFormDataObject._internal({comments, femaleCountOne, femaleCountTwo, maleCount}): _comments = comments, _femaleCountOne = femaleCountOne, _femaleCountTwo = femaleCountTwo, _maleCount = maleCount;
+  const PopulationsStandardSeedCornInspectionFormDataObject._internal({comments, required femaleCountOne, required femaleCountTwo, required maleCount}): _comments = comments, _femaleCountOne = femaleCountOne, _femaleCountTwo = femaleCountTwo, _maleCount = maleCount;
   
-  factory PopulationsStandardSeedCornInspectionFormDataObject({String? comments, int? femaleCountOne, int? femaleCountTwo, int? maleCount}) {
+  factory PopulationsStandardSeedCornInspectionFormDataObject({String? comments, required int femaleCountOne, required int femaleCountTwo, required int maleCount}) {
     return PopulationsStandardSeedCornInspectionFormDataObject._internal(
       comments: comments,
       femaleCountOne: femaleCountOne,
@@ -122,19 +149,19 @@ class PopulationsStandardSeedCornInspectionFormDataObject {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleCountOne',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleCountTwo',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'maleCount',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
   });

@@ -29,10 +29,18 @@ import 'package:flutter/foundation.dart';
 class InspectionChild extends Model {
   static const classType = const _InspectionChildModelType();
   final String id;
-  final InspectionParent? _parent;
   final GeoPointObject? _location;
-  final TemporalTimestamp? _timestamp;
-  final String? _formData;
+  final String? _seasonID;
+  final DetasselingSeedCornStandardInspectionFormDataObject? _detasselingStandardSeedCornFormObject;
+  final PopulationsStandardSeedCornInspectionFormDataObject? _populationsStandardSeedCornFormObject;
+  final ScoutingStandardSeedCornInspectionFormDataObject? _scoutingStandardSeedCornFormObject;
+  final LeafToTasselSeedCornStandardInspectionFormDataObject? _leafToTasselStandardSeedCornFormObject;
+  final String? _inspectionParentID;
+  final String? _userEmail;
+  final String? _userFirstName;
+  final String? _userLastName;
+  final TemporalDate? _date;
+  final TemporalTime? _time;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -49,20 +57,124 @@ class InspectionChild extends Model {
       );
   }
   
-  InspectionParent? get parent {
-    return _parent;
+  GeoPointObject get location {
+    try {
+      return _location!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  GeoPointObject? get location {
-    return _location;
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  TemporalTimestamp? get timestamp {
-    return _timestamp;
+  DetasselingSeedCornStandardInspectionFormDataObject? get detasselingStandardSeedCornFormObject {
+    return _detasselingStandardSeedCornFormObject;
   }
   
-  String? get formData {
-    return _formData;
+  PopulationsStandardSeedCornInspectionFormDataObject? get populationsStandardSeedCornFormObject {
+    return _populationsStandardSeedCornFormObject;
+  }
+  
+  ScoutingStandardSeedCornInspectionFormDataObject? get scoutingStandardSeedCornFormObject {
+    return _scoutingStandardSeedCornFormObject;
+  }
+  
+  LeafToTasselSeedCornStandardInspectionFormDataObject? get leafToTasselStandardSeedCornFormObject {
+    return _leafToTasselStandardSeedCornFormObject;
+  }
+  
+  String get inspectionParentID {
+    try {
+      return _inspectionParentID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get userEmail {
+    try {
+      return _userEmail!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get userFirstName {
+    try {
+      return _userFirstName!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get userLastName {
+    try {
+      return _userLastName!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  TemporalDate get date {
+    try {
+      return _date!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  TemporalTime get time {
+    try {
+      return _time!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   TemporalDateTime? get createdAt {
@@ -73,15 +185,23 @@ class InspectionChild extends Model {
     return _updatedAt;
   }
   
-  const InspectionChild._internal({required this.id, parent, location, timestamp, formData, createdAt, updatedAt}): _parent = parent, _location = location, _timestamp = timestamp, _formData = formData, _createdAt = createdAt, _updatedAt = updatedAt;
+  const InspectionChild._internal({required this.id, required location, required seasonID, detasselingStandardSeedCornFormObject, populationsStandardSeedCornFormObject, scoutingStandardSeedCornFormObject, leafToTasselStandardSeedCornFormObject, required inspectionParentID, required userEmail, required userFirstName, required userLastName, required date, required time, createdAt, updatedAt}): _location = location, _seasonID = seasonID, _detasselingStandardSeedCornFormObject = detasselingStandardSeedCornFormObject, _populationsStandardSeedCornFormObject = populationsStandardSeedCornFormObject, _scoutingStandardSeedCornFormObject = scoutingStandardSeedCornFormObject, _leafToTasselStandardSeedCornFormObject = leafToTasselStandardSeedCornFormObject, _inspectionParentID = inspectionParentID, _userEmail = userEmail, _userFirstName = userFirstName, _userLastName = userLastName, _date = date, _time = time, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory InspectionChild({String? id, InspectionParent? parent, GeoPointObject? location, TemporalTimestamp? timestamp, String? formData}) {
+  factory InspectionChild({String? id, required GeoPointObject location, required String seasonID, DetasselingSeedCornStandardInspectionFormDataObject? detasselingStandardSeedCornFormObject, PopulationsStandardSeedCornInspectionFormDataObject? populationsStandardSeedCornFormObject, ScoutingStandardSeedCornInspectionFormDataObject? scoutingStandardSeedCornFormObject, LeafToTasselSeedCornStandardInspectionFormDataObject? leafToTasselStandardSeedCornFormObject, required String inspectionParentID, required String userEmail, required String userFirstName, required String userLastName, required TemporalDate date, required TemporalTime time}) {
     return InspectionChild._internal(
       id: id == null ? UUID.getUUID() : id,
-      parent: parent,
       location: location,
-      timestamp: timestamp,
-      formData: formData);
+      seasonID: seasonID,
+      detasselingStandardSeedCornFormObject: detasselingStandardSeedCornFormObject,
+      populationsStandardSeedCornFormObject: populationsStandardSeedCornFormObject,
+      scoutingStandardSeedCornFormObject: scoutingStandardSeedCornFormObject,
+      leafToTasselStandardSeedCornFormObject: leafToTasselStandardSeedCornFormObject,
+      inspectionParentID: inspectionParentID,
+      userEmail: userEmail,
+      userFirstName: userFirstName,
+      userLastName: userLastName,
+      date: date,
+      time: time);
   }
   
   bool equals(Object other) {
@@ -93,10 +213,18 @@ class InspectionChild extends Model {
     if (identical(other, this)) return true;
     return other is InspectionChild &&
       id == other.id &&
-      _parent == other._parent &&
       _location == other._location &&
-      _timestamp == other._timestamp &&
-      _formData == other._formData;
+      _seasonID == other._seasonID &&
+      _detasselingStandardSeedCornFormObject == other._detasselingStandardSeedCornFormObject &&
+      _populationsStandardSeedCornFormObject == other._populationsStandardSeedCornFormObject &&
+      _scoutingStandardSeedCornFormObject == other._scoutingStandardSeedCornFormObject &&
+      _leafToTasselStandardSeedCornFormObject == other._leafToTasselStandardSeedCornFormObject &&
+      _inspectionParentID == other._inspectionParentID &&
+      _userEmail == other._userEmail &&
+      _userFirstName == other._userFirstName &&
+      _userLastName == other._userLastName &&
+      _date == other._date &&
+      _time == other._time;
   }
   
   @override
@@ -108,10 +236,18 @@ class InspectionChild extends Model {
     
     buffer.write("InspectionChild {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("parent=" + (_parent != null ? _parent!.toString() : "null") + ", ");
     buffer.write("location=" + (_location != null ? _location!.toString() : "null") + ", ");
-    buffer.write("timestamp=" + (_timestamp != null ? _timestamp!.toString() : "null") + ", ");
-    buffer.write("formData=" + "$_formData" + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
+    buffer.write("detasselingStandardSeedCornFormObject=" + (_detasselingStandardSeedCornFormObject != null ? _detasselingStandardSeedCornFormObject!.toString() : "null") + ", ");
+    buffer.write("populationsStandardSeedCornFormObject=" + (_populationsStandardSeedCornFormObject != null ? _populationsStandardSeedCornFormObject!.toString() : "null") + ", ");
+    buffer.write("scoutingStandardSeedCornFormObject=" + (_scoutingStandardSeedCornFormObject != null ? _scoutingStandardSeedCornFormObject!.toString() : "null") + ", ");
+    buffer.write("leafToTasselStandardSeedCornFormObject=" + (_leafToTasselStandardSeedCornFormObject != null ? _leafToTasselStandardSeedCornFormObject!.toString() : "null") + ", ");
+    buffer.write("inspectionParentID=" + "$_inspectionParentID" + ", ");
+    buffer.write("userEmail=" + "$_userEmail" + ", ");
+    buffer.write("userFirstName=" + "$_userFirstName" + ", ");
+    buffer.write("userLastName=" + "$_userLastName" + ", ");
+    buffer.write("date=" + (_date != null ? _date!.format() : "null") + ", ");
+    buffer.write("time=" + (_time != null ? _time!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -119,44 +255,72 @@ class InspectionChild extends Model {
     return buffer.toString();
   }
   
-  InspectionChild copyWith({InspectionParent? parent, GeoPointObject? location, TemporalTimestamp? timestamp, String? formData}) {
+  InspectionChild copyWith({GeoPointObject? location, String? seasonID, DetasselingSeedCornStandardInspectionFormDataObject? detasselingStandardSeedCornFormObject, PopulationsStandardSeedCornInspectionFormDataObject? populationsStandardSeedCornFormObject, ScoutingStandardSeedCornInspectionFormDataObject? scoutingStandardSeedCornFormObject, LeafToTasselSeedCornStandardInspectionFormDataObject? leafToTasselStandardSeedCornFormObject, String? inspectionParentID, String? userEmail, String? userFirstName, String? userLastName, TemporalDate? date, TemporalTime? time}) {
     return InspectionChild._internal(
       id: id,
-      parent: parent ?? this.parent,
       location: location ?? this.location,
-      timestamp: timestamp ?? this.timestamp,
-      formData: formData ?? this.formData);
+      seasonID: seasonID ?? this.seasonID,
+      detasselingStandardSeedCornFormObject: detasselingStandardSeedCornFormObject ?? this.detasselingStandardSeedCornFormObject,
+      populationsStandardSeedCornFormObject: populationsStandardSeedCornFormObject ?? this.populationsStandardSeedCornFormObject,
+      scoutingStandardSeedCornFormObject: scoutingStandardSeedCornFormObject ?? this.scoutingStandardSeedCornFormObject,
+      leafToTasselStandardSeedCornFormObject: leafToTasselStandardSeedCornFormObject ?? this.leafToTasselStandardSeedCornFormObject,
+      inspectionParentID: inspectionParentID ?? this.inspectionParentID,
+      userEmail: userEmail ?? this.userEmail,
+      userFirstName: userFirstName ?? this.userFirstName,
+      userLastName: userLastName ?? this.userLastName,
+      date: date ?? this.date,
+      time: time ?? this.time);
   }
   
   InspectionChild.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _parent = json['parent']?['serializedData'] != null
-        ? InspectionParent.fromJson(new Map<String, dynamic>.from(json['parent']['serializedData']))
-        : null,
       _location = json['location']?['serializedData'] != null
         ? GeoPointObject.fromJson(new Map<String, dynamic>.from(json['location']['serializedData']))
         : null,
-      _timestamp = json['timestamp'] != null ? TemporalTimestamp.fromSeconds(json['timestamp']) : null,
-      _formData = json['formData'],
+      _seasonID = json['seasonID'],
+      _detasselingStandardSeedCornFormObject = json['detasselingStandardSeedCornFormObject']?['serializedData'] != null
+        ? DetasselingSeedCornStandardInspectionFormDataObject.fromJson(new Map<String, dynamic>.from(json['detasselingStandardSeedCornFormObject']['serializedData']))
+        : null,
+      _populationsStandardSeedCornFormObject = json['populationsStandardSeedCornFormObject']?['serializedData'] != null
+        ? PopulationsStandardSeedCornInspectionFormDataObject.fromJson(new Map<String, dynamic>.from(json['populationsStandardSeedCornFormObject']['serializedData']))
+        : null,
+      _scoutingStandardSeedCornFormObject = json['scoutingStandardSeedCornFormObject']?['serializedData'] != null
+        ? ScoutingStandardSeedCornInspectionFormDataObject.fromJson(new Map<String, dynamic>.from(json['scoutingStandardSeedCornFormObject']['serializedData']))
+        : null,
+      _leafToTasselStandardSeedCornFormObject = json['leafToTasselStandardSeedCornFormObject']?['serializedData'] != null
+        ? LeafToTasselSeedCornStandardInspectionFormDataObject.fromJson(new Map<String, dynamic>.from(json['leafToTasselStandardSeedCornFormObject']['serializedData']))
+        : null,
+      _inspectionParentID = json['inspectionParentID'],
+      _userEmail = json['userEmail'],
+      _userFirstName = json['userFirstName'],
+      _userLastName = json['userLastName'],
+      _date = json['date'] != null ? TemporalDate.fromString(json['date']) : null,
+      _time = json['time'] != null ? TemporalTime.fromString(json['time']) : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'parent': _parent?.toJson(), 'location': _location?.toJson(), 'timestamp': _timestamp?.toSeconds(), 'formData': _formData, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'location': _location?.toJson(), 'seasonID': _seasonID, 'detasselingStandardSeedCornFormObject': _detasselingStandardSeedCornFormObject?.toJson(), 'populationsStandardSeedCornFormObject': _populationsStandardSeedCornFormObject?.toJson(), 'scoutingStandardSeedCornFormObject': _scoutingStandardSeedCornFormObject?.toJson(), 'leafToTasselStandardSeedCornFormObject': _leafToTasselStandardSeedCornFormObject?.toJson(), 'inspectionParentID': _inspectionParentID, 'userEmail': _userEmail, 'userFirstName': _userFirstName, 'userLastName': _userLastName, 'date': _date?.format(), 'time': _time?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'parent': _parent, 'location': _location, 'timestamp': _timestamp, 'formData': _formData, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'location': _location, 'seasonID': _seasonID, 'detasselingStandardSeedCornFormObject': _detasselingStandardSeedCornFormObject, 'populationsStandardSeedCornFormObject': _populationsStandardSeedCornFormObject, 'scoutingStandardSeedCornFormObject': _scoutingStandardSeedCornFormObject, 'leafToTasselStandardSeedCornFormObject': _leafToTasselStandardSeedCornFormObject, 'inspectionParentID': _inspectionParentID, 'userEmail': _userEmail, 'userFirstName': _userFirstName, 'userLastName': _userLastName, 'date': _date, 'time': _time, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<InspectionChildModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<InspectionChildModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField PARENT = QueryField(
-    fieldName: "parent",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'InspectionParent'));
   static final QueryField LOCATION = QueryField(fieldName: "location");
-  static final QueryField TIMESTAMP = QueryField(fieldName: "timestamp");
-  static final QueryField FORMDATA = QueryField(fieldName: "formData");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
+  static final QueryField DETASSELINGSTANDARDSEEDCORNFORMOBJECT = QueryField(fieldName: "detasselingStandardSeedCornFormObject");
+  static final QueryField POPULATIONSSTANDARDSEEDCORNFORMOBJECT = QueryField(fieldName: "populationsStandardSeedCornFormObject");
+  static final QueryField SCOUTINGSTANDARDSEEDCORNFORMOBJECT = QueryField(fieldName: "scoutingStandardSeedCornFormObject");
+  static final QueryField LEAFTOTASSELSTANDARDSEEDCORNFORMOBJECT = QueryField(fieldName: "leafToTasselStandardSeedCornFormObject");
+  static final QueryField INSPECTIONPARENTID = QueryField(fieldName: "inspectionParentID");
+  static final QueryField USEREMAIL = QueryField(fieldName: "userEmail");
+  static final QueryField USERFIRSTNAME = QueryField(fieldName: "userFirstName");
+  static final QueryField USERLASTNAME = QueryField(fieldName: "userLastName");
+  static final QueryField DATE = QueryField(fieldName: "date");
+  static final QueryField TIME = QueryField(fieldName: "time");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "InspectionChild";
     modelSchemaDefinition.pluralName = "InspectionChildren";
@@ -173,34 +337,81 @@ class InspectionChild extends Model {
     ];
     
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["parentID"], name: "byParent")
+      ModelIndex(fields: const ["inspectionParentID"], name: "byInspectionParent")
     ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: InspectionChild.PARENT,
-      isRequired: false,
-      targetNames: ['parentID'],
-      ofModelName: 'InspectionParent'
-    ));
-    
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
       fieldName: 'location',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'GeoPointObject')
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: InspectionChild.TIMESTAMP,
+      key: InspectionChild.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'detasselingStandardSeedCornFormObject',
       isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.timestamp)
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'DetasselingSeedCornStandardInspectionFormDataObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'populationsStandardSeedCornFormObject',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'PopulationsStandardSeedCornInspectionFormDataObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'scoutingStandardSeedCornFormObject',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'ScoutingStandardSeedCornInspectionFormDataObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'leafToTasselStandardSeedCornFormObject',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'LeafToTasselSeedCornStandardInspectionFormDataObject')
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: InspectionChild.FORMDATA,
-      isRequired: false,
+      key: InspectionChild.INSPECTIONPARENTID,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionChild.USEREMAIL,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionChild.USERFIRSTNAME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionChild.USERLASTNAME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionChild.DATE,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionChild.TIME,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.time)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

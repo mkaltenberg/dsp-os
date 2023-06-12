@@ -38,33 +38,87 @@ class DetasselingSeedCornStandardInspectionFormDataObject {
     return _comments;
   }
   
-  bool? get areRoguesPresent {
-    return _areRoguesPresent;
+  bool get areRoguesPresent {
+    try {
+      return _areRoguesPresent!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get femaleReceptiveSilk {
-    return _femaleReceptiveSilk;
+  int get femaleReceptiveSilk {
+    try {
+      return _femaleReceptiveSilk!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get femaleTasselsExposed {
-    return _femaleTasselsExposed;
+  int get femaleTasselsExposed {
+    try {
+      return _femaleTasselsExposed!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get femaleTasselsRemaining {
-    return _femaleTasselsRemaining;
+  int get femaleTasselsRemaining {
+    try {
+      return _femaleTasselsRemaining!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get femaleTasselsShedding {
-    return _femaleTasselsShedding;
+  int get femaleTasselsShedding {
+    try {
+      return _femaleTasselsShedding!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  int? get maleTasselsShedding {
-    return _maleTasselsShedding;
+  int get maleTasselsShedding {
+    try {
+      return _maleTasselsShedding!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  const DetasselingSeedCornStandardInspectionFormDataObject._internal({comments, areRoguesPresent, femaleReceptiveSilk, femaleTasselsExposed, femaleTasselsRemaining, femaleTasselsShedding, maleTasselsShedding}): _comments = comments, _areRoguesPresent = areRoguesPresent, _femaleReceptiveSilk = femaleReceptiveSilk, _femaleTasselsExposed = femaleTasselsExposed, _femaleTasselsRemaining = femaleTasselsRemaining, _femaleTasselsShedding = femaleTasselsShedding, _maleTasselsShedding = maleTasselsShedding;
+  const DetasselingSeedCornStandardInspectionFormDataObject._internal({comments, required areRoguesPresent, required femaleReceptiveSilk, required femaleTasselsExposed, required femaleTasselsRemaining, required femaleTasselsShedding, required maleTasselsShedding}): _comments = comments, _areRoguesPresent = areRoguesPresent, _femaleReceptiveSilk = femaleReceptiveSilk, _femaleTasselsExposed = femaleTasselsExposed, _femaleTasselsRemaining = femaleTasselsRemaining, _femaleTasselsShedding = femaleTasselsShedding, _maleTasselsShedding = maleTasselsShedding;
   
-  factory DetasselingSeedCornStandardInspectionFormDataObject({String? comments, bool? areRoguesPresent, int? femaleReceptiveSilk, int? femaleTasselsExposed, int? femaleTasselsRemaining, int? femaleTasselsShedding, int? maleTasselsShedding}) {
+  factory DetasselingSeedCornStandardInspectionFormDataObject({String? comments, required bool areRoguesPresent, required int femaleReceptiveSilk, required int femaleTasselsExposed, required int femaleTasselsRemaining, required int femaleTasselsShedding, required int maleTasselsShedding}) {
     return DetasselingSeedCornStandardInspectionFormDataObject._internal(
       comments: comments,
       areRoguesPresent: areRoguesPresent,
@@ -152,37 +206,37 @@ class DetasselingSeedCornStandardInspectionFormDataObject {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'areRoguesPresent',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.bool)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleReceptiveSilk',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleTasselsExposed',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleTasselsRemaining',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleTasselsShedding',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'maleTasselsShedding',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
   });

@@ -88,11 +88,11 @@ export 'ScoutingStandardSeedCornInspectionFormDataObject.dart';
 export 'Season.dart';
 export 'SplitPlantingObject.dart';
 export 'SplitPlantingType.dart';
-export 'UsStateKey.dart';
+export 'StateOrProvinceKey.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "625f21eca08910eabe19b4d164c750e1";
+  String version = "6cdd8bac393b1e1385267a069390457b";
   @override
   List<ModelSchema> modelSchemas = [AppUserProfile.schema, CropDamageOption.schema, FemaleInbred.schema, FieldChild.schema, FieldParent.schema, Grower.schema, Hybrid.schema, InspectionChild.schema, InspectionParent.schema, InspectionType.schema, MaleInbred.schema, Season.schema, SplitPlantingType.schema];
   static final ModelProvider _instance = ModelProvider();

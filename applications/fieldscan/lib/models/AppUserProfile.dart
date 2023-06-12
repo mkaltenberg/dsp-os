@@ -28,10 +28,9 @@ import 'package:flutter/foundation.dart';
 class AppUserProfile extends Model {
   static const classType = const _AppUserProfileModelType();
   final String id;
-  final String? _email;
   final String? _firstName;
   final String? _lastName;
-  final String? _mobileNumber;
+  final String? _email;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -48,10 +47,6 @@ class AppUserProfile extends Model {
       );
   }
   
-  String? get email {
-    return _email;
-  }
-  
   String? get firstName {
     return _firstName;
   }
@@ -60,8 +55,8 @@ class AppUserProfile extends Model {
     return _lastName;
   }
   
-  String? get mobileNumber {
-    return _mobileNumber;
+  String? get email {
+    return _email;
   }
   
   TemporalDateTime? get createdAt {
@@ -72,15 +67,14 @@ class AppUserProfile extends Model {
     return _updatedAt;
   }
   
-  const AppUserProfile._internal({required this.id, email, firstName, lastName, mobileNumber, createdAt, updatedAt}): _email = email, _firstName = firstName, _lastName = lastName, _mobileNumber = mobileNumber, _createdAt = createdAt, _updatedAt = updatedAt;
+  const AppUserProfile._internal({required this.id, firstName, lastName, email, createdAt, updatedAt}): _firstName = firstName, _lastName = lastName, _email = email, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory AppUserProfile({String? id, String? email, String? firstName, String? lastName, String? mobileNumber}) {
+  factory AppUserProfile({String? id, String? firstName, String? lastName, String? email}) {
     return AppUserProfile._internal(
       id: id == null ? UUID.getUUID() : id,
-      email: email,
       firstName: firstName,
       lastName: lastName,
-      mobileNumber: mobileNumber);
+      email: email);
   }
   
   bool equals(Object other) {
@@ -92,10 +86,9 @@ class AppUserProfile extends Model {
     if (identical(other, this)) return true;
     return other is AppUserProfile &&
       id == other.id &&
-      _email == other._email &&
       _firstName == other._firstName &&
       _lastName == other._lastName &&
-      _mobileNumber == other._mobileNumber;
+      _email == other._email;
   }
   
   @override
@@ -107,10 +100,9 @@ class AppUserProfile extends Model {
     
     buffer.write("AppUserProfile {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("email=" + "$_email" + ", ");
     buffer.write("firstName=" + "$_firstName" + ", ");
     buffer.write("lastName=" + "$_lastName" + ", ");
-    buffer.write("mobileNumber=" + "$_mobileNumber" + ", ");
+    buffer.write("email=" + "$_email" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -118,38 +110,35 @@ class AppUserProfile extends Model {
     return buffer.toString();
   }
   
-  AppUserProfile copyWith({String? email, String? firstName, String? lastName, String? mobileNumber}) {
+  AppUserProfile copyWith({String? firstName, String? lastName, String? email}) {
     return AppUserProfile._internal(
       id: id,
-      email: email ?? this.email,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      mobileNumber: mobileNumber ?? this.mobileNumber);
+      email: email ?? this.email);
   }
   
   AppUserProfile.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _email = json['email'],
       _firstName = json['firstName'],
       _lastName = json['lastName'],
-      _mobileNumber = json['mobileNumber'],
+      _email = json['email'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'email': _email, 'firstName': _firstName, 'lastName': _lastName, 'mobileNumber': _mobileNumber, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'firstName': _firstName, 'lastName': _lastName, 'email': _email, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'email': _email, 'firstName': _firstName, 'lastName': _lastName, 'mobileNumber': _mobileNumber, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'firstName': _firstName, 'lastName': _lastName, 'email': _email, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<AppUserProfileModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<AppUserProfileModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField EMAIL = QueryField(fieldName: "email");
   static final QueryField FIRSTNAME = QueryField(fieldName: "firstName");
   static final QueryField LASTNAME = QueryField(fieldName: "lastName");
-  static final QueryField MOBILENUMBER = QueryField(fieldName: "mobileNumber");
+  static final QueryField EMAIL = QueryField(fieldName: "email");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "AppUserProfile";
     modelSchemaDefinition.pluralName = "AppUserProfiles";
@@ -168,12 +157,6 @@ class AppUserProfile extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: AppUserProfile.EMAIL,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: AppUserProfile.FIRSTNAME,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
@@ -186,7 +169,7 @@ class AppUserProfile extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: AppUserProfile.MOBILENUMBER,
+      key: AppUserProfile.EMAIL,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));

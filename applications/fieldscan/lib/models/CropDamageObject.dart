@@ -21,7 +21,6 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -30,10 +29,9 @@ import 'package:flutter/foundation.dart';
 class CropDamageObject {
   final CropTypeKey? _cropType;
   final CropDamageCategoryKey? _damageType;
-  final CropDamageOption? _cropDamageOption;
+  final String? _cropDamageOptionID;
   final CropDamageSeverityKey? _severity;
   final GeoPointObject? _location;
-  final List<String>? _imagePaths;
 
   CropTypeKey? get cropType {
     return _cropType;
@@ -43,8 +41,17 @@ class CropDamageObject {
     return _damageType;
   }
   
-  CropDamageOption? get cropDamageOption {
-    return _cropDamageOption;
+  String get cropDamageOptionID {
+    try {
+      return _cropDamageOptionID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   CropDamageSeverityKey? get severity {
@@ -55,20 +62,15 @@ class CropDamageObject {
     return _location;
   }
   
-  List<String>? get imagePaths {
-    return _imagePaths;
-  }
+  const CropDamageObject._internal({cropType, damageType, required cropDamageOptionID, severity, location}): _cropType = cropType, _damageType = damageType, _cropDamageOptionID = cropDamageOptionID, _severity = severity, _location = location;
   
-  const CropDamageObject._internal({cropType, damageType, cropDamageOption, severity, location, imagePaths}): _cropType = cropType, _damageType = damageType, _cropDamageOption = cropDamageOption, _severity = severity, _location = location, _imagePaths = imagePaths;
-  
-  factory CropDamageObject({CropTypeKey? cropType, CropDamageCategoryKey? damageType, CropDamageOption? cropDamageOption, CropDamageSeverityKey? severity, GeoPointObject? location, List<String>? imagePaths}) {
+  factory CropDamageObject({CropTypeKey? cropType, CropDamageCategoryKey? damageType, required String cropDamageOptionID, CropDamageSeverityKey? severity, GeoPointObject? location}) {
     return CropDamageObject._internal(
       cropType: cropType,
       damageType: damageType,
-      cropDamageOption: cropDamageOption,
+      cropDamageOptionID: cropDamageOptionID,
       severity: severity,
-      location: location,
-      imagePaths: imagePaths != null ? List<String>.unmodifiable(imagePaths) : imagePaths);
+      location: location);
   }
   
   bool equals(Object other) {
@@ -81,10 +83,9 @@ class CropDamageObject {
     return other is CropDamageObject &&
       _cropType == other._cropType &&
       _damageType == other._damageType &&
-      _cropDamageOption == other._cropDamageOption &&
+      _cropDamageOptionID == other._cropDamageOptionID &&
       _severity == other._severity &&
-      _location == other._location &&
-      DeepCollectionEquality().equals(_imagePaths, other._imagePaths);
+      _location == other._location;
   }
   
   @override
@@ -97,43 +98,38 @@ class CropDamageObject {
     buffer.write("CropDamageObject {");
     buffer.write("cropType=" + (_cropType != null ? enumToString(_cropType)! : "null") + ", ");
     buffer.write("damageType=" + (_damageType != null ? enumToString(_damageType)! : "null") + ", ");
-    buffer.write("cropDamageOption=" + (_cropDamageOption != null ? _cropDamageOption!.toString() : "null") + ", ");
+    buffer.write("cropDamageOptionID=" + "$_cropDamageOptionID" + ", ");
     buffer.write("severity=" + (_severity != null ? enumToString(_severity)! : "null") + ", ");
-    buffer.write("location=" + (_location != null ? _location!.toString() : "null") + ", ");
-    buffer.write("imagePaths=" + (_imagePaths != null ? _imagePaths!.toString() : "null"));
+    buffer.write("location=" + (_location != null ? _location!.toString() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  CropDamageObject copyWith({CropTypeKey? cropType, CropDamageCategoryKey? damageType, CropDamageOption? cropDamageOption, CropDamageSeverityKey? severity, GeoPointObject? location, List<String>? imagePaths}) {
+  CropDamageObject copyWith({CropTypeKey? cropType, CropDamageCategoryKey? damageType, String? cropDamageOptionID, CropDamageSeverityKey? severity, GeoPointObject? location}) {
     return CropDamageObject._internal(
       cropType: cropType ?? this.cropType,
       damageType: damageType ?? this.damageType,
-      cropDamageOption: cropDamageOption ?? this.cropDamageOption,
+      cropDamageOptionID: cropDamageOptionID ?? this.cropDamageOptionID,
       severity: severity ?? this.severity,
-      location: location ?? this.location,
-      imagePaths: imagePaths ?? this.imagePaths);
+      location: location ?? this.location);
   }
   
   CropDamageObject.fromJson(Map<String, dynamic> json)  
     : _cropType = enumFromString<CropTypeKey>(json['cropType'], CropTypeKey.values),
       _damageType = enumFromString<CropDamageCategoryKey>(json['damageType'], CropDamageCategoryKey.values),
-      _cropDamageOption = json['cropDamageOption']?['serializedData'] != null
-        ? CropDamageOption.fromJson(new Map<String, dynamic>.from(json['cropDamageOption']['serializedData']))
-        : null,
+      _cropDamageOptionID = json['cropDamageOptionID'],
       _severity = enumFromString<CropDamageSeverityKey>(json['severity'], CropDamageSeverityKey.values),
       _location = json['location']?['serializedData'] != null
         ? GeoPointObject.fromJson(new Map<String, dynamic>.from(json['location']['serializedData']))
-        : null,
-      _imagePaths = json['imagePaths']?.cast<String>();
+        : null;
   
   Map<String, dynamic> toJson() => {
-    'cropType': enumToString(_cropType), 'damageType': enumToString(_damageType), 'cropDamageOption': _cropDamageOption?.toJson(), 'severity': enumToString(_severity), 'location': _location?.toJson(), 'imagePaths': _imagePaths
+    'cropType': enumToString(_cropType), 'damageType': enumToString(_damageType), 'cropDamageOptionID': _cropDamageOptionID, 'severity': enumToString(_severity), 'location': _location?.toJson()
   };
   
   Map<String, Object?> toMap() => {
-    'cropType': _cropType, 'damageType': _damageType, 'cropDamageOption': _cropDamageOption, 'severity': _severity, 'location': _location, 'imagePaths': _imagePaths
+    'cropType': _cropType, 'damageType': _damageType, 'cropDamageOptionID': _cropDamageOptionID, 'severity': _severity, 'location': _location
   };
 
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -153,8 +149,8 @@ class CropDamageObject {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'cropDamageOption',
-      isRequired: false,
+      fieldName: 'cropDamageOptionID',
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
@@ -168,13 +164,6 @@ class CropDamageObject {
       fieldName: 'location',
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'GeoPointObject')
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'imagePaths',
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
     ));
   });
 }

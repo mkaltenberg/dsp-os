@@ -33,13 +33,14 @@ class FieldParent extends Model {
   final String? _fieldName;
   final String? _fieldNumberBase;
   final CountryKey? _country;
-  final UsStateKey? _state;
+  final StateOrProvinceKey? _stateOrProvince;
   final PlssLocationObject? _plssLocation;
   final GeoPointObject? _mapCenterPoint;
   final int? _mapCenterZoom;
-  final List<FieldMarkerObject>? _fieldMarkers;
   final String? _county;
   final bool? _isOrganic;
+  final String? _seasonID;
+  final List<FieldChild>? _FieldChildren;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -95,9 +96,9 @@ class FieldParent extends Model {
     }
   }
   
-  UsStateKey get state {
+  StateOrProvinceKey get stateOrProvince {
     try {
-      return _state!;
+      return _stateOrProvince!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -121,34 +122,12 @@ class FieldParent extends Model {
     }
   }
   
-  GeoPointObject get mapCenterPoint {
-    try {
-      return _mapCenterPoint!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  GeoPointObject? get mapCenterPoint {
+    return _mapCenterPoint;
   }
   
-  int get mapCenterZoom {
-    try {
-      return _mapCenterZoom!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  List<FieldMarkerObject>? get fieldMarkers {
-    return _fieldMarkers;
+  int? get mapCenterZoom {
+    return _mapCenterZoom;
   }
   
   String get county {
@@ -177,6 +156,23 @@ class FieldParent extends Model {
     }
   }
   
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  List<FieldChild>? get FieldChildren {
+    return _FieldChildren;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -185,21 +181,22 @@ class FieldParent extends Model {
     return _updatedAt;
   }
   
-  const FieldParent._internal({required this.id, required fieldName, required fieldNumberBase, required country, required state, required plssLocation, required mapCenterPoint, required mapCenterZoom, fieldMarkers, required county, required isOrganic, createdAt, updatedAt}): _fieldName = fieldName, _fieldNumberBase = fieldNumberBase, _country = country, _state = state, _plssLocation = plssLocation, _mapCenterPoint = mapCenterPoint, _mapCenterZoom = mapCenterZoom, _fieldMarkers = fieldMarkers, _county = county, _isOrganic = isOrganic, _createdAt = createdAt, _updatedAt = updatedAt;
+  const FieldParent._internal({required this.id, required fieldName, required fieldNumberBase, required country, required stateOrProvince, required plssLocation, mapCenterPoint, mapCenterZoom, required county, required isOrganic, required seasonID, FieldChildren, createdAt, updatedAt}): _fieldName = fieldName, _fieldNumberBase = fieldNumberBase, _country = country, _stateOrProvince = stateOrProvince, _plssLocation = plssLocation, _mapCenterPoint = mapCenterPoint, _mapCenterZoom = mapCenterZoom, _county = county, _isOrganic = isOrganic, _seasonID = seasonID, _FieldChildren = FieldChildren, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory FieldParent({String? id, required String fieldName, required String fieldNumberBase, required CountryKey country, required UsStateKey state, required PlssLocationObject plssLocation, required GeoPointObject mapCenterPoint, required int mapCenterZoom, List<FieldMarkerObject>? fieldMarkers, required String county, required bool isOrganic}) {
+  factory FieldParent({String? id, required String fieldName, required String fieldNumberBase, required CountryKey country, required StateOrProvinceKey stateOrProvince, required PlssLocationObject plssLocation, GeoPointObject? mapCenterPoint, int? mapCenterZoom, required String county, required bool isOrganic, required String seasonID, List<FieldChild>? FieldChildren}) {
     return FieldParent._internal(
       id: id == null ? UUID.getUUID() : id,
       fieldName: fieldName,
       fieldNumberBase: fieldNumberBase,
       country: country,
-      state: state,
+      stateOrProvince: stateOrProvince,
       plssLocation: plssLocation,
       mapCenterPoint: mapCenterPoint,
       mapCenterZoom: mapCenterZoom,
-      fieldMarkers: fieldMarkers != null ? List<FieldMarkerObject>.unmodifiable(fieldMarkers) : fieldMarkers,
       county: county,
-      isOrganic: isOrganic);
+      isOrganic: isOrganic,
+      seasonID: seasonID,
+      FieldChildren: FieldChildren != null ? List<FieldChild>.unmodifiable(FieldChildren) : FieldChildren);
   }
   
   bool equals(Object other) {
@@ -214,13 +211,14 @@ class FieldParent extends Model {
       _fieldName == other._fieldName &&
       _fieldNumberBase == other._fieldNumberBase &&
       _country == other._country &&
-      _state == other._state &&
+      _stateOrProvince == other._stateOrProvince &&
       _plssLocation == other._plssLocation &&
       _mapCenterPoint == other._mapCenterPoint &&
       _mapCenterZoom == other._mapCenterZoom &&
-      DeepCollectionEquality().equals(_fieldMarkers, other._fieldMarkers) &&
       _county == other._county &&
-      _isOrganic == other._isOrganic;
+      _isOrganic == other._isOrganic &&
+      _seasonID == other._seasonID &&
+      DeepCollectionEquality().equals(_FieldChildren, other._FieldChildren);
   }
   
   @override
@@ -235,13 +233,13 @@ class FieldParent extends Model {
     buffer.write("fieldName=" + "$_fieldName" + ", ");
     buffer.write("fieldNumberBase=" + "$_fieldNumberBase" + ", ");
     buffer.write("country=" + (_country != null ? enumToString(_country)! : "null") + ", ");
-    buffer.write("state=" + (_state != null ? enumToString(_state)! : "null") + ", ");
+    buffer.write("stateOrProvince=" + (_stateOrProvince != null ? enumToString(_stateOrProvince)! : "null") + ", ");
     buffer.write("plssLocation=" + (_plssLocation != null ? _plssLocation!.toString() : "null") + ", ");
     buffer.write("mapCenterPoint=" + (_mapCenterPoint != null ? _mapCenterPoint!.toString() : "null") + ", ");
     buffer.write("mapCenterZoom=" + (_mapCenterZoom != null ? _mapCenterZoom!.toString() : "null") + ", ");
-    buffer.write("fieldMarkers=" + (_fieldMarkers != null ? _fieldMarkers!.toString() : "null") + ", ");
     buffer.write("county=" + "$_county" + ", ");
     buffer.write("isOrganic=" + (_isOrganic != null ? _isOrganic!.toString() : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -249,19 +247,20 @@ class FieldParent extends Model {
     return buffer.toString();
   }
   
-  FieldParent copyWith({String? fieldName, String? fieldNumberBase, CountryKey? country, UsStateKey? state, PlssLocationObject? plssLocation, GeoPointObject? mapCenterPoint, int? mapCenterZoom, List<FieldMarkerObject>? fieldMarkers, String? county, bool? isOrganic}) {
+  FieldParent copyWith({String? fieldName, String? fieldNumberBase, CountryKey? country, StateOrProvinceKey? stateOrProvince, PlssLocationObject? plssLocation, GeoPointObject? mapCenterPoint, int? mapCenterZoom, String? county, bool? isOrganic, String? seasonID, List<FieldChild>? FieldChildren}) {
     return FieldParent._internal(
       id: id,
       fieldName: fieldName ?? this.fieldName,
       fieldNumberBase: fieldNumberBase ?? this.fieldNumberBase,
       country: country ?? this.country,
-      state: state ?? this.state,
+      stateOrProvince: stateOrProvince ?? this.stateOrProvince,
       plssLocation: plssLocation ?? this.plssLocation,
       mapCenterPoint: mapCenterPoint ?? this.mapCenterPoint,
       mapCenterZoom: mapCenterZoom ?? this.mapCenterZoom,
-      fieldMarkers: fieldMarkers ?? this.fieldMarkers,
       county: county ?? this.county,
-      isOrganic: isOrganic ?? this.isOrganic);
+      isOrganic: isOrganic ?? this.isOrganic,
+      seasonID: seasonID ?? this.seasonID,
+      FieldChildren: FieldChildren ?? this.FieldChildren);
   }
   
   FieldParent.fromJson(Map<String, dynamic> json)  
@@ -269,7 +268,7 @@ class FieldParent extends Model {
       _fieldName = json['fieldName'],
       _fieldNumberBase = json['fieldNumberBase'],
       _country = enumFromString<CountryKey>(json['country'], CountryKey.values),
-      _state = enumFromString<UsStateKey>(json['state'], UsStateKey.values),
+      _stateOrProvince = enumFromString<StateOrProvinceKey>(json['stateOrProvince'], StateOrProvinceKey.values),
       _plssLocation = json['plssLocation']?['serializedData'] != null
         ? PlssLocationObject.fromJson(new Map<String, dynamic>.from(json['plssLocation']['serializedData']))
         : null,
@@ -277,23 +276,24 @@ class FieldParent extends Model {
         ? GeoPointObject.fromJson(new Map<String, dynamic>.from(json['mapCenterPoint']['serializedData']))
         : null,
       _mapCenterZoom = (json['mapCenterZoom'] as num?)?.toInt(),
-      _fieldMarkers = json['fieldMarkers'] is List
-        ? (json['fieldMarkers'] as List)
-          .where((e) => e != null)
-          .map((e) => FieldMarkerObject.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
       _county = json['county'],
       _isOrganic = json['isOrganic'],
+      _seasonID = json['seasonID'],
+      _FieldChildren = json['FieldChildren'] is List
+        ? (json['FieldChildren'] as List)
+          .where((e) => e?['serializedData'] != null)
+          .map((e) => FieldChild.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .toList()
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'fieldName': _fieldName, 'fieldNumberBase': _fieldNumberBase, 'country': enumToString(_country), 'state': enumToString(_state), 'plssLocation': _plssLocation?.toJson(), 'mapCenterPoint': _mapCenterPoint?.toJson(), 'mapCenterZoom': _mapCenterZoom, 'fieldMarkers': _fieldMarkers?.map((FieldMarkerObject? e) => e?.toJson()).toList(), 'county': _county, 'isOrganic': _isOrganic, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'fieldName': _fieldName, 'fieldNumberBase': _fieldNumberBase, 'country': enumToString(_country), 'stateOrProvince': enumToString(_stateOrProvince), 'plssLocation': _plssLocation?.toJson(), 'mapCenterPoint': _mapCenterPoint?.toJson(), 'mapCenterZoom': _mapCenterZoom, 'county': _county, 'isOrganic': _isOrganic, 'seasonID': _seasonID, 'FieldChildren': _FieldChildren?.map((FieldChild? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'fieldName': _fieldName, 'fieldNumberBase': _fieldNumberBase, 'country': _country, 'state': _state, 'plssLocation': _plssLocation, 'mapCenterPoint': _mapCenterPoint, 'mapCenterZoom': _mapCenterZoom, 'fieldMarkers': _fieldMarkers, 'county': _county, 'isOrganic': _isOrganic, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'fieldName': _fieldName, 'fieldNumberBase': _fieldNumberBase, 'country': _country, 'stateOrProvince': _stateOrProvince, 'plssLocation': _plssLocation, 'mapCenterPoint': _mapCenterPoint, 'mapCenterZoom': _mapCenterZoom, 'county': _county, 'isOrganic': _isOrganic, 'seasonID': _seasonID, 'FieldChildren': _FieldChildren, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<FieldParentModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<FieldParentModelIdentifier>();
@@ -301,13 +301,16 @@ class FieldParent extends Model {
   static final QueryField FIELDNAME = QueryField(fieldName: "fieldName");
   static final QueryField FIELDNUMBERBASE = QueryField(fieldName: "fieldNumberBase");
   static final QueryField COUNTRY = QueryField(fieldName: "country");
-  static final QueryField STATE = QueryField(fieldName: "state");
+  static final QueryField STATEORPROVINCE = QueryField(fieldName: "stateOrProvince");
   static final QueryField PLSSLOCATION = QueryField(fieldName: "plssLocation");
   static final QueryField MAPCENTERPOINT = QueryField(fieldName: "mapCenterPoint");
   static final QueryField MAPCENTERZOOM = QueryField(fieldName: "mapCenterZoom");
-  static final QueryField FIELDMARKERS = QueryField(fieldName: "fieldMarkers");
   static final QueryField COUNTY = QueryField(fieldName: "county");
   static final QueryField ISORGANIC = QueryField(fieldName: "isOrganic");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
+  static final QueryField FIELDCHILDREN = QueryField(
+    fieldName: "FieldChildren",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'FieldChild'));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FieldParent";
     modelSchemaDefinition.pluralName = "FieldParents";
@@ -344,7 +347,7 @@ class FieldParent extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: FieldParent.STATE,
+      key: FieldParent.STATEORPROVINCE,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
@@ -357,21 +360,14 @@ class FieldParent extends Model {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
       fieldName: 'mapCenterPoint',
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'GeoPointObject')
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: FieldParent.MAPCENTERZOOM,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.int)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
-      fieldName: 'fieldMarkers',
       isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'FieldMarkerObject')
+      ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -384,6 +380,19 @@ class FieldParent extends Model {
       key: FieldParent.ISORGANIC,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.bool)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: FieldParent.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: FieldParent.FIELDCHILDREN,
+      isRequired: false,
+      ofModelName: 'FieldChild',
+      associatedKey: FieldChild.FIELDPARENTID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

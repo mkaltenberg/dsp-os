@@ -31,7 +31,7 @@ class AddressObject {
   final String? _streetLineTwo;
   final String? _streetLineThree;
   final String? _city;
-  final UsStateKey? _state;
+  final StateOrProvinceKey? _state;
   final CountryKey? _country;
   final String? _zipCode;
   final String? _label;
@@ -70,7 +70,7 @@ class AddressObject {
     }
   }
   
-  UsStateKey get state {
+  StateOrProvinceKey get state {
     try {
       return _state!;
     } catch(e) {
@@ -115,7 +115,7 @@ class AddressObject {
   
   const AddressObject._internal({required streetLineOne, streetLineTwo, streetLineThree, required city, required state, required country, required zipCode, label}): _streetLineOne = streetLineOne, _streetLineTwo = streetLineTwo, _streetLineThree = streetLineThree, _city = city, _state = state, _country = country, _zipCode = zipCode, _label = label;
   
-  factory AddressObject({required String streetLineOne, String? streetLineTwo, String? streetLineThree, required String city, required UsStateKey state, required CountryKey country, required String zipCode, String? label}) {
+  factory AddressObject({required String streetLineOne, String? streetLineTwo, String? streetLineThree, required String city, required StateOrProvinceKey state, required CountryKey country, required String zipCode, String? label}) {
     return AddressObject._internal(
       streetLineOne: streetLineOne,
       streetLineTwo: streetLineTwo,
@@ -166,7 +166,7 @@ class AddressObject {
     return buffer.toString();
   }
   
-  AddressObject copyWith({String? streetLineOne, String? streetLineTwo, String? streetLineThree, String? city, UsStateKey? state, CountryKey? country, String? zipCode, String? label}) {
+  AddressObject copyWith({String? streetLineOne, String? streetLineTwo, String? streetLineThree, String? city, StateOrProvinceKey? state, CountryKey? country, String? zipCode, String? label}) {
     return AddressObject._internal(
       streetLineOne: streetLineOne ?? this.streetLineOne,
       streetLineTwo: streetLineTwo ?? this.streetLineTwo,
@@ -183,7 +183,7 @@ class AddressObject {
       _streetLineTwo = json['streetLineTwo'],
       _streetLineThree = json['streetLineThree'],
       _city = json['city'],
-      _state = enumFromString<UsStateKey>(json['state'], UsStateKey.values),
+      _state = enumFromString<StateOrProvinceKey>(json['state'], StateOrProvinceKey.values),
       _country = enumFromString<CountryKey>(json['country'], CountryKey.values),
       _zipCode = json['zipCode'],
       _label = json['label'];

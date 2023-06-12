@@ -31,14 +31,20 @@ class InspectionConfigurationObject {
   final String? _approvalUserProfile;
   final int? _requiredInspections;
   final InspectionStatusKey? _inspectionStatus;
+  final String? _inspectionTypeID;
+  final TemporalDate? _mostRecentInspection;
 
   TemporalDate? get approvalDate {
     return _approvalDate;
   }
   
-  String get approvalUserProfile {
+  String? get approvalUserProfile {
+    return _approvalUserProfile;
+  }
+  
+  int get requiredInspections {
     try {
-      return _approvalUserProfile!;
+      return _requiredInspections!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -49,22 +55,46 @@ class InspectionConfigurationObject {
     }
   }
   
-  int? get requiredInspections {
-    return _requiredInspections;
+  InspectionStatusKey get inspectionStatus {
+    try {
+      return _inspectionStatus!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  InspectionStatusKey? get inspectionStatus {
-    return _inspectionStatus;
+  String get inspectionTypeID {
+    try {
+      return _inspectionTypeID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  const InspectionConfigurationObject._internal({approvalDate, required approvalUserProfile, requiredInspections, inspectionStatus}): _approvalDate = approvalDate, _approvalUserProfile = approvalUserProfile, _requiredInspections = requiredInspections, _inspectionStatus = inspectionStatus;
+  TemporalDate? get mostRecentInspection {
+    return _mostRecentInspection;
+  }
   
-  factory InspectionConfigurationObject({TemporalDate? approvalDate, required String approvalUserProfile, int? requiredInspections, InspectionStatusKey? inspectionStatus}) {
+  const InspectionConfigurationObject._internal({approvalDate, approvalUserProfile, required requiredInspections, required inspectionStatus, required inspectionTypeID, mostRecentInspection}): _approvalDate = approvalDate, _approvalUserProfile = approvalUserProfile, _requiredInspections = requiredInspections, _inspectionStatus = inspectionStatus, _inspectionTypeID = inspectionTypeID, _mostRecentInspection = mostRecentInspection;
+  
+  factory InspectionConfigurationObject({TemporalDate? approvalDate, String? approvalUserProfile, required int requiredInspections, required InspectionStatusKey inspectionStatus, required String inspectionTypeID, TemporalDate? mostRecentInspection}) {
     return InspectionConfigurationObject._internal(
       approvalDate: approvalDate,
       approvalUserProfile: approvalUserProfile,
       requiredInspections: requiredInspections,
-      inspectionStatus: inspectionStatus);
+      inspectionStatus: inspectionStatus,
+      inspectionTypeID: inspectionTypeID,
+      mostRecentInspection: mostRecentInspection);
   }
   
   bool equals(Object other) {
@@ -78,7 +108,9 @@ class InspectionConfigurationObject {
       _approvalDate == other._approvalDate &&
       _approvalUserProfile == other._approvalUserProfile &&
       _requiredInspections == other._requiredInspections &&
-      _inspectionStatus == other._inspectionStatus;
+      _inspectionStatus == other._inspectionStatus &&
+      _inspectionTypeID == other._inspectionTypeID &&
+      _mostRecentInspection == other._mostRecentInspection;
   }
   
   @override
@@ -92,32 +124,38 @@ class InspectionConfigurationObject {
     buffer.write("approvalDate=" + (_approvalDate != null ? _approvalDate!.format() : "null") + ", ");
     buffer.write("approvalUserProfile=" + "$_approvalUserProfile" + ", ");
     buffer.write("requiredInspections=" + (_requiredInspections != null ? _requiredInspections!.toString() : "null") + ", ");
-    buffer.write("inspectionStatus=" + (_inspectionStatus != null ? enumToString(_inspectionStatus)! : "null"));
+    buffer.write("inspectionStatus=" + (_inspectionStatus != null ? enumToString(_inspectionStatus)! : "null") + ", ");
+    buffer.write("inspectionTypeID=" + "$_inspectionTypeID" + ", ");
+    buffer.write("mostRecentInspection=" + (_mostRecentInspection != null ? _mostRecentInspection!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  InspectionConfigurationObject copyWith({TemporalDate? approvalDate, String? approvalUserProfile, int? requiredInspections, InspectionStatusKey? inspectionStatus}) {
+  InspectionConfigurationObject copyWith({TemporalDate? approvalDate, String? approvalUserProfile, int? requiredInspections, InspectionStatusKey? inspectionStatus, String? inspectionTypeID, TemporalDate? mostRecentInspection}) {
     return InspectionConfigurationObject._internal(
       approvalDate: approvalDate ?? this.approvalDate,
       approvalUserProfile: approvalUserProfile ?? this.approvalUserProfile,
       requiredInspections: requiredInspections ?? this.requiredInspections,
-      inspectionStatus: inspectionStatus ?? this.inspectionStatus);
+      inspectionStatus: inspectionStatus ?? this.inspectionStatus,
+      inspectionTypeID: inspectionTypeID ?? this.inspectionTypeID,
+      mostRecentInspection: mostRecentInspection ?? this.mostRecentInspection);
   }
   
   InspectionConfigurationObject.fromJson(Map<String, dynamic> json)  
     : _approvalDate = json['approvalDate'] != null ? TemporalDate.fromString(json['approvalDate']) : null,
       _approvalUserProfile = json['approvalUserProfile'],
       _requiredInspections = (json['requiredInspections'] as num?)?.toInt(),
-      _inspectionStatus = enumFromString<InspectionStatusKey>(json['inspectionStatus'], InspectionStatusKey.values);
+      _inspectionStatus = enumFromString<InspectionStatusKey>(json['inspectionStatus'], InspectionStatusKey.values),
+      _inspectionTypeID = json['inspectionTypeID'],
+      _mostRecentInspection = json['mostRecentInspection'] != null ? TemporalDate.fromString(json['mostRecentInspection']) : null;
   
   Map<String, dynamic> toJson() => {
-    'approvalDate': _approvalDate?.format(), 'approvalUserProfile': _approvalUserProfile, 'requiredInspections': _requiredInspections, 'inspectionStatus': enumToString(_inspectionStatus)
+    'approvalDate': _approvalDate?.format(), 'approvalUserProfile': _approvalUserProfile, 'requiredInspections': _requiredInspections, 'inspectionStatus': enumToString(_inspectionStatus), 'inspectionTypeID': _inspectionTypeID, 'mostRecentInspection': _mostRecentInspection?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'approvalDate': _approvalDate, 'approvalUserProfile': _approvalUserProfile, 'requiredInspections': _requiredInspections, 'inspectionStatus': _inspectionStatus
+    'approvalDate': _approvalDate, 'approvalUserProfile': _approvalUserProfile, 'requiredInspections': _requiredInspections, 'inspectionStatus': _inspectionStatus, 'inspectionTypeID': _inspectionTypeID, 'mostRecentInspection': _mostRecentInspection
   };
 
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -132,20 +170,32 @@ class InspectionConfigurationObject {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'approvalUserProfile',
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'requiredInspections',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'inspectionStatus',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'inspectionTypeID',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'mostRecentInspection',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
   });
 }

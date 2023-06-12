@@ -28,7 +28,7 @@ import 'package:flutter/foundation.dart';
 class FieldAcresObject {
   final double? _male;
   final double? _female;
-  final double? _crop;
+  final double? _total;
   final double? _isolation;
   final double? _headland;
 
@@ -40,8 +40,17 @@ class FieldAcresObject {
     return _female;
   }
   
-  double? get crop {
-    return _crop;
+  double get total {
+    try {
+      return _total!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   double? get isolation {
@@ -52,13 +61,13 @@ class FieldAcresObject {
     return _headland;
   }
   
-  const FieldAcresObject._internal({male, female, crop, isolation, headland}): _male = male, _female = female, _crop = crop, _isolation = isolation, _headland = headland;
+  const FieldAcresObject._internal({male, female, required total, isolation, headland}): _male = male, _female = female, _total = total, _isolation = isolation, _headland = headland;
   
-  factory FieldAcresObject({double? male, double? female, double? crop, double? isolation, double? headland}) {
+  factory FieldAcresObject({double? male, double? female, required double total, double? isolation, double? headland}) {
     return FieldAcresObject._internal(
       male: male,
       female: female,
-      crop: crop,
+      total: total,
       isolation: isolation,
       headland: headland);
   }
@@ -73,7 +82,7 @@ class FieldAcresObject {
     return other is FieldAcresObject &&
       _male == other._male &&
       _female == other._female &&
-      _crop == other._crop &&
+      _total == other._total &&
       _isolation == other._isolation &&
       _headland == other._headland;
   }
@@ -88,7 +97,7 @@ class FieldAcresObject {
     buffer.write("FieldAcresObject {");
     buffer.write("male=" + (_male != null ? _male!.toString() : "null") + ", ");
     buffer.write("female=" + (_female != null ? _female!.toString() : "null") + ", ");
-    buffer.write("crop=" + (_crop != null ? _crop!.toString() : "null") + ", ");
+    buffer.write("total=" + (_total != null ? _total!.toString() : "null") + ", ");
     buffer.write("isolation=" + (_isolation != null ? _isolation!.toString() : "null") + ", ");
     buffer.write("headland=" + (_headland != null ? _headland!.toString() : "null"));
     buffer.write("}");
@@ -96,11 +105,11 @@ class FieldAcresObject {
     return buffer.toString();
   }
   
-  FieldAcresObject copyWith({double? male, double? female, double? crop, double? isolation, double? headland}) {
+  FieldAcresObject copyWith({double? male, double? female, double? total, double? isolation, double? headland}) {
     return FieldAcresObject._internal(
       male: male ?? this.male,
       female: female ?? this.female,
-      crop: crop ?? this.crop,
+      total: total ?? this.total,
       isolation: isolation ?? this.isolation,
       headland: headland ?? this.headland);
   }
@@ -108,16 +117,16 @@ class FieldAcresObject {
   FieldAcresObject.fromJson(Map<String, dynamic> json)  
     : _male = (json['male'] as num?)?.toDouble(),
       _female = (json['female'] as num?)?.toDouble(),
-      _crop = (json['crop'] as num?)?.toDouble(),
+      _total = (json['total'] as num?)?.toDouble(),
       _isolation = (json['isolation'] as num?)?.toDouble(),
       _headland = (json['headland'] as num?)?.toDouble();
   
   Map<String, dynamic> toJson() => {
-    'male': _male, 'female': _female, 'crop': _crop, 'isolation': _isolation, 'headland': _headland
+    'male': _male, 'female': _female, 'total': _total, 'isolation': _isolation, 'headland': _headland
   };
   
   Map<String, Object?> toMap() => {
-    'male': _male, 'female': _female, 'crop': _crop, 'isolation': _isolation, 'headland': _headland
+    'male': _male, 'female': _female, 'total': _total, 'isolation': _isolation, 'headland': _headland
   };
 
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -137,8 +146,8 @@ class FieldAcresObject {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'crop',
-      isRequired: false,
+      fieldName: 'total',
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.double)
     ));
     
