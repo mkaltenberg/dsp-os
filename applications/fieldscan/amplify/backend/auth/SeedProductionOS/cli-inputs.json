@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "seedprc9e66646",
+    "resourceNameTruncated": "seedpr9006d23b",
     "userPoolName": "SeedProductionOS",
     "autoVerifiedAttributes": [
       "email"
@@ -23,15 +23,19 @@
       "Requires Numbers",
       "Requires Uppercase"
     ],
-    "requiredAttributes": [],
+    "requiredAttributes": [
+      "given_name",
+      "family_name",
+      "email"
+    ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "SeedPrc9e66646_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "SeedPr9006d23b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c9e66646",
+    "sharedId": "9006d23b",
     "resourceName": "SeedProductionOS",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",

@@ -19,7 +19,9 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
+import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -33,6 +35,8 @@ class MaleInbred extends Model {
   final String? _glumeColor;
   final String? _silkColor;
   final int? _huTo50Pollen;
+  final String? _seasonID;
+  final List<Hybrid>? _Hybrids;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -69,6 +73,23 @@ class MaleInbred extends Model {
     return _huTo50Pollen;
   }
   
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  List<Hybrid>? get Hybrids {
+    return _Hybrids;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -77,16 +98,18 @@ class MaleInbred extends Model {
     return _updatedAt;
   }
   
-  const MaleInbred._internal({required this.id, name, antherColor, glumeColor, silkColor, huTo50Pollen, createdAt, updatedAt}): _name = name, _antherColor = antherColor, _glumeColor = glumeColor, _silkColor = silkColor, _huTo50Pollen = huTo50Pollen, _createdAt = createdAt, _updatedAt = updatedAt;
+  const MaleInbred._internal({required this.id, name, antherColor, glumeColor, silkColor, huTo50Pollen, required seasonID, Hybrids, createdAt, updatedAt}): _name = name, _antherColor = antherColor, _glumeColor = glumeColor, _silkColor = silkColor, _huTo50Pollen = huTo50Pollen, _seasonID = seasonID, _Hybrids = Hybrids, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory MaleInbred({String? id, String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen}) {
+  factory MaleInbred({String? id, String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen, required String seasonID, List<Hybrid>? Hybrids}) {
     return MaleInbred._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       antherColor: antherColor,
       glumeColor: glumeColor,
       silkColor: silkColor,
-      huTo50Pollen: huTo50Pollen);
+      huTo50Pollen: huTo50Pollen,
+      seasonID: seasonID,
+      Hybrids: Hybrids != null ? List<Hybrid>.unmodifiable(Hybrids) : Hybrids);
   }
   
   bool equals(Object other) {
@@ -102,7 +125,9 @@ class MaleInbred extends Model {
       _antherColor == other._antherColor &&
       _glumeColor == other._glumeColor &&
       _silkColor == other._silkColor &&
-      _huTo50Pollen == other._huTo50Pollen;
+      _huTo50Pollen == other._huTo50Pollen &&
+      _seasonID == other._seasonID &&
+      DeepCollectionEquality().equals(_Hybrids, other._Hybrids);
   }
   
   @override
@@ -119,6 +144,7 @@ class MaleInbred extends Model {
     buffer.write("glumeColor=" + "$_glumeColor" + ", ");
     buffer.write("silkColor=" + "$_silkColor" + ", ");
     buffer.write("huTo50Pollen=" + (_huTo50Pollen != null ? _huTo50Pollen!.toString() : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -126,14 +152,16 @@ class MaleInbred extends Model {
     return buffer.toString();
   }
   
-  MaleInbred copyWith({String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen}) {
+  MaleInbred copyWith({String? name, String? antherColor, String? glumeColor, String? silkColor, int? huTo50Pollen, String? seasonID, List<Hybrid>? Hybrids}) {
     return MaleInbred._internal(
       id: id,
       name: name ?? this.name,
       antherColor: antherColor ?? this.antherColor,
       glumeColor: glumeColor ?? this.glumeColor,
       silkColor: silkColor ?? this.silkColor,
-      huTo50Pollen: huTo50Pollen ?? this.huTo50Pollen);
+      huTo50Pollen: huTo50Pollen ?? this.huTo50Pollen,
+      seasonID: seasonID ?? this.seasonID,
+      Hybrids: Hybrids ?? this.Hybrids);
   }
   
   MaleInbred.fromJson(Map<String, dynamic> json)  
@@ -143,15 +171,22 @@ class MaleInbred extends Model {
       _glumeColor = json['glumeColor'],
       _silkColor = json['silkColor'],
       _huTo50Pollen = (json['huTo50Pollen'] as num?)?.toInt(),
+      _seasonID = json['seasonID'],
+      _Hybrids = json['Hybrids'] is List
+        ? (json['Hybrids'] as List)
+          .where((e) => e?['serializedData'] != null)
+          .map((e) => Hybrid.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .toList()
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'seasonID': _seasonID, 'Hybrids': _Hybrids?.map((Hybrid? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'antherColor': _antherColor, 'glumeColor': _glumeColor, 'silkColor': _silkColor, 'huTo50Pollen': _huTo50Pollen, 'seasonID': _seasonID, 'Hybrids': _Hybrids, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<MaleInbredModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<MaleInbredModelIdentifier>();
@@ -161,6 +196,10 @@ class MaleInbred extends Model {
   static final QueryField GLUMECOLOR = QueryField(fieldName: "glumeColor");
   static final QueryField SILKCOLOR = QueryField(fieldName: "silkColor");
   static final QueryField HUTO50POLLEN = QueryField(fieldName: "huTo50Pollen");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
+  static final QueryField HYBRIDS = QueryField(
+    fieldName: "Hybrids",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Hybrid'));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "MaleInbred";
     modelSchemaDefinition.pluralName = "MaleInbreds";
@@ -206,6 +245,19 @@ class MaleInbred extends Model {
       key: MaleInbred.HUTO50POLLEN,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: MaleInbred.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: MaleInbred.HYBRIDS,
+      isRequired: false,
+      ofModelName: 'Hybrid',
+      associatedKey: Hybrid.MALEINBREDID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

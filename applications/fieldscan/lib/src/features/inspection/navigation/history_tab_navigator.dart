@@ -1,4 +1,4 @@
-import 'package:fieldscan/src/features/inspection/pages/history_tab/history_page.dart';
+import 'package:fieldscan/src/features/inspection/pages/history_tab/history_page/history_page.dart';
 import 'package:flutter/material.dart';
 
 class HistoryTabNavigator extends StatefulWidget {

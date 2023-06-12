@@ -3,7 +3,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:fieldscan/amplify/amplifyconfiguration.dart';
+import 'package:fieldscan/amplifyconfiguration.dart';
 import 'package:fieldscan/models/ModelProvider.dart';
 import 'package:fieldscan/src/configuration/theme/light_theme_provider.dart';
 import 'package:fieldscan/src/constants/enums/app_module.dart';

@@ -36,6 +36,7 @@ class InspectionType extends Model {
   final String? _description;
   final int? _defaultRequiredInspections;
   final InspectionFormTypeKey? _inspectionFormType;
+  final String? _seasonID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -80,6 +81,19 @@ class InspectionType extends Model {
     return _inspectionFormType;
   }
   
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -88,9 +102,9 @@ class InspectionType extends Model {
     return _updatedAt;
   }
   
-  const InspectionType._internal({required this.id, inspectionModule, cropType, isOrganic, title, description, defaultRequiredInspections, inspectionFormType, createdAt, updatedAt}): _inspectionModule = inspectionModule, _cropType = cropType, _isOrganic = isOrganic, _title = title, _description = description, _defaultRequiredInspections = defaultRequiredInspections, _inspectionFormType = inspectionFormType, _createdAt = createdAt, _updatedAt = updatedAt;
+  const InspectionType._internal({required this.id, inspectionModule, cropType, isOrganic, title, description, defaultRequiredInspections, inspectionFormType, required seasonID, createdAt, updatedAt}): _inspectionModule = inspectionModule, _cropType = cropType, _isOrganic = isOrganic, _title = title, _description = description, _defaultRequiredInspections = defaultRequiredInspections, _inspectionFormType = inspectionFormType, _seasonID = seasonID, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory InspectionType({String? id, FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType}) {
+  factory InspectionType({String? id, FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType, required String seasonID}) {
     return InspectionType._internal(
       id: id == null ? UUID.getUUID() : id,
       inspectionModule: inspectionModule,
@@ -99,7 +113,8 @@ class InspectionType extends Model {
       title: title,
       description: description,
       defaultRequiredInspections: defaultRequiredInspections,
-      inspectionFormType: inspectionFormType);
+      inspectionFormType: inspectionFormType,
+      seasonID: seasonID);
   }
   
   bool equals(Object other) {
@@ -117,7 +132,8 @@ class InspectionType extends Model {
       _title == other._title &&
       _description == other._description &&
       _defaultRequiredInspections == other._defaultRequiredInspections &&
-      _inspectionFormType == other._inspectionFormType;
+      _inspectionFormType == other._inspectionFormType &&
+      _seasonID == other._seasonID;
   }
   
   @override
@@ -136,6 +152,7 @@ class InspectionType extends Model {
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("defaultRequiredInspections=" + (_defaultRequiredInspections != null ? _defaultRequiredInspections!.toString() : "null") + ", ");
     buffer.write("inspectionFormType=" + (_inspectionFormType != null ? enumToString(_inspectionFormType)! : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -143,7 +160,7 @@ class InspectionType extends Model {
     return buffer.toString();
   }
   
-  InspectionType copyWith({FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType}) {
+  InspectionType copyWith({FieldInspectionModuleKey? inspectionModule, CropTypeKey? cropType, bool? isOrganic, String? title, String? description, int? defaultRequiredInspections, InspectionFormTypeKey? inspectionFormType, String? seasonID}) {
     return InspectionType._internal(
       id: id,
       inspectionModule: inspectionModule ?? this.inspectionModule,
@@ -152,7 +169,8 @@ class InspectionType extends Model {
       title: title ?? this.title,
       description: description ?? this.description,
       defaultRequiredInspections: defaultRequiredInspections ?? this.defaultRequiredInspections,
-      inspectionFormType: inspectionFormType ?? this.inspectionFormType);
+      inspectionFormType: inspectionFormType ?? this.inspectionFormType,
+      seasonID: seasonID ?? this.seasonID);
   }
   
   InspectionType.fromJson(Map<String, dynamic> json)  
@@ -164,15 +182,16 @@ class InspectionType extends Model {
       _description = json['description'],
       _defaultRequiredInspections = (json['defaultRequiredInspections'] as num?)?.toInt(),
       _inspectionFormType = enumFromString<InspectionFormTypeKey>(json['inspectionFormType'], InspectionFormTypeKey.values),
+      _seasonID = json['seasonID'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'inspectionModule': enumToString(_inspectionModule), 'cropType': enumToString(_cropType), 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': enumToString(_inspectionFormType), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'inspectionModule': enumToString(_inspectionModule), 'cropType': enumToString(_cropType), 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': enumToString(_inspectionFormType), 'seasonID': _seasonID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'inspectionModule': _inspectionModule, 'cropType': _cropType, 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': _inspectionFormType, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'inspectionModule': _inspectionModule, 'cropType': _cropType, 'isOrganic': _isOrganic, 'title': _title, 'description': _description, 'defaultRequiredInspections': _defaultRequiredInspections, 'inspectionFormType': _inspectionFormType, 'seasonID': _seasonID, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<InspectionTypeModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<InspectionTypeModelIdentifier>();
@@ -184,6 +203,7 @@ class InspectionType extends Model {
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField DEFAULTREQUIREDINSPECTIONS = QueryField(fieldName: "defaultRequiredInspections");
   static final QueryField INSPECTIONFORMTYPE = QueryField(fieldName: "inspectionFormType");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "InspectionType";
     modelSchemaDefinition.pluralName = "InspectionTypes";
@@ -241,6 +261,12 @@ class InspectionType extends Model {
       key: InspectionType.INSPECTIONFORMTYPE,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: InspectionType.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

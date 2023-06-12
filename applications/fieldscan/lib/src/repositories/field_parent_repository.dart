@@ -8,27 +8,30 @@ final fieldParentRepository = Provider.autoDispose<FieldParentRepository>(
 class FieldParentCreateObject {
   final String fieldName;
   final String fieldNumberBase;
+  final CountryKey country;
+  final StateOrProvinceKey stateOrProvince;
+  final PlssLocationObject plssLocationObject;
+  final GeoPointObject mapCenterPoint;
+  final int mapCenterZoom;
   final String county;
   final bool isOrganic;
-  final GeoPointObject mapCenterPoint;
-  final PlssLocationObject plssLocation;
-  final UsStateKey state;
-  final CountryKey country;
-  final int mapZoom;
+  final String seasonName;
   FieldParentCreateObject(
       this.fieldName,
       this.fieldNumberBase,
+      this.country,
+      this.stateOrProvince,
+      this.plssLocationObject,
+      this.mapCenterPoint,
+      this.mapCenterZoom,
       this.county,
       this.isOrganic,
-      this.mapCenterPoint,
-      this.plssLocation,
-      this.state,
-      this.country,
-      this.mapZoom);
+      this.seasonName);
 }
 
 abstract class FieldParentRepository {
   Future<void> create(FieldParentCreateObject object);
+  Future<FieldParent?> getDocByID(String docID);
 }
 
 class FieldParentRepositoryImpl implements FieldParentRepository {
@@ -36,16 +39,31 @@ class FieldParentRepositoryImpl implements FieldParentRepository {
 
   @override
   Future<void> create(FieldParentCreateObject object) async {
-    var doc = FieldParent(
-        country: object.country,
-        county: object.county,
+    var seasonDoc = await Amplify.DataStore.query(Season.classType,
+        where: Season.NAME.eq(object.seasonName));
+
+    final item = FieldParent(
         fieldName: object.fieldName,
         fieldNumberBase: object.fieldNumberBase,
-        isOrganic: object.isOrganic,
+        country: object.country,
+        stateOrProvince: object.stateOrProvince,
+        plssLocation: object.plssLocationObject,
         mapCenterPoint: object.mapCenterPoint,
-        mapCenterZoom: object.mapZoom,
-        plssLocation: object.plssLocation,
-        state: object.state);
-    await Amplify.DataStore.save(doc);
+        mapCenterZoom: object.mapCenterZoom,
+        county: object.county,
+        isOrganic: object.isOrganic,
+        seasonID: seasonDoc.first.id,
+        FieldChildren: const []);
+    await Amplify.DataStore.save(item);
+  }
+
+  @override
+  Future<FieldParent?> getDocByID(String docID) async {
+    var docs = await Amplify.DataStore.query(FieldParent.classType,
+        where: FieldParent.ID.eq(docID));
+    if (docs.isNotEmpty) {
+      return docs.first;
+    }
+    return null;
   }
 }

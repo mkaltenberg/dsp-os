@@ -33,6 +33,8 @@ class SplitPlantingType extends Model {
   final String? _name;
   final int? _numberOfPlantings;
   final List<PlantingDescriptionObject>? _plantingDescriptions;
+  final String? _seasonID;
+  final List<Hybrid>? _Hybrids;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -79,6 +81,23 @@ class SplitPlantingType extends Model {
     return _plantingDescriptions;
   }
   
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  List<Hybrid>? get Hybrids {
+    return _Hybrids;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -87,14 +106,16 @@ class SplitPlantingType extends Model {
     return _updatedAt;
   }
   
-  const SplitPlantingType._internal({required this.id, required name, required numberOfPlantings, plantingDescriptions, createdAt, updatedAt}): _name = name, _numberOfPlantings = numberOfPlantings, _plantingDescriptions = plantingDescriptions, _createdAt = createdAt, _updatedAt = updatedAt;
+  const SplitPlantingType._internal({required this.id, required name, required numberOfPlantings, plantingDescriptions, required seasonID, Hybrids, createdAt, updatedAt}): _name = name, _numberOfPlantings = numberOfPlantings, _plantingDescriptions = plantingDescriptions, _seasonID = seasonID, _Hybrids = Hybrids, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory SplitPlantingType({String? id, required String name, required int numberOfPlantings, List<PlantingDescriptionObject>? plantingDescriptions}) {
+  factory SplitPlantingType({String? id, required String name, required int numberOfPlantings, List<PlantingDescriptionObject>? plantingDescriptions, required String seasonID, List<Hybrid>? Hybrids}) {
     return SplitPlantingType._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       numberOfPlantings: numberOfPlantings,
-      plantingDescriptions: plantingDescriptions != null ? List<PlantingDescriptionObject>.unmodifiable(plantingDescriptions) : plantingDescriptions);
+      plantingDescriptions: plantingDescriptions != null ? List<PlantingDescriptionObject>.unmodifiable(plantingDescriptions) : plantingDescriptions,
+      seasonID: seasonID,
+      Hybrids: Hybrids != null ? List<Hybrid>.unmodifiable(Hybrids) : Hybrids);
   }
   
   bool equals(Object other) {
@@ -108,7 +129,9 @@ class SplitPlantingType extends Model {
       id == other.id &&
       _name == other._name &&
       _numberOfPlantings == other._numberOfPlantings &&
-      DeepCollectionEquality().equals(_plantingDescriptions, other._plantingDescriptions);
+      DeepCollectionEquality().equals(_plantingDescriptions, other._plantingDescriptions) &&
+      _seasonID == other._seasonID &&
+      DeepCollectionEquality().equals(_Hybrids, other._Hybrids);
   }
   
   @override
@@ -123,6 +146,7 @@ class SplitPlantingType extends Model {
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("numberOfPlantings=" + (_numberOfPlantings != null ? _numberOfPlantings!.toString() : "null") + ", ");
     buffer.write("plantingDescriptions=" + (_plantingDescriptions != null ? _plantingDescriptions!.toString() : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -130,12 +154,14 @@ class SplitPlantingType extends Model {
     return buffer.toString();
   }
   
-  SplitPlantingType copyWith({String? name, int? numberOfPlantings, List<PlantingDescriptionObject>? plantingDescriptions}) {
+  SplitPlantingType copyWith({String? name, int? numberOfPlantings, List<PlantingDescriptionObject>? plantingDescriptions, String? seasonID, List<Hybrid>? Hybrids}) {
     return SplitPlantingType._internal(
       id: id,
       name: name ?? this.name,
       numberOfPlantings: numberOfPlantings ?? this.numberOfPlantings,
-      plantingDescriptions: plantingDescriptions ?? this.plantingDescriptions);
+      plantingDescriptions: plantingDescriptions ?? this.plantingDescriptions,
+      seasonID: seasonID ?? this.seasonID,
+      Hybrids: Hybrids ?? this.Hybrids);
   }
   
   SplitPlantingType.fromJson(Map<String, dynamic> json)  
@@ -148,15 +174,22 @@ class SplitPlantingType extends Model {
           .map((e) => PlantingDescriptionObject.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
+      _seasonID = json['seasonID'],
+      _Hybrids = json['Hybrids'] is List
+        ? (json['Hybrids'] as List)
+          .where((e) => e?['serializedData'] != null)
+          .map((e) => Hybrid.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .toList()
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'numberOfPlantings': _numberOfPlantings, 'plantingDescriptions': _plantingDescriptions?.map((PlantingDescriptionObject? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'numberOfPlantings': _numberOfPlantings, 'plantingDescriptions': _plantingDescriptions?.map((PlantingDescriptionObject? e) => e?.toJson()).toList(), 'seasonID': _seasonID, 'Hybrids': _Hybrids?.map((Hybrid? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'numberOfPlantings': _numberOfPlantings, 'plantingDescriptions': _plantingDescriptions, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'numberOfPlantings': _numberOfPlantings, 'plantingDescriptions': _plantingDescriptions, 'seasonID': _seasonID, 'Hybrids': _Hybrids, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<SplitPlantingTypeModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<SplitPlantingTypeModelIdentifier>();
@@ -164,6 +197,10 @@ class SplitPlantingType extends Model {
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField NUMBEROFPLANTINGS = QueryField(fieldName: "numberOfPlantings");
   static final QueryField PLANTINGDESCRIPTIONS = QueryField(fieldName: "plantingDescriptions");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
+  static final QueryField HYBRIDS = QueryField(
+    fieldName: "Hybrids",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Hybrid'));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "SplitPlantingType";
     modelSchemaDefinition.pluralName = "SplitPlantingTypes";
@@ -198,6 +235,19 @@ class SplitPlantingType extends Model {
       isRequired: false,
       isArray: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'PlantingDescriptionObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: SplitPlantingType.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: SplitPlantingType.HYBRIDS,
+      isRequired: false,
+      ofModelName: 'Hybrid',
+      associatedKey: Hybrid.SPLITPLANTINGTYPEID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

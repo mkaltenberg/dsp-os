@@ -1,4 +1,4 @@
-import 'package:fieldscan/src/features/inspection/pages/schedule_tab/add_to_schedule_page.dart';
+import 'package:fieldscan/src/features/inspection/pages/schedule_tab/add_to_schedule_page/add_to_schedule_page.dart';
 import 'package:fieldscan/src/features/inspection/pages/schedule_tab/schedule_page.dart';
 import 'package:flutter/material.dart';
 

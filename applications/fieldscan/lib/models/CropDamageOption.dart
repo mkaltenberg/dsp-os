@@ -34,7 +34,7 @@ class CropDamageOption extends Model {
   final List<CropTypeKey>? _applicableCropTypes;
   final String? _name;
   final String? _description;
-  final List<String>? _imagePaths;
+  final String? _seasonID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -67,8 +67,17 @@ class CropDamageOption extends Model {
     return _description;
   }
   
-  List<String>? get imagePaths {
-    return _imagePaths;
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   TemporalDateTime? get createdAt {
@@ -79,16 +88,16 @@ class CropDamageOption extends Model {
     return _updatedAt;
   }
   
-  const CropDamageOption._internal({required this.id, category, applicableCropTypes, name, description, imagePaths, createdAt, updatedAt}): _category = category, _applicableCropTypes = applicableCropTypes, _name = name, _description = description, _imagePaths = imagePaths, _createdAt = createdAt, _updatedAt = updatedAt;
+  const CropDamageOption._internal({required this.id, category, applicableCropTypes, name, description, required seasonID, createdAt, updatedAt}): _category = category, _applicableCropTypes = applicableCropTypes, _name = name, _description = description, _seasonID = seasonID, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory CropDamageOption({String? id, CropDamageCategoryKey? category, List<CropTypeKey>? applicableCropTypes, String? name, String? description, List<String>? imagePaths}) {
+  factory CropDamageOption({String? id, CropDamageCategoryKey? category, List<CropTypeKey>? applicableCropTypes, String? name, String? description, required String seasonID}) {
     return CropDamageOption._internal(
       id: id == null ? UUID.getUUID() : id,
       category: category,
       applicableCropTypes: applicableCropTypes != null ? List<CropTypeKey>.unmodifiable(applicableCropTypes) : applicableCropTypes,
       name: name,
       description: description,
-      imagePaths: imagePaths != null ? List<String>.unmodifiable(imagePaths) : imagePaths);
+      seasonID: seasonID);
   }
   
   bool equals(Object other) {
@@ -104,7 +113,7 @@ class CropDamageOption extends Model {
       DeepCollectionEquality().equals(_applicableCropTypes, other._applicableCropTypes) &&
       _name == other._name &&
       _description == other._description &&
-      DeepCollectionEquality().equals(_imagePaths, other._imagePaths);
+      _seasonID == other._seasonID;
   }
   
   @override
@@ -120,7 +129,7 @@ class CropDamageOption extends Model {
     buffer.write("applicableCropTypes=" + (_applicableCropTypes != null ? _applicableCropTypes!.map((e) => enumToString(e)).toString() : "null") + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("description=" + "$_description" + ", ");
-    buffer.write("imagePaths=" + (_imagePaths != null ? _imagePaths!.toString() : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -128,14 +137,14 @@ class CropDamageOption extends Model {
     return buffer.toString();
   }
   
-  CropDamageOption copyWith({CropDamageCategoryKey? category, List<CropTypeKey>? applicableCropTypes, String? name, String? description, List<String>? imagePaths}) {
+  CropDamageOption copyWith({CropDamageCategoryKey? category, List<CropTypeKey>? applicableCropTypes, String? name, String? description, String? seasonID}) {
     return CropDamageOption._internal(
       id: id,
       category: category ?? this.category,
       applicableCropTypes: applicableCropTypes ?? this.applicableCropTypes,
       name: name ?? this.name,
       description: description ?? this.description,
-      imagePaths: imagePaths ?? this.imagePaths);
+      seasonID: seasonID ?? this.seasonID);
   }
   
   CropDamageOption.fromJson(Map<String, dynamic> json)  
@@ -148,16 +157,16 @@ class CropDamageOption extends Model {
         : null,
       _name = json['name'],
       _description = json['description'],
-      _imagePaths = json['imagePaths']?.cast<String>(),
+      _seasonID = json['seasonID'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'category': enumToString(_category), 'applicableCropTypes': _applicableCropTypes?.map((e) => enumToString(e)).toList(), 'name': _name, 'description': _description, 'imagePaths': _imagePaths, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'category': enumToString(_category), 'applicableCropTypes': _applicableCropTypes?.map((e) => enumToString(e)).toList(), 'name': _name, 'description': _description, 'seasonID': _seasonID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'category': _category, 'applicableCropTypes': _applicableCropTypes, 'name': _name, 'description': _description, 'imagePaths': _imagePaths, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'category': _category, 'applicableCropTypes': _applicableCropTypes, 'name': _name, 'description': _description, 'seasonID': _seasonID, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<CropDamageOptionModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<CropDamageOptionModelIdentifier>();
@@ -166,7 +175,7 @@ class CropDamageOption extends Model {
   static final QueryField APPLICABLECROPTYPES = QueryField(fieldName: "applicableCropTypes");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
-  static final QueryField IMAGEPATHS = QueryField(fieldName: "imagePaths");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CropDamageOption";
     modelSchemaDefinition.pluralName = "CropDamageOptions";
@@ -210,10 +219,9 @@ class CropDamageOption extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: CropDamageOption.IMAGEPATHS,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
+      key: CropDamageOption.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

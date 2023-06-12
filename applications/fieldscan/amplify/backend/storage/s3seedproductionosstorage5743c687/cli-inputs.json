@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3seedproductionosstorage5743c687",
+  "bucketName": "seedproductionos-storage-5743c687",
+  "policyUUID": "5219798e",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

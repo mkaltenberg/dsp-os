@@ -1,3 +1,4 @@
+import 'package:fieldscan/models/FieldInspectionModuleKey.dart';
 import 'package:fieldscan/src/configuration/theme/color_schemes/detasseling.dart';
 import 'package:fieldscan/src/configuration/theme/color_schemes/fields.dart';
 import 'package:fieldscan/src/configuration/theme/color_schemes/leaf_to_tassel.dart';
@@ -31,6 +32,23 @@ extension AppModuleExtension on AppModule {
       case AppModule.populations:
       case AppModule.scouting:
         return InspectionModuleRouter(appModule: this);
+    }
+  }
+
+  FieldInspectionModuleKey? get fieldInspectionModuleKey {
+    switch (this) {
+      case AppModule.main:
+        return null;
+      case AppModule.fields:
+        return null;
+      case AppModule.detasseling:
+        return FieldInspectionModuleKey.DETASSELING;
+      case AppModule.leafToTassel:
+        return FieldInspectionModuleKey.LEAF_TO_TASSEL;
+      case AppModule.populations:
+        return FieldInspectionModuleKey.POPULATIONS;
+      case AppModule.scouting:
+        return FieldInspectionModuleKey.SCOUTING;
     }
   }
 

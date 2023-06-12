@@ -31,31 +31,64 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
   final CornGrowthStageKey? _femaleGrowthStage;
   final CornGrowthStageKey? _maleGrowthStageOne;
   final CornGrowthStageKey? _maleGrowthStageTwo;
-  final bool? _hasRogues;
   final bool? _isWatering;
   final List<CropDamageObject>? _weeds;
   final List<CropDamageObject>? _insects;
   final List<CropDamageObject>? _pests;
   final List<CropDamageObject>? _diseases;
+  final String? _comments;
+  final bool? _areRoguesPresent;
 
-  CornGrowthStageKey? get femaleGrowthStage {
-    return _femaleGrowthStage;
+  CornGrowthStageKey get femaleGrowthStage {
+    try {
+      return _femaleGrowthStage!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  CornGrowthStageKey? get maleGrowthStageOne {
-    return _maleGrowthStageOne;
+  CornGrowthStageKey get maleGrowthStageOne {
+    try {
+      return _maleGrowthStageOne!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  CornGrowthStageKey? get maleGrowthStageTwo {
-    return _maleGrowthStageTwo;
+  CornGrowthStageKey get maleGrowthStageTwo {
+    try {
+      return _maleGrowthStageTwo!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  bool? get hasRogues {
-    return _hasRogues;
-  }
-  
-  bool? get isWatering {
-    return _isWatering;
+  bool get isWatering {
+    try {
+      return _isWatering!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<CropDamageObject>? get weeds {
@@ -74,19 +107,37 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
     return _diseases;
   }
   
-  const ScoutingStandardSeedCornInspectionFormDataObject._internal({femaleGrowthStage, maleGrowthStageOne, maleGrowthStageTwo, hasRogues, isWatering, weeds, insects, pests, diseases}): _femaleGrowthStage = femaleGrowthStage, _maleGrowthStageOne = maleGrowthStageOne, _maleGrowthStageTwo = maleGrowthStageTwo, _hasRogues = hasRogues, _isWatering = isWatering, _weeds = weeds, _insects = insects, _pests = pests, _diseases = diseases;
+  String? get comments {
+    return _comments;
+  }
   
-  factory ScoutingStandardSeedCornInspectionFormDataObject({CornGrowthStageKey? femaleGrowthStage, CornGrowthStageKey? maleGrowthStageOne, CornGrowthStageKey? maleGrowthStageTwo, bool? hasRogues, bool? isWatering, List<CropDamageObject>? weeds, List<CropDamageObject>? insects, List<CropDamageObject>? pests, List<CropDamageObject>? diseases}) {
+  bool get areRoguesPresent {
+    try {
+      return _areRoguesPresent!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  const ScoutingStandardSeedCornInspectionFormDataObject._internal({required femaleGrowthStage, required maleGrowthStageOne, required maleGrowthStageTwo, required isWatering, weeds, insects, pests, diseases, comments, required areRoguesPresent}): _femaleGrowthStage = femaleGrowthStage, _maleGrowthStageOne = maleGrowthStageOne, _maleGrowthStageTwo = maleGrowthStageTwo, _isWatering = isWatering, _weeds = weeds, _insects = insects, _pests = pests, _diseases = diseases, _comments = comments, _areRoguesPresent = areRoguesPresent;
+  
+  factory ScoutingStandardSeedCornInspectionFormDataObject({required CornGrowthStageKey femaleGrowthStage, required CornGrowthStageKey maleGrowthStageOne, required CornGrowthStageKey maleGrowthStageTwo, required bool isWatering, List<CropDamageObject>? weeds, List<CropDamageObject>? insects, List<CropDamageObject>? pests, List<CropDamageObject>? diseases, String? comments, required bool areRoguesPresent}) {
     return ScoutingStandardSeedCornInspectionFormDataObject._internal(
       femaleGrowthStage: femaleGrowthStage,
       maleGrowthStageOne: maleGrowthStageOne,
       maleGrowthStageTwo: maleGrowthStageTwo,
-      hasRogues: hasRogues,
       isWatering: isWatering,
       weeds: weeds != null ? List<CropDamageObject>.unmodifiable(weeds) : weeds,
       insects: insects != null ? List<CropDamageObject>.unmodifiable(insects) : insects,
       pests: pests != null ? List<CropDamageObject>.unmodifiable(pests) : pests,
-      diseases: diseases != null ? List<CropDamageObject>.unmodifiable(diseases) : diseases);
+      diseases: diseases != null ? List<CropDamageObject>.unmodifiable(diseases) : diseases,
+      comments: comments,
+      areRoguesPresent: areRoguesPresent);
   }
   
   bool equals(Object other) {
@@ -100,12 +151,13 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
       _femaleGrowthStage == other._femaleGrowthStage &&
       _maleGrowthStageOne == other._maleGrowthStageOne &&
       _maleGrowthStageTwo == other._maleGrowthStageTwo &&
-      _hasRogues == other._hasRogues &&
       _isWatering == other._isWatering &&
       DeepCollectionEquality().equals(_weeds, other._weeds) &&
       DeepCollectionEquality().equals(_insects, other._insects) &&
       DeepCollectionEquality().equals(_pests, other._pests) &&
-      DeepCollectionEquality().equals(_diseases, other._diseases);
+      DeepCollectionEquality().equals(_diseases, other._diseases) &&
+      _comments == other._comments &&
+      _areRoguesPresent == other._areRoguesPresent;
   }
   
   @override
@@ -119,35 +171,36 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
     buffer.write("femaleGrowthStage=" + (_femaleGrowthStage != null ? enumToString(_femaleGrowthStage)! : "null") + ", ");
     buffer.write("maleGrowthStageOne=" + (_maleGrowthStageOne != null ? enumToString(_maleGrowthStageOne)! : "null") + ", ");
     buffer.write("maleGrowthStageTwo=" + (_maleGrowthStageTwo != null ? enumToString(_maleGrowthStageTwo)! : "null") + ", ");
-    buffer.write("hasRogues=" + (_hasRogues != null ? _hasRogues!.toString() : "null") + ", ");
     buffer.write("isWatering=" + (_isWatering != null ? _isWatering!.toString() : "null") + ", ");
     buffer.write("weeds=" + (_weeds != null ? _weeds!.toString() : "null") + ", ");
     buffer.write("insects=" + (_insects != null ? _insects!.toString() : "null") + ", ");
     buffer.write("pests=" + (_pests != null ? _pests!.toString() : "null") + ", ");
-    buffer.write("diseases=" + (_diseases != null ? _diseases!.toString() : "null"));
+    buffer.write("diseases=" + (_diseases != null ? _diseases!.toString() : "null") + ", ");
+    buffer.write("comments=" + "$_comments" + ", ");
+    buffer.write("areRoguesPresent=" + (_areRoguesPresent != null ? _areRoguesPresent!.toString() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  ScoutingStandardSeedCornInspectionFormDataObject copyWith({CornGrowthStageKey? femaleGrowthStage, CornGrowthStageKey? maleGrowthStageOne, CornGrowthStageKey? maleGrowthStageTwo, bool? hasRogues, bool? isWatering, List<CropDamageObject>? weeds, List<CropDamageObject>? insects, List<CropDamageObject>? pests, List<CropDamageObject>? diseases}) {
+  ScoutingStandardSeedCornInspectionFormDataObject copyWith({CornGrowthStageKey? femaleGrowthStage, CornGrowthStageKey? maleGrowthStageOne, CornGrowthStageKey? maleGrowthStageTwo, bool? isWatering, List<CropDamageObject>? weeds, List<CropDamageObject>? insects, List<CropDamageObject>? pests, List<CropDamageObject>? diseases, String? comments, bool? areRoguesPresent}) {
     return ScoutingStandardSeedCornInspectionFormDataObject._internal(
       femaleGrowthStage: femaleGrowthStage ?? this.femaleGrowthStage,
       maleGrowthStageOne: maleGrowthStageOne ?? this.maleGrowthStageOne,
       maleGrowthStageTwo: maleGrowthStageTwo ?? this.maleGrowthStageTwo,
-      hasRogues: hasRogues ?? this.hasRogues,
       isWatering: isWatering ?? this.isWatering,
       weeds: weeds ?? this.weeds,
       insects: insects ?? this.insects,
       pests: pests ?? this.pests,
-      diseases: diseases ?? this.diseases);
+      diseases: diseases ?? this.diseases,
+      comments: comments ?? this.comments,
+      areRoguesPresent: areRoguesPresent ?? this.areRoguesPresent);
   }
   
   ScoutingStandardSeedCornInspectionFormDataObject.fromJson(Map<String, dynamic> json)  
     : _femaleGrowthStage = enumFromString<CornGrowthStageKey>(json['femaleGrowthStage'], CornGrowthStageKey.values),
       _maleGrowthStageOne = enumFromString<CornGrowthStageKey>(json['maleGrowthStageOne'], CornGrowthStageKey.values),
       _maleGrowthStageTwo = enumFromString<CornGrowthStageKey>(json['maleGrowthStageTwo'], CornGrowthStageKey.values),
-      _hasRogues = json['hasRogues'],
       _isWatering = json['isWatering'],
       _weeds = json['weeds'] is List
         ? (json['weeds'] as List)
@@ -172,14 +225,16 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
           .where((e) => e != null)
           .map((e) => CropDamageObject.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
-        : null;
+        : null,
+      _comments = json['comments'],
+      _areRoguesPresent = json['areRoguesPresent'];
   
   Map<String, dynamic> toJson() => {
-    'femaleGrowthStage': enumToString(_femaleGrowthStage), 'maleGrowthStageOne': enumToString(_maleGrowthStageOne), 'maleGrowthStageTwo': enumToString(_maleGrowthStageTwo), 'hasRogues': _hasRogues, 'isWatering': _isWatering, 'weeds': _weeds?.map((CropDamageObject? e) => e?.toJson()).toList(), 'insects': _insects?.map((CropDamageObject? e) => e?.toJson()).toList(), 'pests': _pests?.map((CropDamageObject? e) => e?.toJson()).toList(), 'diseases': _diseases?.map((CropDamageObject? e) => e?.toJson()).toList()
+    'femaleGrowthStage': enumToString(_femaleGrowthStage), 'maleGrowthStageOne': enumToString(_maleGrowthStageOne), 'maleGrowthStageTwo': enumToString(_maleGrowthStageTwo), 'isWatering': _isWatering, 'weeds': _weeds?.map((CropDamageObject? e) => e?.toJson()).toList(), 'insects': _insects?.map((CropDamageObject? e) => e?.toJson()).toList(), 'pests': _pests?.map((CropDamageObject? e) => e?.toJson()).toList(), 'diseases': _diseases?.map((CropDamageObject? e) => e?.toJson()).toList(), 'comments': _comments, 'areRoguesPresent': _areRoguesPresent
   };
   
   Map<String, Object?> toMap() => {
-    'femaleGrowthStage': _femaleGrowthStage, 'maleGrowthStageOne': _maleGrowthStageOne, 'maleGrowthStageTwo': _maleGrowthStageTwo, 'hasRogues': _hasRogues, 'isWatering': _isWatering, 'weeds': _weeds, 'insects': _insects, 'pests': _pests, 'diseases': _diseases
+    'femaleGrowthStage': _femaleGrowthStage, 'maleGrowthStageOne': _maleGrowthStageOne, 'maleGrowthStageTwo': _maleGrowthStageTwo, 'isWatering': _isWatering, 'weeds': _weeds, 'insects': _insects, 'pests': _pests, 'diseases': _diseases, 'comments': _comments, 'areRoguesPresent': _areRoguesPresent
   };
 
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -188,31 +243,25 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'femaleGrowthStage',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'maleGrowthStageOne',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'maleGrowthStageTwo',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
-      fieldName: 'hasRogues',
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.bool)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
       fieldName: 'isWatering',
-      isRequired: false,
+      isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.bool)
     ));
     
@@ -242,6 +291,18 @@ class ScoutingStandardSeedCornInspectionFormDataObject {
       isRequired: false,
       isArray: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.embeddedCollection, ofCustomTypeName: 'CropDamageObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'comments',
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'areRoguesPresent',
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.bool)
     ));
   });
 }

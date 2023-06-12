@@ -31,6 +31,7 @@ class Grower extends Model {
   final String id;
   final String? _name;
   final ContactObject? _mainContact;
+  final String? _seasonID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -64,6 +65,19 @@ class Grower extends Model {
     return _mainContact;
   }
   
+  String get seasonID {
+    try {
+      return _seasonID!;
+    } catch(e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -72,13 +86,14 @@ class Grower extends Model {
     return _updatedAt;
   }
   
-  const Grower._internal({required this.id, required name, mainContact, createdAt, updatedAt}): _name = name, _mainContact = mainContact, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Grower._internal({required this.id, required name, mainContact, required seasonID, createdAt, updatedAt}): _name = name, _mainContact = mainContact, _seasonID = seasonID, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Grower({String? id, required String name, ContactObject? mainContact}) {
+  factory Grower({String? id, required String name, ContactObject? mainContact, required String seasonID}) {
     return Grower._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
-      mainContact: mainContact);
+      mainContact: mainContact,
+      seasonID: seasonID);
   }
   
   bool equals(Object other) {
@@ -91,7 +106,8 @@ class Grower extends Model {
     return other is Grower &&
       id == other.id &&
       _name == other._name &&
-      _mainContact == other._mainContact;
+      _mainContact == other._mainContact &&
+      _seasonID == other._seasonID;
   }
   
   @override
@@ -105,6 +121,7 @@ class Grower extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("mainContact=" + (_mainContact != null ? _mainContact!.toString() : "null") + ", ");
+    buffer.write("seasonID=" + "$_seasonID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -112,11 +129,12 @@ class Grower extends Model {
     return buffer.toString();
   }
   
-  Grower copyWith({String? name, ContactObject? mainContact}) {
+  Grower copyWith({String? name, ContactObject? mainContact, String? seasonID}) {
     return Grower._internal(
       id: id,
       name: name ?? this.name,
-      mainContact: mainContact ?? this.mainContact);
+      mainContact: mainContact ?? this.mainContact,
+      seasonID: seasonID ?? this.seasonID);
   }
   
   Grower.fromJson(Map<String, dynamic> json)  
@@ -125,21 +143,23 @@ class Grower extends Model {
       _mainContact = json['mainContact']?['serializedData'] != null
         ? ContactObject.fromJson(new Map<String, dynamic>.from(json['mainContact']['serializedData']))
         : null,
+      _seasonID = json['seasonID'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'mainContact': _mainContact?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'name': _name, 'mainContact': _mainContact?.toJson(), 'seasonID': _seasonID, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'mainContact': _mainContact, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'name': _name, 'mainContact': _mainContact, 'seasonID': _seasonID, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<GrowerModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<GrowerModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField MAINCONTACT = QueryField(fieldName: "mainContact");
+  static final QueryField SEASONID = QueryField(fieldName: "seasonID");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Grower";
     modelSchemaDefinition.pluralName = "Growers";
@@ -167,6 +187,12 @@ class Grower extends Model {
       fieldName: 'mainContact',
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'ContactObject')
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Grower.SEASONID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
