@@ -12,9 +12,9 @@ class FieldChildCreateObject {
   final String seasonName;
   final bool isCertified;
   final String growerName;
-  final double growerShare;
+  final List<InspectionConfigurationObject> inspectionConfigurations;
   final List<PlantingDateObject> plantingDates;
-  final FieldAcresObject acresObject;
+  final FieldAcresObject acres;
 
   FieldChildCreateObject(
       this.fieldParentName,
@@ -22,14 +22,22 @@ class FieldChildCreateObject {
       this.hybridName,
       this.seasonName,
       this.isCertified,
-      this.growerName,
-      this.growerShare,
       this.plantingDates,
-      this.acresObject);
+      this.inspectionConfigurations,
+      this.growerName,
+      this.acres);
 }
 
 abstract class FieldChildRepository {
   Future<void> create(FieldChildCreateObject object);
+  Future<FieldChild?> getDocByID(String docID);
+  Stream<List<FieldChild>> getStreamByInspectionStatusKey(String seasonID,
+      InspectionStatusKey statusKey, FieldInspectionModuleKey moduleKey);
+  Stream<List<FieldChild>>
+      getStreamByInspectionStatusKeySortedByMostRecentInspection(
+          String seasonID,
+          InspectionStatusKey statusKey,
+          FieldInspectionModuleKey moduleKey);
 }
 
 class FieldChildRepositoryImpl implements FieldChildRepository {
@@ -65,21 +73,126 @@ class FieldChildRepositoryImpl implements FieldChildRepository {
     }
 
     var doc = FieldChild(
-        fieldParentId: fieldParentDoc.first.id,
-        fieldName: fieldParentDoc.first.fieldName,
-        fieldNumber: object.fieldNumber,
-        hybridName: hybridDoc.first.name,
-        seasonId: seasonDoc.first.id,
-        hybridId: hybridDoc.first.id,
-        isCertified: object.isCertified,
+        seasonID: seasonDoc.first.id,
+        fieldparentID: fieldParentDoc.first.id,
+        hybridID: hybridDoc.first.id,
+        inspectionConfigurations: object.inspectionConfigurations,
         growerShares: [
-          GrowerShareObject(
-              growerID: growerDoc.first.id, sharePercentage: object.growerShare)
+          GrowerShareObject(growerID: growerDoc.first.id, sharePercentage: 100)
         ],
         plantingDates: object.plantingDates,
-        inspectionTypesIds: getInspectionTypeIds(),
-        acres: object.acresObject);
+        acres: object.acres,
+        fieldName: object.fieldParentName,
+        fieldNumber: object.fieldNumber,
+        hybridName: object.hybridName);
 
     await Amplify.DataStore.save(doc);
+  }
+
+  @override
+  Future<FieldChild?> getDocByID(String docID) async {
+    var docs = await Amplify.DataStore.query(FieldChild.classType,
+        where: FieldChild.ID.eq(docID));
+    if (docs.isNotEmpty) {
+      return docs.first;
+    }
+    return null;
+  }
+
+  @override
+  Stream<List<FieldChild>> getStreamByInspectionStatusKey(String seasonID,
+      InspectionStatusKey statusKey, FieldInspectionModuleKey moduleKey) {
+    switch (moduleKey) {
+      case FieldInspectionModuleKey.DETASSELING:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .DETASSELINGSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.LEAF_TO_TASSEL:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .LEAFTOTASSELSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.POPULATIONS:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .POPULATIONSSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.SCOUTING:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .SCOUTINGSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+    }
+  }
+
+  @override
+  Stream<List<FieldChild>>
+      getStreamByInspectionStatusKeySortedByMostRecentInspection(
+          String seasonID,
+          InspectionStatusKey statusKey,
+          FieldInspectionModuleKey moduleKey) {
+    switch (moduleKey) {
+      case FieldInspectionModuleKey.DETASSELING:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .DETASSELINGSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.DETASSELINGSTANDARDSEEDCORNMOSTRECENTINSPECTION
+                  .ascending(),
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.LEAF_TO_TASSEL:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .LEAFTOTASSELSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.LEAFTOTASSELSTANDARDSEEDCORNMOSTRECENTINSPECTION
+                  .ascending(),
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.POPULATIONS:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .POPULATIONSSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.POPULATIONSSTANDARDSEEDCORNMOSTRECENTINSPECTION
+                  .ascending(),
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+      case FieldInspectionModuleKey.SCOUTING:
+        return Amplify.DataStore.query(FieldChild.classType,
+            where: FieldChild.SEASONID.eq(seasonID).and(FieldChild
+                .SCOUTINGSTANDARDSEEDCORNINSPECTIONSTATUS
+                .eq(statusKey)),
+            sortBy: [
+              FieldChild.SCOUTINGSTANDARDSEEDCORNMOSTRECENTINSPECTION
+                  .ascending(),
+              FieldChild.FIELDNAME.ascending(),
+              FieldChild.FIELDNUMBER.ascending()
+            ]).asStream();
+    }
   }
 }

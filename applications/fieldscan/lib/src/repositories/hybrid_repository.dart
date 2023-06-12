@@ -12,6 +12,7 @@ class HybridCreateObject {
   final String hybridName;
   final int femalePlantingNumber;
   final List<SplitPlantingObject> splitPlantings;
+  final String seasonName;
 
   HybridCreateObject(
       this.splitPlantingTypeName,
@@ -19,11 +20,13 @@ class HybridCreateObject {
       this.femaleInbredName,
       this.hybridName,
       this.femalePlantingNumber,
-      this.splitPlantings);
+      this.splitPlantings,
+      this.seasonName);
 }
 
 abstract class HybridRepository {
   Future<void> create(HybridCreateObject object);
+  Future<Hybrid?> getDocByID(String docID);
 }
 
 class HybridRepositoryImpl implements HybridRepository {
@@ -31,6 +34,8 @@ class HybridRepositoryImpl implements HybridRepository {
 
   @override
   Future<void> create(HybridCreateObject object) async {
+    var seasonDoc = await Amplify.DataStore.query(Season.classType,
+        where: Season.NAME.eq(object.seasonName));
     var maleInbredDoc = await Amplify.DataStore.query(MaleInbred.classType,
         where: MaleInbred.NAME.eq(object.maleInbredName));
     var femaleInbredDoc = await Amplify.DataStore.query(FemaleInbred.classType,
@@ -43,9 +48,20 @@ class HybridRepositoryImpl implements HybridRepository {
         name: object.hybridName,
         femalePlantingNumber: object.femalePlantingNumber,
         splitPlantings: object.splitPlantings,
-        splitPlantingTypeId: splitPlantingTypeDoc.first.id,
-        maleInbredId: maleInbredDoc.first.id,
-        femaleInbredId: femaleInbredDoc.first.id);
+        splitPlantingTypeID: splitPlantingTypeDoc.first.id,
+        maleInbredID: maleInbredDoc.first.id,
+        femaleInbredID: femaleInbredDoc.first.id,
+        seasonID: seasonDoc.first.id);
     await Amplify.DataStore.save(doc);
+  }
+
+  @override
+  Future<Hybrid?> getDocByID(String docID) async {
+    var docs = await Amplify.DataStore.query(Hybrid.classType,
+        where: Hybrid.ID.eq(docID));
+    if (docs.isNotEmpty) {
+      return docs.first;
+    }
+    return null;
   }
 }

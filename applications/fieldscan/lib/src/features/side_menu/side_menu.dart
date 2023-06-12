@@ -24,7 +24,7 @@ class _SideMenuState extends ConsumerState<SideMenu> {
       SideMenuBody([
         ModuleCard(appModule: AppModule.main),
         ModuleCard(appModule: AppModule.fields),
-        ModuleCard(appModule: AppModule.scouting),
+        //ModuleCard(appModule: AppModule.scouting),
         ModuleCard(appModule: AppModule.populations),
         ModuleCard(appModule: AppModule.leafToTassel),
         ModuleCard(appModule: AppModule.detasseling),
